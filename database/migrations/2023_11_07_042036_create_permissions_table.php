@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name',51);
             $table->string('description',151);
             $table->boolean('is_active')->default(1)->comment("0:Blocked,1:Active");
-            $table->uuid('created_by');
+            $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();
             $table->uuid('deleted_by')->nullable();
             $table->timestamps();

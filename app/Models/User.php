@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password',
         'is_first_login'
     ];
-    
+
     protected $keyType = 'string';
     protected $primaryKey = 'id';
     public $incrementing = false;
@@ -39,6 +39,11 @@ class User extends Authenticatable
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
+    }
+
+    public function roles()
+    {
+        return $this->hasManyThrough(Role::class,'role_user');
     }
     /**
      * The attributes that should be hidden for serialization.

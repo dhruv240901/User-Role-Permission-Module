@@ -27,5 +27,6 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::get('list', 'index')->name('user-list');
-    // Route::get('login', 'login')->name('login');
+    Route::get('create', 'create')->name('add-user');
+    Route::post('store', 'store')->name('store-user');
 });
