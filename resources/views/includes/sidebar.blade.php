@@ -30,7 +30,10 @@
                     <a class="" href="{{ route('role-list') }}" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Roles</span></a>
                 </li>
                 <li>
-                    <a class="" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu"></span></a>
+                    <a class="" href="{{ route('permission-list') }}" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Permissions</span></a>
+                </li>
+                <li>
+                    <a class="" href="{{ route('permission-list') }}" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu">Modules</span></a>
                 </li>
             </ul>
         </nav>

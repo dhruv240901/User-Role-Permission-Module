@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,5 +47,27 @@ Route::controller(RoleController::class)->prefix('role')->group(function () {
     Route::delete('delete/{id}', 'destroy')->name('delete-role');
     Route::post('restore/{id}', 'restore')->name('restore-role');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-role');
+});
+
+Route::controller(PermissionController::class)->prefix('permission')->group(function (){
+    Route::get('list', 'index')->name('permission-list');
+    Route::get('create', 'create')->name('add-permission');
+    Route::post('store', 'store')->name('store-permission');
+    // Route::get('edit/{id}', 'edit')->name('edit-role');
+    // Route::put('update/{id}', 'update')->name('update-role');
+    Route::delete('delete/{id}', 'destroy')->name('delete-permission');
+    Route::post('restore/{id}', 'restore')->name('restore-permission');
+    Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-permission');
+});
+
+Route::controller(ModuleController::class)->prefix('module')->group(function (){
+    Route::get('list', 'index')->name('module-list');
+    // Route::get('create', 'create')->name('add-permission');
+    // Route::post('store', 'store')->name('store-permission');
+    // Route::get('edit/{id}', 'edit')->name('edit-role');
+    // Route::put('update/{id}', 'update')->name('update-role');
+    // Route::delete('delete/{id}', 'destroy')->name('delete-permission');
+    // Route::post('restore/{id}', 'restore')->name('restore-permission');
+    // Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-permission');
 });
 
