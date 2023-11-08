@@ -16,16 +16,16 @@
     <title>Home Page</title>
     <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
     <!-- Bootstrap Core CSS -->
-    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- chartist CSS -->
-    <link href="assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
-    <link href="assets/plugins/chartist-js/dist/chartist-init.css" rel="stylesheet">
-    <link href="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
-    <link href="assets/plugins/css-chart/css-chart.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/chartist-js/dist/chartist.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/chartist-js/dist/chartist-init.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/css-chart/css-chart.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="minimal/css/style.css" rel="stylesheet">
+    <link href="{{ asset('minimal/css/style.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="minimal/css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <link href="{{ asset('minimal/css/colors/default-dark.css') }}" id="theme" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -107,29 +107,29 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="minimal/js/jquery.slimscroll.js"></script>
+    <script src="{{ asset('minimal/js/jquery.slimscroll.js') }}"></script>
     <!--Wave Effects -->
-    <script src="minimal/js/waves.js"></script>
+    <script src="{{ asset('minimal/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="minimal/js/sidebarmenu.js"></script>
+    <script src="{{ asset('minimal/js/sidebarmenu.js') }}"></script>
     <!--stickey kit -->
-    <script src="assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="{{ asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="minimal/js/custom.min.js"></script>
+    <script src="{{ asset('minimal/js/custom.min.js') }}"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
     <!-- chartist chart -->
-    <script src="assets/plugins/chartist-js/dist/chartist.min.js"></script>
-    <script src="assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="{{ asset('assets/plugins/chartist-js/dist/chartist.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js') }}"></script>
     <!-- Chart JS -->
-    <script src="assets/plugins/Chart.js/Chart.min.js"></script>
-    <script src="minimal/js/dashboard2.js"></script>
+    <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('minimal/js/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
@@ -144,7 +144,7 @@
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
-    <script src="assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 </body>
 
 

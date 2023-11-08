@@ -29,4 +29,21 @@ Route::controller(UserController::class)->group(function () {
     Route::get('list', 'index')->name('user-list');
     Route::get('create', 'create')->name('add-user');
     Route::post('store', 'store')->name('store-user');
+    Route::get('edit/{id}', 'edit')->name('edit-user');
+    Route::put('update/{id}', 'update')->name('update-user');
+    Route::delete('delete/{id}', 'destroy')->name('delete-user');
+    Route::post('restore/{id}', 'restore')->name('restore-user');
+    Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
 });
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('list', 'index')->name('user-list');
+    Route::get('create', 'create')->name('add-user');
+    Route::post('store', 'store')->name('store-user');
+    Route::get('edit/{id}', 'edit')->name('edit-user');
+    Route::put('update/{id}', 'update')->name('update-user');
+    Route::delete('delete/{id}', 'destroy')->name('delete-user');
+    Route::post('restore/{id}', 'restore')->name('restore-user');
+    Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
+});
+

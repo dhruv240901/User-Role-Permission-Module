@@ -2,70 +2,62 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row float-right">
-        <button type="button" class="btn btn-primary">+ Add User</button>
-    </div>
-    <div class="table-responsive m-t-40">
-        <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-            <div class="row">
-                <div class="col-sm-12">
-                    <table id="usersTable" class="table table-bordered table-striped dataTable no-footer" role="grid"
-                        aria-describedby="myTable_info">
-                        <thead>
-                            <tr>
-                                <th style="width: 189.922px;">First Name</th>
-                                <th style="width: 292.312px;">Last Name</th>
-                                <th style="width: 139.125px;">Type</th>
-                                <th style="width: 61.0312px;">Role</th>
-                                <th style="width: 130.25px;">Status</th>
-                                <th style="width: 108.359px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{-- @foreach ($users as $k => $user) --}}
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-outline-info">
+                <div class="card-body">
+                    <form action="{{ route('update-user',$user->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="form-body">
+                            <h3 class="card-title">Edit User</h3>
+                            <hr>
+                            <div class="row pt-3">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">First Name</label>
+                                        <input type="text" id="firstName" class="form-control" placeholder="Enter firstname" name="firstname" value="{{ old('firstname',$user->first_name) }}">
                                     </div>
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" type="button" class="btn btn-success">
-                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                    </a>
-                                    <a href="javascript:void(0);" type="button" class="btn btn-danger">
-                                        <img src="{{ asset('assets/images/delete.svg') }}" alt="">
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Airi Satou</td>
-                                <td>Accountant</td>
-                                <td>Tokyo</td>
-                                <td>33</td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" id="lastName" class="form-control" placeholder="Enter lastname" name="lastname" value="{{ old('lastname',$user->last_name) }}">
                                     </div>
-                                </td>
-                                <td>
-                                    <a href="javascript:void(0);" type="button" class="btn btn-success">
-                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                    </a>
-                                    <a href="javascript:void(0);" type="button" class="btn btn-danger">
-                                        <img src="{{ asset('assets/images/delete.svg') }}" alt="">
-                                    </a>
-                                </td>
-                            </tr>
-                            {{-- @endforeach --}}
-                        </tbody>
-                    </table>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Email</label>
+                                        <input type="text" id="email" class="form-control" placeholder="Enter email" name="email" value="{{ old('email',$user->email) }}">
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Select Roles</label>
+                                        <select class="js-example-basic-multiple form-control" name="roles[]" multiple="multiple">
+
+                                            @foreach ($roles as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <!--/row-->
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                            <button type="button" class="btn btn-inverse">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

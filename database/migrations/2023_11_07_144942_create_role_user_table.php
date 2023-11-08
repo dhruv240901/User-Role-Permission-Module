@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('role_user', function (Blueprint $table) {
             $table->id();
             $table->uuid('role_id');
+            $table->foreign('role_id')->references('id')->on('roles')
+            ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->boolean('is_active')->default(1)->comment("0:Blocked,1:Active");
             $table->uuid('created_by')->nullable();
             $table->uuid('updated_by')->nullable();

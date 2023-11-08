@@ -21,10 +21,10 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li>
-                    <a class="" href="#" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
+                    <a class="" href="{{ route('index') }}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                 </li>
                 <li>
-                    <a class="" href="#" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Users</span></a>
+                    <a class="" href="{{ route('user-list') }}" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Users</span></a>
                 </li>
                 <li>
                     <a class="" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Roles</span></a>
