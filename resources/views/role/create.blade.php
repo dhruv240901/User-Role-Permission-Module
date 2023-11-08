@@ -2,73 +2,55 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row float-right">
-        <a href="{{ route('add-user') }}" type="button" class="btn btn-primary">+ Add User</a>
-    </div>
-    <div class="table-responsive m-t-40">
-        <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-            <div class="row">
-                <div class="col-sm-12">
-                    <table id="usersTable" class="table table-bordered table-striped dataTable no-footer" role="grid"
-                        aria-describedby="myTable_info">
-                        <thead>
-                            <tr>
-                                <th style="width: 189.922px;">First Name</th>
-                                <th style="width: 292.312px;">Last Name</th>
-                                <th style="width: 139.125px;">Type</th>
-                                <th style="width: 61.0312px;">Role</th>
-                                <th style="width: 130.25px;">Status</th>
-                                <th style="width: 108.359px;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($users as $k => $user)
-                            <tr>
-                                <td>{{ $user->first_name }}</td>
-                                <td>{{ $user->last_name }}</td>
-                                <td>{{ $user->type }}</td>
-                                <td>
-                                    @foreach ($user->roles as $k => $role)
-                                        {{ $role->name }},
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card card-outline-info">
+                <div class="card-body">
+                    <form action="{{ route('store-role') }}" method="POST">
+                        @csrf
+                        <div class="form-body">
+                            <h3 class="card-title">+ Add Role</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Role Name</label>
+                                        <input type="text" id="rolename" class="form-control" placeholder="Enter rolename" name="rolename">
                                     </div>
-                                </td>
-                                <td>
-                                    <a href="{{ route('edit-user',$user->id) }}" type="button" class="btn btn-success">
-                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                    </a>
-                                    @if ($user->deleted_at!=null)
-                                    <form action="{{route('restore-user',$user->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to restore this user?')" style="display: inline">
-                                        @csrf
-                                    <button type="submit" class="btn btn-warning">
-                                      <img src="{{asset('assets/images/restore.svg')}}" alt="">
-                                    </button>
-                                    </form>
-                                    <form action="{{route('force-delete-user',$user->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')" style="display: inline">
-                                        @csrf
-                                    <button type="submit" class="btn btn-danger">
-                                      <img src="{{asset('assets/images/delete.svg')}}" alt="">
-                                    </button>
-                                    </form>
-                                    @else
-                                    <form action="{{route('delete-user',$user->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?')" style="display: inline">
-                                        @csrf
-                                        @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">
-                                      <img src="{{asset('assets/images/delete.svg')}}" alt="">
-                                    </button>
-                                    </form>
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Description</label>
+                                        <input type="text" id="description" class="form-control" placeholder="Enter description" name="description">
+                                    </div>
+                                </div>
+                                <!--/span-->
+
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label">Select Permission</label>
+                                        <select class="js-example-basic-multiple form-control" name="permissions[]" multiple="multiple">
+                                            @foreach ($permissions as $permission)
+                                                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/row-->
+                            <!--/row-->
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+                            <button type="button" class="btn btn-inverse">Cancel</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +26,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'customLogin')->name('custom-login');
 });
 
-Route::controller(UserController::class)->group(function () {
+Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('list', 'index')->name('user-list');
     Route::get('create', 'create')->name('add-user');
     Route::post('store', 'store')->name('store-user');
@@ -36,14 +37,14 @@ Route::controller(UserController::class)->group(function () {
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
 });
 
-Route::controller(UserController::class)->group(function () {
-    Route::get('list', 'index')->name('user-list');
-    Route::get('create', 'create')->name('add-user');
-    Route::post('store', 'store')->name('store-user');
-    Route::get('edit/{id}', 'edit')->name('edit-user');
-    Route::put('update/{id}', 'update')->name('update-user');
-    Route::delete('delete/{id}', 'destroy')->name('delete-user');
-    Route::post('restore/{id}', 'restore')->name('restore-user');
-    Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
+Route::controller(RoleController::class)->prefix('role')->group(function () {
+    Route::get('list', 'index')->name('role-list');
+    Route::get('create', 'create')->name('add-role');
+    Route::post('store', 'store')->name('store-role');
+    Route::get('edit/{id}', 'edit')->name('edit-role');
+    Route::put('update/{id}', 'update')->name('update-role');
+    Route::delete('delete/{id}', 'destroy')->name('delete-role');
+    Route::post('restore/{id}', 'restore')->name('restore-role');
+    Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-role');
 });
 

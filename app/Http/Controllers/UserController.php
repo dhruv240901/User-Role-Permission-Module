@@ -42,10 +42,11 @@ class UserController extends Controller
 
         $randompassword=rand(100000,999999);
         $insertdata=[
-            'first_name' =>$request->firstname,
-            'last_name'  =>$request->lastname,
-            'email'     =>$request->email,
-            'password'  =>Hash::make($randompassword),
+            'first_name'    =>$request->firstname,
+            'last_name'     =>$request->lastname,
+            'email'         =>$request->email,
+            'password'      =>Hash::make($randompassword),
+            'is_first_login'=>'1'
         ];
 
         $user=User::create($insertdata);

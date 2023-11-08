@@ -27,7 +27,7 @@
                     <a class="" href="{{ route('user-list') }}" aria-expanded="false"><i class="mdi mdi-bullseye"></i><span class="hide-menu">Users</span></a>
                 </li>
                 <li>
-                    <a class="" href="#" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Roles</span></a>
+                    <a class="" href="{{ route('role-list') }}" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Roles</span></a>
                 </li>
                 <li>
                     <a class="" href="#" aria-expanded="false"><i class="mdi mdi-chart-bubble"></i><span class="hide-menu"></span></a>
