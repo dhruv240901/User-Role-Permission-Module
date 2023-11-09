@@ -124,4 +124,15 @@ class RoleController extends Controller
         $role->forceDelete();
         return redirect()->route('role-list')->with('success','Role Permanently Deleted Successfully');
     }
+
+    public function updatestatus(Request $request)
+    {
+        $role=Role::findOrFail($request->id);
+        if($request->checked=="false"){
+            $role->update(['is_active'=>0]);
+        }
+        if($request->checked=="true"){
+            $role->update(['is_active'=>1]);
+        }
+    }
 }

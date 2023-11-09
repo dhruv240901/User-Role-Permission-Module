@@ -46,6 +46,7 @@ class UserController extends Controller
             'last_name'     =>$request->lastname,
             'email'         =>$request->email,
             'password'      =>Hash::make($randompassword),
+            'is_active'     =>'1',
             'is_first_login'=>'1'
         ];
 
@@ -123,5 +124,16 @@ class UserController extends Controller
         $user->forceDelete();
         return redirect()->route('user-list')->with('success','User Permanently Deleted Successfully');
 
+    }
+
+    public function updatestatus(Request $request)
+    {
+        $user=User::findOrFail($request->id);
+        if($request->checked=="false"){
+            $user->update(['is_active'=>0]);
+        }
+        if($request->checked=="true"){
+            $user->update(['is_active'=>1]);
+        }
     }
 }

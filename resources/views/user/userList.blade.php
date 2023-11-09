@@ -34,8 +34,8 @@
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch"
-                                            id="flexSwitchCheckChecked" checked>
+                                        <input class="form-check-input user-status" type="checkbox" role="switch"
+                                            id="flexSwitchCheckChecked" data-id="{{ $user->id }}" @if($user->is_active=='1') checked @endif>
                                     </div>
                                 </td>
                                 <td>
@@ -147,5 +147,31 @@
     <!-- ============================================================== -->
 </div>
 @endsection
+@section('jscontent')
+$(document).ready(function() {
 
+        $('.user-status').on('change', function() {
+            console.log('dfvdf')
+            const id = $(this).data('id');
+            const isChecked = $(this).is(':checked');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{route('update-user-status')}}',
+                data: {
+                    id:id,
+                    checked: isChecked,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+
+                },
+                error: function(error) {
+
+                }
+            });
+        });
+ });
+
+@endsection
 

@@ -10,7 +10,7 @@ class Module extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable=['name','module_code','parent_id'];
+    protected $fillable=['name','module_code','parent_id','is_active'];
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';

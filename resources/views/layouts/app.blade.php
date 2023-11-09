@@ -141,10 +141,13 @@
             $('.js-example-basic-multiple').select2();
         });
     </script>
+    <script>
+        @yield('jscontent')
+    </script>
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
-    <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
 </body>
 
 

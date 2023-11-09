@@ -12,7 +12,7 @@ class Role extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable=['name','description'];
+    protected $fillable=['name','description','is_active'];
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';

@@ -26,7 +26,8 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'is_first_login'
+        'is_first_login',
+        'is_active'
     ];
 
     protected $keyType = 'string';

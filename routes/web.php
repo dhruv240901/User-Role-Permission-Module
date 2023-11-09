@@ -37,6 +37,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::delete('delete/{id}', 'destroy')->name('delete-user');
     Route::post('restore/{id}', 'restore')->name('restore-user');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
+    Route::post('updatestatus', 'updatestatus')->name('update-user-status');
 });
 
 Route::controller(RoleController::class)->prefix('role')->group(function () {
@@ -48,6 +49,7 @@ Route::controller(RoleController::class)->prefix('role')->group(function () {
     Route::delete('delete/{id}', 'destroy')->name('delete-role');
     Route::post('restore/{id}', 'restore')->name('restore-role');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-role');
+    Route::post('updatestatus', 'updatestatus')->name('update-role-status');
 });
 
 Route::controller(PermissionController::class)->prefix('permission')->group(function (){
@@ -59,6 +61,7 @@ Route::controller(PermissionController::class)->prefix('permission')->group(func
     Route::delete('delete/{id}', 'destroy')->name('delete-permission');
     Route::post('restore/{id}', 'restore')->name('restore-permission');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-permission');
+    Route::post('updatestatus', 'updatestatus')->name('update-permission-status');
 });
 
 Route::controller(ModuleController::class)->prefix('module')->group(function (){
@@ -70,5 +73,6 @@ Route::controller(ModuleController::class)->prefix('module')->group(function (){
     Route::delete('delete/{id}', 'destroy')->name('delete-module');
     Route::post('restore/{id}', 'restore')->name('restore-module');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-module');
+    Route::post('updatestatus', 'updatestatus')->name('update-module-status');
 });
 

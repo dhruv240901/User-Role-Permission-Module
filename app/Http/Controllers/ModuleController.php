@@ -78,4 +78,15 @@ class ModuleController extends Controller
         $module->forceDelete();
         return redirect()->route('module-list')->with('success','Role Permanently Deleted Successfully');
     }
+
+    public function updatestatus(Request $request)
+    {
+        $module=Module::findOrFail($request->id);
+        if($request->checked=="false"){
+            $module->update(['is_active'=>0]);
+        }
+        if($request->checked=="true"){
+            $module->update(['is_active'=>1]);
+        }
+    }
 }

@@ -165,4 +165,15 @@ class PermissionController extends Controller
         $permission->forceDelete();
         return redirect()->route('permission-list')->with('success','Role Permanently Deleted Successfully');
     }
+
+    public function updatestatus(Request $request)
+    {
+        $permission=Permission::findOrFail($request->id);
+        if($request->checked=="false"){
+            $permission->update(['is_active'=>0]);
+        }
+        if($request->checked=="true"){
+            $permission->update(['is_active'=>1]);
+        }
+    }
 }

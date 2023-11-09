@@ -24,8 +24,8 @@
                                         <td>{{ $permission->name }}</td>
                                         <td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" checked>
+                                                <input class="form-check-input permission-status" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" data-id="{{ $permission->id }}" @if($permission->is_active=='1') checked @endif>
                                             </div>
                                         </td>
                                         <td>
@@ -143,4 +143,29 @@
         <!-- End Right sidebar -->
         <!-- ============================================================== -->
     </div>
+@endsection
+@section('jscontent')
+$(document).ready(function() {
+
+    $('.permission-status').on('change', function() {
+        const id = $(this).data('id');
+        const isChecked = $(this).is(':checked');
+
+        $.ajax({
+            type: 'POST',
+            url: '{{route('update-permission-status')}}',
+            data: {
+                id:id,
+                checked: isChecked,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+
+            },
+            error: function(error) {
+
+            }
+        });
+    });
+});
 @endsection
