@@ -60,7 +60,7 @@ class UserController extends Controller
 
         // if($user){
         //     // dispatch(function() use ($user, $randompassword,$authuser){
-        //         Mail::to($user['email'])->send(new AddUserMail($user,$randompassword,$authuser));
+        Mail::to($user['email'])->send(new AddUserMail($user,$randompassword,$authuser));
         //     // })->delay(now()->addSeconds(5));
         // }
 
@@ -134,6 +134,31 @@ class UserController extends Controller
         }
         if($request->checked=="true"){
             $user->update(['is_active'=>1]);
+        }
+    }
+
+    public function viewchangepassword()
+    {
+        return view('user.changePassword');
+    }
+
+    public function changepassword(Request $request)
+    {
+        $request->validate([
+            'oldpassword'     =>'required|min:6',
+            'newpassword'     =>'required|min:6',
+            'confirmpassword' =>'required|min:6|same:newpassword'
+        ]);
+
+        $currentuser=auth()->user();
+        if(Hash::check($request->oldpassword,$currentuser->password))
+        {
+            $currentuser->update(['password'=>Hash::make($request->newpassword)]);
+            return redirect()->route('index')->with('success','Password updated successfully');
+        }
+        else
+        {
+            return redirect()->route('index')->with('error','Old Password does not match');
         }
     }
 }

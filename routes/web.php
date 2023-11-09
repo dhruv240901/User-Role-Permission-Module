@@ -26,6 +26,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('signup', 'customSignup')->name('custom-signup');
     Route::get('login', 'login')->name('login');
     Route::post('login', 'customLogin')->name('custom-login');
+    Route::get('logout', 'logout')->name('logout');
+    Route::get('changepassword', 'viewchangepassword')->name('view-change-password');
+    Route::post('changepassword', 'changepassword')->name('change-password');
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
@@ -38,6 +41,8 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::post('restore/{id}', 'restore')->name('restore-user');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
     Route::post('updatestatus', 'updatestatus')->name('update-user-status');
+    Route::get('changepassword', 'viewchangepassword')->name('user-view-change-password');
+    Route::post('changepassword', 'changepassword')->name('user-change-password');
 });
 
 Route::controller(RoleController::class)->prefix('role')->group(function () {

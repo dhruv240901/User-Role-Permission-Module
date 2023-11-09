@@ -1,7 +1,7 @@
 @component('mail::message')
 
-Hello {{ $userdata['first_name']}} {{ $userdata['last_name']}},<br>
-has added your account you can login and change your password</br>
+Hello {{ $user['first_name']}} {{ $user['last_name']}},<br>
+{{ $authuser['first_name']}} {{ $user['last_name']}} has added your account you can login and change your password</br>
 Your current password is {{$randompassword}}
 
 @component('mail::button',['url'=> route('login')])

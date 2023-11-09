@@ -63,3 +63,67 @@ $("#loginform").validate({
         form.submit();
     },
 });
+
+$("#userchangepassword").validate({
+    rules: {
+        oldpassword:{
+            required: true,
+            minlength: 6,
+        },
+        newpassword: {
+            required: true,
+            minlength: 6,
+        },
+        confirmpassword: {
+            required: true,
+            minlength: 6,
+            equalTo: "#newpassword"
+        },
+    },
+    messages: {
+        oldpassword: {
+            required: "Please enter your password",
+            minlength: "Please enter password greater than or equals to 6 character",
+        },
+        newpassword: {
+            required: "Please enter your new password",
+            minlength: "Please enter password greater than or equals to 6 character",
+        },
+        confirmpassword: {
+            required: "Please enter password",
+            minlength: "Please enter password greater than or equal to 6 characters",
+            equalTo:"Please enter the same password as above"
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
+
+$("#changepasswordform").validate({
+    rules: {
+        newpassword: {
+            required: true,
+            minlength: 6,
+        },
+        confirmpassword: {
+            required: true,
+            minlength: 6,
+            equalTo: "#newpassword"
+        },
+    },
+    messages: {
+        newpassword: {
+            required: "Please enter your new password",
+            minlength: "Please enter password greater than or equals to 6 character",
+        },
+        confirmpassword: {
+            required: "Please enter password",
+            minlength: "Please enter password greater than or equal to 6 characters",
+            equalTo:"Please enter the same password as above"
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
