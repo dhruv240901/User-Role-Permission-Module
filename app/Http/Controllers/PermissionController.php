@@ -55,7 +55,7 @@ class PermissionController extends Controller
                         $insertmoduledata['view_access']='1';
                     }
                     if($value=='modify'){
-                        $insertmoduledata['modify_access']='1';
+                        $insertmoduledata['edit_access']='1';
                     }
                     if($value=='delete'){
                         $insertmoduledata['delete_access']='1';
@@ -65,7 +65,7 @@ class PermissionController extends Controller
             }
         }
 
-        return redirect()->route('add-role')->with('success','Role Created Successfully');
+        return redirect()->route('add-permission')->with('success','Role Created Successfully');
     }
 
     /**
@@ -81,7 +81,9 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $modules=Module::all();
+        $permission=Permission::findOrFail($id);
+        return view('permission.edit',compact('permission','modules'));
     }
 
     /**
@@ -89,7 +91,56 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'permissionname' =>'required',
+            'description'    =>'required',
+        ]);
+
+        $updatedata=[
+            'name'        =>$request->permissionname,
+            'description' =>$request->description
+        ];
+
+        $permission=Permission::findOrFail($id);
+        $permission->update($updatedata);
+
+        $permissionmodules=PermissionModule::where('permission_id',$id)->get();
+        foreach($permissionmodules as $k=>$permissionmodule){
+            $permissionmodule->delete();
+
+        }
+
+        $modules=Module::all();
+
+        $insertmoduledata=array();
+        foreach($modules as $k=>$value){
+            if($request[$value->name]){
+                $insertmoduledata=[
+                    'permission_id'=>$permission->id,
+                    'module_id'    =>$value->id
+                ];
+                foreach($request[$value->name] as $key => $value){
+                    if($value=='add'){
+                        $insertmoduledata['add_access']='1';
+                    }
+                    if($value=='view'){
+                        $insertmoduledata['view_access']='1';
+                    }
+                    if($value=='modify'){
+                        $insertmoduledata['edit_access']='1';
+                    }
+                    if($value=='delete'){
+                        $insertmoduledata['delete_access']='1';
+                    }
+
+                    PermissionModule::create($insertmoduledata);
+                }
+
+            }
+        }
+
+        return redirect()->route('edit-permission')->with('success','Role Created Successfully');
+
     }
 
     /**
@@ -110,8 +161,8 @@ class PermissionController extends Controller
 
     public function forceDelete($id)
     {
-        $role = Permission::onlyTrashed()->findOrFail($id);
-        $role->forceDelete();
+        $permission = Permission::onlyTrashed()->findOrFail($id);
+        $permission->forceDelete();
         return redirect()->route('permission-list')->with('success','Role Permanently Deleted Successfully');
     }
 }

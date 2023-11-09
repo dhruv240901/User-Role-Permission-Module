@@ -11,5 +11,5 @@ class PermissionModule extends Model
 
     protected $table='permission_module';
 
-    protected $fillable=['permission_id','module_id','add_access','edit_access','delete_access',''];
+    protected $fillable=['permission_id','module_id','add_access','edit_access','delete_access','view_access'];
 }

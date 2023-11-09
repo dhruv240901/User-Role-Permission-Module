@@ -29,7 +29,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('edit-role', $permission->id) }}" type="button"
+                                            <a href="{{ route('edit-permission', $permission->id) }}" type="button"
                                                 class="btn btn-success">
                                                 <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                             </a>

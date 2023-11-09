@@ -53,7 +53,7 @@ class ModuleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
     }
 
     /**
@@ -61,6 +61,21 @@ class ModuleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $module=Module::findOrFail($id)->delete();
+        return redirect()->route('module-list')->with('success','Module Soft Deleted Successfully');
+    }
+
+    public function restore($id)
+    {
+        $module = Module::onlyTrashed()->findOrFail($id);
+        $module->restore();
+        return redirect()->route('module-list')->with('success','Module Restored Successfully');
+    }
+
+    public function forceDelete($id)
+    {
+        $module = Module::onlyTrashed()->findOrFail($id);
+        $module->forceDelete();
+        return redirect()->route('module-list')->with('success','Role Permanently Deleted Successfully');
     }
 }

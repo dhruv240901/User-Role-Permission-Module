@@ -6,17 +6,18 @@
             <div class="col-lg-12">
                 <div class="card card-outline-info">
                     <div class="card-body">
-                        <form action="{{ route('store-permission') }}" method="POST">
+                        <form action="{{ route('update-permission',$permission->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="form-body">
-                                <h3 class="card-title">+ Add Permission</h3>
+                                <h3 class="card-title">+ Edit Permission</h3>
                                 <hr>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label">Permission Name</label>
                                             <input type="text" id="rolename" class="form-control"
-                                                placeholder="Enter rolename" name="permissionname">
+                                                placeholder="Enter rolename" name="permissionname" value="{{ old('permissionname',$permission->name) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -26,7 +27,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
                                             <input type="text" id="description" class="form-control"
-                                                placeholder="Enter description" name="description">
+                                                placeholder="Enter description" name="description" value="{{ old('description',$permission->description) }}">
                                         </div>
                                     </div>
                                     <!--/span-->

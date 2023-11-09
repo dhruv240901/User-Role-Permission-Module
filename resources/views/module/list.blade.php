@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row float-right">
-            <a href="{{ route('add-permission') }}" type="button" class="btn btn-primary">+ Add Permission</a>
+            <a href="{{ route('add-permission') }}" type="button" class="btn btn-primary">+ Add Module</a>
         </div>
         <div class="table-responsive m-t-40">
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
@@ -33,8 +33,8 @@
                                                 class="btn btn-success">
                                                 <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                             </a>
-                                            @if ($permission->deleted_at != null)
-                                                <form action="{{ route('restore-permission', $module->id) }}" method="POST"
+                                            @if ($module->deleted_at != null)
+                                                <form action="{{ route('restore-module', $module->id) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to restore this user?')"
                                                     style="display: inline">
                                                     @csrf
@@ -42,7 +42,7 @@
                                                         <img src="{{ asset('assets/images/restore.svg') }}" alt="">
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('force-delete-permission', $module->id) }}" method="POST"
+                                                <form action="{{ route('force-delete-module', $module->id) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this user?')"
                                                     style="display: inline">
                                                     @csrf
@@ -51,7 +51,7 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('delete-permission', $module->id) }}" method="POST"
+                                                <form action="{{ route('delete-module', $module->id) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to delete this user?')"
                                                     style="display: inline">
                                                     @csrf
