@@ -33,6 +33,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('list', 'index')->name('user-list');
+    Route::get('show/{id}', 'show')->name('show-user');
     Route::get('create', 'create')->name('add-user');
     Route::post('store', 'store')->name('store-user');
     Route::get('edit/{id}', 'edit')->name('edit-user');
@@ -47,6 +48,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
 
 Route::controller(RoleController::class)->prefix('role')->group(function () {
     Route::get('list', 'index')->name('role-list');
+    Route::get('show/{id}', 'show')->name('show-role');
     Route::get('create', 'create')->name('add-role');
     Route::post('store', 'store')->name('store-role');
     Route::get('edit/{id}', 'edit')->name('edit-role');
@@ -59,6 +61,7 @@ Route::controller(RoleController::class)->prefix('role')->group(function () {
 
 Route::controller(PermissionController::class)->prefix('permission')->group(function (){
     Route::get('list', 'index')->name('permission-list');
+    Route::get('show/{id}', 'show')->name('show-permission');
     Route::get('create', 'create')->name('add-permission');
     Route::post('store', 'store')->name('store-permission');
     Route::get('edit/{id}', 'edit')->name('edit-permission');

@@ -33,6 +33,9 @@
                                                 class="btn btn-success">
                                                 <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                             </a>
+                                            <a href="{{ route('show-permission',$permission->id) }}" type="button" class="btn btn-info">
+                                                <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                            </a>
                                             @if ($permission->deleted_at != null)
                                                 <form action="{{ route('restore-permission', $permission->id) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to restore this user?')"

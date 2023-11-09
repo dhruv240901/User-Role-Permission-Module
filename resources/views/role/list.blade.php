@@ -33,6 +33,9 @@
                                                 class="btn btn-success">
                                                 <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                             </a>
+                                            <a href="{{ route('show-role',$role->id) }}" type="button" class="btn btn-info">
+                                                <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                            </a>
                                             @if ($role->deleted_at != null)
                                                 <form action="{{ route('restore-role', $role->id) }}" method="POST"
                                                     onsubmit="return confirm('Are you sure you want to restore this user?')"

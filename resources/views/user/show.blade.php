@@ -2,67 +2,42 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card card-outline-info">
-                <div class="card-body">
-                    <form action="{{ route('update-user',$user->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-body">
-                            <h3 class="card-title">Edit User</h3>
-                            <hr>
-                            <div class="row pt-3">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">First Name</label>
-                                        <input type="text" id="firstName" class="form-control" placeholder="Enter firstname" name="firstname" value="{{ old('firstname',$user->first_name) }}">
-                                    </div>
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Last Name</label>
-                                        <input type="text" id="lastName" class="form-control" placeholder="Enter lastname" name="lastname" value="{{ old('lastname',$user->last_name) }}">
-                                    </div>
-                                </div>
-                                <!--/span-->
-                            </div>
-                            <!--/row-->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Email</label>
-                                        <input type="text" id="email" class="form-control" placeholder="Enter email" name="email" value="{{ old('email',$user->email) }}">
-                                    </div>
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">Select Roles</label>
-                                        <select class="js-example-basic-multiple form-control" name="roles[]" multiple="multiple">
-                                            @foreach ($roles as $k=>$role)
-                                                @foreach ($user->roles as $k=>$userrole)
-                                                    @if($role->id==$userrole->id)
-                                                        <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
-                                                    @else
-                                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <!--/span-->
-                            </div>
-                            <!--/row-->
-                            <!--/row-->
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
-                            <button type="button" class="btn btn-inverse">Cancel</button>
-                        </div>
-                    </form>
+    <div class="table-responsive m-t-40">
+        <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer" style="background-color: burlywood;">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table table-striped table-primary">
+                          <tr>
+                            <th scope="row">First Name</th>
+                            <td>{{ $user->first_name }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Last Name</th>
+                            <td>{{ $user->last_name }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Email</th>
+                            <td>{{ $user->email }}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Status</th>
+                            <td>
+                                @if($user->is_active==1)
+                                    Active
+                                @else
+                                    Inactive
+                                @endif
+                            </td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Roles</th>
+                            <td>
+                                @foreach ($user->roles as $k => $role)
+                                    {{ $role->name }},
+                                @endforeach
+                            </td>
+                          </tr>
+                    </table>
                 </div>
             </div>
         </div>

@@ -42,6 +42,9 @@
                                     <a href="{{ route('edit-user',$user->id) }}" type="button" class="btn btn-success">
                                         <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                     </a>
+                                    <a href="{{ route('show-user',$user->id) }}" type="button" class="btn btn-info">
+                                        <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                    </a>
                                     @if ($user->deleted_at!=null)
                                     <form action="{{route('restore-user',$user->id)}}" method="POST" onsubmit="return confirm('Are you sure you want to restore this user?')" style="display: inline">
                                         @csrf
@@ -69,6 +72,7 @@
                             @endforeach
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>

@@ -24,6 +24,12 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function show($id)
+    {
+        $user=User::findOrFail($id);
+        return view('user.show',compact('user'));
+    }
+
     public function create()
     {
         $roles=Role::all();
@@ -58,11 +64,11 @@ class UserController extends Controller
         }
         $authuser=Auth::user();
 
-        // if($user){
-        //     // dispatch(function() use ($user, $randompassword,$authuser){
-        Mail::to($user['email'])->send(new AddUserMail($user,$randompassword,$authuser));
-        //     // })->delay(now()->addSeconds(5));
-        // }
+        if($user){
+            dispatch(function() use ($user, $randompassword,$authuser){
+                Mail::to($user['email'])->send(new AddUserMail($user,$randompassword,$authuser));
+            })->delay(now()->addSeconds(5));
+        }
 
         return redirect()->route('add-user')->with('success','User Created Successfully');
     }

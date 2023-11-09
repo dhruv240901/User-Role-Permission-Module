@@ -73,7 +73,11 @@ class PermissionController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $permission=Permission::findOrFail($id);
+        $modules=Module::all();
+        $permissionmodules=PermissionModule::where('permission_id',$id)->get();
+        // dd($permissionmodules);
+        return view('permission.show',compact('permission','modules','permissionmodules'));
     }
 
     /**
