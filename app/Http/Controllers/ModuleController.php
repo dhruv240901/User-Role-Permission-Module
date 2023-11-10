@@ -21,7 +21,8 @@ class ModuleController extends Controller
      */
     public function create()
     {
-
+        $modules=Module::all();
+        return view('module.create',compact('modules'));
     }
 
     /**
@@ -29,7 +30,30 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'modulecode'    =>'required',
+            'modulename'    =>'required',
+            'is_in_menu'    =>'required',
+            'display_order' =>'required'
+        ]);
+
+        $insertdata=[
+            'module_code'   =>$request->modulecode,
+            'name'          =>$request->modulename,
+            'is_in_menu'    =>$request->is_in_menu,
+            'display_order' =>$request->display_order,
+            'created_by'    =>auth()->id()
+        ];
+
+        if($request->parentmodule=="null"){
+            $insertdata['parent_id']=null;
+        }
+        else{
+            $insertdata['parent_id']=$request->parentmodule;
+        }
+
+        Module::create($insertdata);
+        return redirect()->route('add-module')->with('success','Module created successfully');
     }
 
     /**
@@ -37,7 +61,8 @@ class ModuleController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $module=Module::findOrFail($id);
+        return view('module.show',compact('module'));
     }
 
     /**
@@ -45,7 +70,9 @@ class ModuleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $module=Module::findOrFail($id);
+        $modules=Module::all();
+        return view('module.edit',compact('module','modules'));
     }
 
     /**

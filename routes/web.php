@@ -78,10 +78,11 @@ Route::controller(PermissionController::class)->prefix('permission')->group(func
 
 Route::controller(ModuleController::class)->prefix('module')->group(function (){
     Route::get('list', 'index')->name('module-list');
-    // Route::get('create', 'create')->name('add-permission');
-    // Route::post('store', 'store')->name('store-permission');
-    // Route::get('edit/{id}', 'edit')->name('edit-role');
-    // Route::put('update/{id}', 'update')->name('update-role');
+    Route::get('show/{id}', 'show')->name('show-module');
+    Route::get('create', 'create')->name('add-module');
+    Route::post('store', 'store')->name('store-module');
+    Route::get('edit/{id}', 'edit')->name('edit-module');
+    Route::put('update/{id}', 'update')->name('update-module');
     Route::delete('delete/{id}', 'destroy')->name('delete-module');
     Route::post('restore/{id}', 'restore')->name('restore-module');
     Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-module');

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row float-right">
-            <a href="{{ route('add-permission') }}" type="button" class="btn btn-primary">+ Add Module</a>
+            <a href="{{ route('add-module') }}" type="button" class="btn btn-primary">+ Add Module</a>
         </div>
         <div class="table-responsive m-t-40">
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
@@ -23,15 +23,22 @@
                                     <tr>
                                         <td>{{ $module->name }}</td>
                                         <td>
-                                            <div class="form-check form-switch">
+                                            {{-- <div class="form-check form-switch">
                                                 <input class="form-check-input module-status" type="checkbox" role="switch"
                                                     id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active=='1') checked @endif>
+                                            </div> --}}
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input module-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active=='1') checked @endif>
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('edit-role', $module->id) }}" type="button"
+                                            <a href="{{ route('edit-module', $module->id) }}" type="button"
                                                 class="btn btn-success">
                                                 <img src="{{ asset('assets/images/edit.svg') }}" alt="">
+                                            </a>
+                                            <a href="{{ route('show-module', $module->id) }}" type="button"
+                                                class="btn btn-info">
+                                                <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                             </a>
                                             @if ($module->deleted_at != null)
                                                 <form action="{{ route('restore-module', $module->id) }}" method="POST"
@@ -52,8 +59,8 @@
                                                 </form>
                                             @else
                                                 <form action="{{ route('delete-module', $module->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?')"
-                                                    style="display: inline">
+                                                    onsubmit="return confirmSweetAlert()"
+                                                    style="display: inline" id="deleteForm">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger">
@@ -167,5 +174,23 @@ $(document).ready(function() {
             }
         });
     });
+
+    function confirmSweetAlert() {
+        return Swal.fire({
+            title: 'Are you sure?',
+            text: 'Are you sure you want to delete this user?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('deleteForm').submit();
+            } else {
+                return false;
+            }
+        });
+    }
 });
 @endsection

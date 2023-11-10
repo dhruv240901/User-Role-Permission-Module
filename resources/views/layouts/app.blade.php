@@ -17,11 +17,12 @@
     <link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> --}}
     <!-- chartist CSS -->
     <link href="{{ asset('assets/plugins/chartist-js/dist/chartist.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/chartist-js/dist/chartist-init.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css') }}"
+        rel="stylesheet">
     <link href="{{ asset('assets/plugins/css-chart/css-chart.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('minimal/css/style.css') }}" rel="stylesheet">
@@ -29,9 +30,12 @@
     <link href="{{ asset('minimal/css/colors/default-dark.css') }}" id="theme" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        .error{
+        .error {
             color: red;
         }
     </style>
@@ -138,13 +142,16 @@
     <!-- ============================================================== -->
     <!-- chartist chart -->
     <script src="{{ asset('assets/plugins/chartist-js/dist/chartist.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js') }}">
+    </script>
     <!-- Chart JS -->
     <script src="{{ asset('assets/plugins/Chart.js/Chart.min.js') }}"></script>
     <script src="{{ asset('minimal/js/dashboard2.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <script>
         var table = $('#usersTable').DataTable({
 
@@ -159,7 +166,7 @@
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
-    <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js')}}"></script>
+    <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
 </body>
 
 

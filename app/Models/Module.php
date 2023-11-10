@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Module extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable=['name','module_code','parent_id','is_active'];
+    protected $fillable=['name','module_code','name','is_in_menu','parent_id','is_active','created_by','updated_by','deleted_by'];
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';
@@ -23,5 +24,10 @@ class Module extends Model
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
         });
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Module::class,'parent_id');
     }
 }
