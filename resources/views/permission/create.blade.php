@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="card card-outline-info">
                     <div class="card-body">
-                        <form action="{{ route('store-permission') }}" method="POST">
+                        <form action="{{ route('store-permission') }}" method="POST" id="permissionform">
                             @csrf
                             <div class="form-body">
                                 <h3 class="card-title">+ Add Permission</h3>
@@ -16,7 +16,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Permission Name</label>
                                             <input type="text" id="rolename" class="form-control"
-                                                placeholder="Enter rolename" name="permissionname">
+                                                placeholder="Enter permission name" name="permissionname">
                                         </div>
                                     </div>
                                 </div>
@@ -53,24 +53,24 @@
                                                         <tr>
                                                             <th scope="row">{{ $module->name }}</th>
                                                             <td>
-                                                                <div class="form-check form-switch">
+                                                                <div class="form-check">
                                                                     <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
                                                                 </div>
                                                             </td>
                                                             <td>
-                                                                <div class="form-check form-switch">
+                                                                <div class="form-check">
                                                                     <input class="form-check-input" type="checkbox" value="add" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
                                                             </td>
                                                             <td>
-                                                                <div class="form-check form-switch">
+                                                                <div class="form-check">
                                                                     <input class="form-check-input" type="checkbox" value="view" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
                                                             </td>
                                                             <td>
-                                                                <div class="form-check form-switch">
+                                                                <div class="form-check">
                                                                     <input class="form-check-input" type="checkbox" value="modify" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
                                                             </td>
                                                             <td>
-                                                                <div class="form-check form-switch">
+                                                                <div class="form-check">
                                                                     <input class="form-check-input" type="checkbox" value="delete" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
                                                             </td>
 

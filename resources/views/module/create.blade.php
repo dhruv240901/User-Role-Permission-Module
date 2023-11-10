@@ -6,7 +6,7 @@
             <div class="col-lg-12">
                 <div class="card card-outline-info">
                     <div class="card-body">
-                        <form action="{{ route('store-module') }}" method="POST">
+                        <form action="{{ route('store-module') }}" method="POST" id="moduleform">
                             @csrf
                             <div class="form-body">
                                 <h3 class="card-title">Add Module</h3>

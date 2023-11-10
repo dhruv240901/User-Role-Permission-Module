@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <div class="card card-outline-info">
                 <div class="card-body">
-                    <form action="{{ route('update-user',$user->id) }}" method="POST">
+                    <form action="{{ route('update-user',$user->id) }}" method="POST" id="userform">
                         @csrf
                         @method('PUT')
                         <div class="form-body">

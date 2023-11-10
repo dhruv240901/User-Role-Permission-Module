@@ -6,7 +6,7 @@
         <div class="col-lg-6">
             <div class="card card-outline-info">
                 <div class="card-body">
-                    <form action="{{ route('store-role') }}" method="POST">
+                    <form action="{{ route('store-role') }}" method="POST" id="roleform">
                         @csrf
                         <div class="form-body">
                             <h3 class="card-title">+ Add Role</h3>

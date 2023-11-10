@@ -127,3 +127,105 @@ $("#changepasswordform").validate({
         form.submit();
     },
 });
+
+ $("#userform").validate({
+    rules: {
+        firstname: {
+            required: true,
+        },
+        email:{
+            required: true,
+            email:true
+        },
+        roles:{
+            required:true
+        }
+    },
+    messages: {
+        firstname: {
+            required: "Please enter firstname",
+        },
+        email:{
+            required:"Please enter email",
+            email:"Please enter valid email"
+        },
+        roles: {
+            required: "Please select at least one role",
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
+
+$("#roleform").validate({
+    rules: {
+        rolename: {
+            required: true,
+        },
+        description:{
+            required: true,
+        },
+        permissions:{
+            required:true
+        }
+    },
+    messages: {
+        rolename: {
+            required: "Please enter role name",
+        },
+        description:{
+            required:"Please enter description",
+        },
+        permissions: {
+            required: "Please select at least one role",
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
+
+$("#permissionform").validate({
+    rules: {
+        permissionname: {
+            required: true,
+        },
+        description:{
+            required: true,
+        },
+    },
+    messages: {
+        permissionname: {
+            required: "Please enter permission name",
+        },
+        description:{
+            required:"Please enter description",
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
+
+$("#moduleform").validate({
+    rules: {
+        modulecode: {
+            required: true,
+        },
+        modulename:{
+            required: true,
+        },
+    },
+    messages: {
+        modulecode: {
+            required: "Please enter module code",
+        },
+        modulename:{
+            required:"Please enter module name",
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});

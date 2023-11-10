@@ -24,8 +24,7 @@
                                         <td>{{ $permission->name }}</td>
                                         <td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input permission-status" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" data-id="{{ $permission->id }}" @if($permission->is_active=='1') checked @endif>
+                                                <input class="form-check-input permission-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $permission->id }}" @if($permission->is_active=='1') checked @endif>
                                             </div>
                                         </td>
                                         <td>

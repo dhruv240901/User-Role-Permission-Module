@@ -24,8 +24,7 @@
                                         <td>{{ $role->name }}</td>
                                         <td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input role-status" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" data-id="{{ $role->id }}" @if($role->is_active=='1') checked @endif>
+                                                <input class="form-check-input role-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $role->id }}" @if($role->is_active=='1') checked @endif>
                                             </div>
                                         </td>
                                         <td>

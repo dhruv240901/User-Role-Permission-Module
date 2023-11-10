@@ -34,7 +34,6 @@ class ModuleController extends Controller
             'modulecode'    =>'required',
             'modulename'    =>'required',
             'is_in_menu'    =>'required',
-            'display_order' =>'required'
         ]);
 
         $insertdata=[
@@ -80,7 +79,30 @@ class ModuleController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'modulecode'    =>'required',
+            'modulename'    =>'required',
+            'is_in_menu'    =>'required',
+        ]);
 
+        $updatedata=[
+            'module_code'   =>$request->modulecode,
+            'name'          =>$request->modulename,
+            'is_in_menu'    =>$request->is_in_menu,
+            'display_order' =>$request->display_order,
+            'created_by'    =>auth()->id()
+        ];
+
+        $module=Module::findOrFail($id);
+        if($request->parentmodule=="null"){
+            $updatedata['parent_id']=null;
+        }
+        else{
+            $updatedata['parent_id']=$request->parentmodule;
+        }
+
+        $module->update($updatedata);
+        return redirect()->route('edit-module')->with('success','Module updated successfully');
     }
 
     /**
