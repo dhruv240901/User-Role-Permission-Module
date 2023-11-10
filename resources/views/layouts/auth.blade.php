@@ -12,15 +12,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/images/favicon.png') }}">
     <title>Signup</title>
 	<link rel="canonical" href="https://www.wrappixel.com/templates/monsteradmin/" />
     <!-- Bootstrap Core CSS -->
-    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="minimal/css/style.css" rel="stylesheet">
+    <link href="{{ asset('minimal/css/style.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
-    <link href="minimal/css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <link href="{{ asset('minimal/css/colors/default-dark.css') }}" id="theme" rel="stylesheet">
     <style>
         .error{
             color: red;
@@ -52,27 +52,27 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="assets/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
-    <script src="minimal/js/general.js"></script>
+    <script src="{{ asset('minimal/js/general.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="minimal/js/jquery.slimscroll.js"></script>
+    <script src="{{ asset('minimal/js/jquery.slimscroll.js') }}"></script>
     <!--Wave Effects -->
-    <script src="minimal/js/waves.js"></script>
+    <script src="{{ asset('minimal/js/waves.js') }}"></script>
     <!--Menu sidebar -->
-    <script src="minimal/js/sidebarmenu.js"></script>
+    <script src="{{ asset('minimal/js/sidebarmenu.js') }}"></script>
     <!--stickey kit -->
-    <script src="assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="{{ asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
     <!--Custom JavaScript -->
-    <script src="minimal/js/custom.min.js"></script>
+    <script src="{{ asset('minimal/js/custom.min.js') }}"></script>
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
-    <script src="assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script src="{{ asset('assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
 </body>
 
 

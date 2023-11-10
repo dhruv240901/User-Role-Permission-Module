@@ -29,6 +29,10 @@ Route::controller(AuthController::class)->group(function () {
     Route::get('logout', 'logout')->name('logout');
     Route::get('changepassword', 'viewchangepassword')->name('view-change-password');
     Route::post('changepassword', 'changepassword')->name('change-password');
+    Route::get('forgetpassword', 'viewforgetpassword')->name('view-forget-password');
+    Route::post('forgetpassword', 'forgetpassword')->name('forget-password');
+    Route::get('resetpassword/{token}', 'viewresetpassword')->name('view-reset-password');
+    Route::post('resetpassword/{token}', 'resetpassword')->name('reset-password');
 });
 
 Route::controller(UserController::class)->prefix('user')->group(function () {

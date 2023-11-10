@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <a href="javascript:void(0)" id="to-recover" class="text-dark float-right"><i
+                                <a href="{{ route('view-forget-password') }}" id="to-recover" class="text-dark float-right"><i
                                         class="fa fa-lock mr-1"></i> Forgot pwd?</a>
                             </div>
                         </div>

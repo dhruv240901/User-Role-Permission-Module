@@ -7,6 +7,11 @@ use Validator;
 use Hash;
 use Auth;
 use App\Models\User;
+use Mail;
+use App\Mail\ForgetPasswordMail;
+use Illuminate\Support\Str;
+use DB;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -87,5 +92,83 @@ class AuthController extends Controller
         $user=User::findOrFail(auth()->id());
         $user->update(['password'=>Hash::make($request->newpassword),'is_first_login'=>'0']);
         return redirect()->route('index')->with('success','Password Changed successfully');
+    }
+
+    public function viewforgetpassword()
+    {
+        return view('forgetpassword');
+    }
+
+    public function forgetpassword(Request $request)
+    {
+        $validation = Validator::make($request->all(),[
+            'email' => 'required|email',
+        ]);
+
+        if($validation->fails()){
+            return Redirect::back()->withErrors($validation)->withInput();
+        }
+
+        $user=User::where('email',$request->email)->first();
+        if(!$user)
+        {
+            return redirect()->route('view-forget-password')->with('error','User not found');
+        }
+        else
+        {
+            $token=Str::random(100);
+            DB::table('password_reset_tokens')->insert([
+                'email'=>$user->email,
+                'token'=>$token,
+                'created_at'=>Carbon::now(),
+            ]);
+
+            dispatch(function() use ($user,$token){
+                Mail::to($user->email)->send(new ForgetPasswordMail($user->name,$token));
+            })->delay(now()->addSeconds(5));
+
+            return redirect()->route('view-forget-password')->with('success','We have sent you a mail');
+        }
+    }
+
+    public function viewresetpassword($token)
+    {
+        $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
+
+        if(!$password_reset_data || Carbon::now()->subminutes(10)>$password_reset_data->created_at)
+        {
+            return redirect("/")->with('error','Invalid password reset link or link expired.');
+        }
+        else{
+            return view('resetPassword',compact('token'));
+        }
+    }
+
+    public function resetpassword(Request $request,$token)
+    {
+        $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
+        // dd($password_reset_data);
+        $email=$password_reset_data->email;
+        $user=User::where('email',$email)->first();
+        // dd($user->id);
+        if(!$password_reset_data || Carbon::now()->subminutes(10)>$password_reset_data->created_at)
+        {
+            return redirect()->route('view-forget-password')->with('error','Invalid password reset link or link expired.');
+        }
+
+
+        else{
+            $request->validate([
+                'newpassword'     => 'required|min:6',
+                'confirmpassword' => 'required|same:newpassword'
+            ]);
+
+            // $password_reset_data->delete();
+            $user->update([
+                'password'=>Hash::make($request->newpassword)
+            ]);
+
+            return redirect()->route('login')->with('success','Password reseted successfully.');
+        }
     }
 }
