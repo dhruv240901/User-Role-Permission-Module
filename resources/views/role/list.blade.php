@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container-fluid">
+        @include('includes.flash')
         <div class="row float-right">
             <a href="{{ route('add-role') }}" type="button" class="btn btn-primary">+ Add Role</a>
         </div>

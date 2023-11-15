@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
+    @include('includes.flash')
     <div class="row">
         <div class="col-lg-6">
             <div class="card card-outline-info">

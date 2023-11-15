@@ -5,6 +5,7 @@
         <div class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
             <div class="login-box card">
                 <div class="card-body">
+                    @include('includes.flash')
                     <form class="form-horizontal form-material" action="{{ route('forget-password') }}"
                         id="forgetpasswordform" method="POST">
                         @csrf

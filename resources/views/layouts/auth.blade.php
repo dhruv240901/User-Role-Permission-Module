@@ -69,6 +69,11 @@
     <script src="{{ asset('assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ asset('minimal/js/custom.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $("#message").delay(3000).fadeOut();
+        });
+    </script>
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->

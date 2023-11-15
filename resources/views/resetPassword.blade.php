@@ -5,6 +5,7 @@
         <div class="login-register" style="background-image:url({{ asset('assets/images/background/login-register.jpg') }});">
             <div class="login-box card">
             <div class="card-body">
+                @include('includes.flash')
                 <form class="form-horizontal form-material" id="loginform" action="{{ route('reset-password',$token) }}" id="resetpasswordform" method="POST">
                     @csrf
                     <h3 class="box-title mb-3">Reset Password</h3>

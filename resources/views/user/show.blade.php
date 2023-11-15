@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
+    @include('includes.flash')
     <div class="table-responsive m-t-40">
         <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer" style="background-color: burlywood;">
             <div class="row">

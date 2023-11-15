@@ -158,6 +158,7 @@
         });
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2();
+            $("#message").delay(3000).fadeOut();
         });
     </script>
     <script>
