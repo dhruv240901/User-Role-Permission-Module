@@ -66,6 +66,12 @@
                                       <img src="{{asset('assets/images/delete.svg')}}" alt="">
                                     </button>
                                     </form>
+                                    <form action="{{route('force-logout',$user->id)}}" method="POST">
+                                        @csrf
+                                        <button class="btn btn-dark">
+                                            <i class="bi bi-box-arrow-right"></i>
+                                        </button>
+                                    </form>
                                     @endif
                                 </td>
                             </tr>

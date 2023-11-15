@@ -35,6 +35,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('resetpassword/{token}', 'resetpassword')->name('reset-password');
 });
 
+Route::middleware('auth')->group(function () {
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('list', 'index')->name('user-list');
     Route::get('show/{id}', 'show')->name('show-user');
@@ -48,6 +49,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::post('updatestatus', 'updatestatus')->name('update-user-status');
     Route::get('changepassword', 'viewchangepassword')->name('user-view-change-password');
     Route::post('changepassword', 'changepassword')->name('user-change-password');
+    Route::post('forceLogout/{id}', 'forceLogout')->name('force-logout');
 });
 
 Route::controller(RoleController::class)->prefix('role')->group(function () {
@@ -89,3 +91,4 @@ Route::controller(ModuleController::class)->prefix('module')->group(function (){
     Route::post('updatestatus', 'updatestatus')->name('update-module-status');
 });
 
+});

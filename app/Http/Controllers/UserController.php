@@ -9,6 +9,7 @@ use App\Models\Role;
 use Auth;
 use Mail;
 use App\Mail\AddUserMail;
+use DB;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users=User::withTrashed()->get();
+        $users=User::whereNot('id',auth()->id())->whereNot('type','admin')->withTrashed()->get();
         return view('user.userList',compact('users'));
     }
 
@@ -171,5 +172,22 @@ class UserController extends Controller
         {
             return redirect()->route('index')->with('error','Old Password does not match');
         }
+    }
+
+    public function forceLogout($id)
+    {
+
+        // Step 2: Invalidate the user's session
+        // Auth::loginUsingId($id);
+        // or, if you don't have the user's password
+        // $user->update(['remember_token' => Str::random(60)]);
+
+        // Optionally, you can redirect the user or return a response
+        // $user = Auth::user();
+        // $userToLogout = User::find($id);
+        // Auth::setUser($userToLogout);
+        // Auth::logout();
+
+        return redirect()->back()->with('success', 'User logged out from other devices.');
     }
 }
