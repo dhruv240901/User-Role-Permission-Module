@@ -33,7 +33,8 @@ class PermissionController extends Controller
 
         $insertdata=[
             'name'        =>$request->permissionname,
-            'description' =>$request->description
+            'description' =>$request->description,
+            'created_by'  =>auth()->id()
         ];
 
         $permission=Permission::create($insertdata);
@@ -76,7 +77,6 @@ class PermissionController extends Controller
         $permission=Permission::findOrFail($id);
         $modules=Module::all();
         $permissionmodules=PermissionModule::where('permission_id',$id)->get();
-        // dd($permissionmodules);
         return view('permission.show',compact('permission','modules','permissionmodules'));
     }
 
@@ -102,7 +102,8 @@ class PermissionController extends Controller
 
         $updatedata=[
             'name'        =>$request->permissionname,
-            'description' =>$request->description
+            'description' =>$request->description,
+            'updated_by' =>auth()->id()
         ];
 
         $permission=Permission::findOrFail($id);
@@ -152,7 +153,9 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-        $permission=Permission::findOrFail($id)->delete();
+        $permission=Permission::findOrFail($id);
+        $permission->delete();
+        $permission->update(['deleted_by'=>auth()->id(),'is_deleted'=>'1']);
         return redirect()->route('permission-list')->with('success','Permission Soft Deleted Successfully');
     }
 
@@ -160,6 +163,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::onlyTrashed()->findOrFail($id);
         $permission->restore();
+        $permission->update(['deleted_by'=>null,'is_deleted'=>'0']);
         return redirect()->route('permission-list')->with('success','Permission Restored Successfully');
     }
 

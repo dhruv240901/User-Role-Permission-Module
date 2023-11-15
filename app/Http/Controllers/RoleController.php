@@ -39,7 +39,8 @@ class RoleController extends Controller
 
         $insertdata=[
             'name'        =>$request->rolename,
-            'description' =>$request->description
+            'description' =>$request->description,
+            'created_by'  =>auth()->id()
         ];
 
         $role=Role::create($insertdata);
@@ -86,6 +87,7 @@ class RoleController extends Controller
         $updatedata=[
             'name'        =>$request->rolename,
             'description' =>$request->description,
+            'updated_by'  =>auth()->id()
         ];
 
         $roleupdate=$role->update($updatedata);
@@ -108,7 +110,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        $role=Role::findOrFail($id)->delete();
+        $role=Role::findOrFail($id);
+        $role->delete();
+        $role->update(['deleted_by'=>auth()->id(),'is_deleted'=>'1']);
         return redirect()->route('role-list')->with('success','Role Soft Deleted Successfully');
     }
 
@@ -116,6 +120,7 @@ class RoleController extends Controller
     {
         $role = Role::onlyTrashed()->findOrFail($id);
         $role->restore();
+        $role->update(['deleted_by'=>null,'is_deleted'=>'0']);
         return redirect()->route('role-list')->with('success','Role Restored Successfully');
     }
 

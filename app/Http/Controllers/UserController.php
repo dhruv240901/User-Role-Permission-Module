@@ -53,7 +53,8 @@ class UserController extends Controller
             'email'         =>$request->email,
             'password'      =>Hash::make($randompassword),
             'is_active'     =>'1',
-            'is_first_login'=>'1'
+            'is_first_login'=>'1',
+            'created_by'    =>auth()->id()
         ];
 
         $user=User::create($insertdata);
@@ -93,7 +94,8 @@ class UserController extends Controller
         $updatedata=[
             'first_name' =>$request->firstname,
             'last_name'  =>$request->lastname,
-            'password'  =>Hash::make($randompassword),
+            'password'   =>Hash::make($randompassword),
+            'updated_by' =>auth()->id()
         ];
 
         $userupdate=$user->update($updatedata);
@@ -113,7 +115,9 @@ class UserController extends Controller
 
     public function destroy(string $id)
     {
-        $user=User::findOrFail($id)->delete();
+        $user=User::findOrFail($id);
+        $user->delete();
+        $user->update(['deleted_by'=>auth()->id(),'is_deleted'=>'1']);
         return redirect()->route('user-list')->with('success','User Soft Deleted Successfully');
     }
 
@@ -121,6 +125,7 @@ class UserController extends Controller
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
+        $user->update(['deleted_by'=>null,'is_deleted'=>'0']);
         return redirect()->route('user-list')->with('success','User Restored Successfully');
     }
 

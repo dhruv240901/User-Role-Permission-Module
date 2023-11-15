@@ -12,7 +12,7 @@ class Permission extends Model
 {
     use HasFactory,SoftDeletes;
 
-    protected $fillable=['name','description','is_active'];
+    protected $fillable=['name','description','is_active','created_by','updated_by','deleted_by','is_deleted'];
 
     protected $keyType = 'string';
     protected $primaryKey = 'id';

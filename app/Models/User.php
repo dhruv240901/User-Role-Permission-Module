@@ -27,7 +27,11 @@ class User extends Authenticatable
         'email',
         'password',
         'is_first_login',
-        'is_active'
+        'is_active',
+        'created_by',
+        'updated_by',
+        'deleted_by',
+        'is_deleted'
     ];
 
     protected $keyType = 'string';

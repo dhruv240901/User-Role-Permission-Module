@@ -90,7 +90,7 @@ class ModuleController extends Controller
             'name'          =>$request->modulename,
             'is_in_menu'    =>$request->is_in_menu,
             'display_order' =>$request->display_order,
-            'created_by'    =>auth()->id()
+            'updated_by'    =>auth()->id()
         ];
 
         $module=Module::findOrFail($id);
@@ -110,7 +110,9 @@ class ModuleController extends Controller
      */
     public function destroy(string $id)
     {
-        $module=Module::findOrFail($id)->delete();
+        $module=Module::findOrFail($id);
+        $module->delete();
+        $module->update(['deleted_by'=>auth()->id(),'is_deleted'=>'1']);
         return redirect()->route('module-list')->with('success','Module Soft Deleted Successfully');
     }
 
@@ -118,6 +120,7 @@ class ModuleController extends Controller
     {
         $module = Module::onlyTrashed()->findOrFail($id);
         $module->restore();
+        $module->update(['deleted_by'=>null,'is_deleted'=>'0']);
         return redirect()->route('module-list')->with('success','Module Restored Successfully');
     }
 
