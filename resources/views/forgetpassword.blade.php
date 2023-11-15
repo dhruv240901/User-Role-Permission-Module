@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-
+@section('title','Forget Password')
 @section('content')
     <section id="wrapper">
         <div class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
@@ -20,6 +20,11 @@
                                 <button class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"
                                     type="submit">Submit</button>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                            <a href="{{ route('login') }}">Login</a>
+                        </div>
                         </div>
                     </form>
                 </div>

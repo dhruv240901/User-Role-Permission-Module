@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-
+@section('title','Change Password')
 @section('content')
 <section id="wrapper">
         <div class="login-register" style="background-image:url(assets/images/background/login-register.jpg);">
