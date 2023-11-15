@@ -3,6 +3,8 @@
 @section('content')
 <div class="container-fluid">
     @include('includes.flash')
+    <a href="{{ route('role-list') }}" type="button" class="btn btn-primary my-2"><i class="bi bi-arrow-left"></i></a>
+
     <div class="row">
         <div class="col-lg-6">
             <div class="card card-outline-info">

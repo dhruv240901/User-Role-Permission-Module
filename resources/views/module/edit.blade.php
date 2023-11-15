@@ -3,6 +3,8 @@
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
+        <a href="{{ route('module-list') }}" type="button" class="btn btn-primary my-2"><i class="bi bi-arrow-left"></i></a>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-outline-info">
@@ -10,7 +12,7 @@
                         <form action="{{ route('store-module') }}" method="POST">
                             @csrf
                             <div class="form-body">
-                                <h3 class="card-title">Add Module</h3>
+                                <h3 class="card-title">Edit Module</h3>
                                 <hr>
                                 <div class="row pt-3">
                                     <div class="col-md-6">

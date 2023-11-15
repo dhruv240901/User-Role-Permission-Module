@@ -3,6 +3,8 @@
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
+        <a href="{{ route('permission-list') }}" type="button" class="btn btn-primary my-2"><i class="bi bi-arrow-left"></i></a>
+
         <div class="table-responsive m-t-40">
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"
                 style="background-color: burlywood;">
