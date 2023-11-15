@@ -25,7 +25,9 @@
                                         <td>{{ $role->name }}</td>
                                         <td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input role-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $role->id }}" @if($role->is_active=='1') checked @endif>
+                                                <input class="form-check-input role-status" type="checkbox" role="switch"
+                                                    id="flexSwitchCheckChecked" data-id="{{ $role->id }}"
+                                                    @if ($role->is_active == '1') checked @endif>
                                             </div>
                                         </td>
                                         <td>
@@ -33,20 +35,19 @@
                                                 class="btn btn-success">
                                                 <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                             </a>
-                                            <a href="{{ route('show-role',$role->id) }}" type="button" class="btn btn-info">
+                                            <a href="{{ route('show-role', $role->id) }}" type="button"
+                                                class="btn btn-info">
                                                 <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                             </a>
                                             @if ($role->deleted_at != null)
-                                                <form action="{{ route('restore-role', $role->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to restore this user?')"
+                                                <form action="{{ route('restore-role', $role->id) }}" method="POST" class="restoreform" data-id="{{ $role->id }}" id="restoreform{{ $role->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-warning">
                                                         <img src="{{ asset('assets/images/restore.svg') }}" alt="">
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('force-delete-role', $role->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?')"
+                                                <form action="{{ route('force-delete-role', $role->id) }}" method="POST" class="deleteform" data-id="{{ $role->id }}" id="deleteform{{ $role->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">
@@ -54,8 +55,7 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('delete-role', $role->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?')"
+                                                <form action="{{ route('delete-role', $role->id) }}" method="POST" class="softdeleteform" data-id="{{ $role->id }}" id="softdeleteform{{ $role->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -149,27 +149,83 @@
 @endsection
 @section('jscontent')
 $(document).ready(function() {
+    $(document).on("change",".role-status",function() {
+            const id = $(this).data('id');
+            const isChecked = $(this).is(':checked');
 
-    $('.role-status').on('change', function() {
-        console.log('dfvdf')
-        const id = $(this).data('id');
-        const isChecked = $(this).is(':checked');
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('update-role-status') }}',
+                data: {
+                    id:id,
+                    checked: isChecked,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
 
-        $.ajax({
-            type: 'POST',
-            url: '{{route('update-role-status')}}',
-            data: {
-                id:id,
-                checked: isChecked,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
+                },
+                error: function(error) {
 
-            },
-            error: function(error) {
+                }
+            });
+        });
 
+    $('.softdeleteform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to soft delete this role!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#softdeleteform'+dataid).unbind('submit').submit();
             }
         });
     });
+
+    $('.restoreform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to restore this role!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, restore it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#restoreform'+dataid).unbind('submit').submit();
+            }
+    });
+    });
+
+    $('.deleteform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to permenantly delete this role!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#deleteform'+dataid).unbind('submit').submit();
+            }
+        });
+    });
+
 });
 @endsection

@@ -37,16 +37,14 @@
                                                 <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                             </a>
                                             @if ($permission->deleted_at != null)
-                                                <form action="{{ route('restore-permission', $permission->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to restore this user?')"
+                                                <form action="{{ route('restore-permission', $permission->id) }}" method="POST" class="restoreform" data-id="{{ $permission->id }}" id="restoreform{{ $permission->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-warning">
                                                         <img src="{{ asset('assets/images/restore.svg') }}" alt="">
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('force-delete-permission', $permission->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?')"
+                                                <form action="{{ route('force-delete-permission', $permission->id) }}" method="POST" class="deleteform" data-id="{{ $permission->id }}" id="deleteform{{ $permission->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">
@@ -54,8 +52,7 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('delete-permission', $permission->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?')"
+                                                <form action="{{ route('delete-permission', $permission->id) }}" method="POST" class="softdeleteform" data-id="{{ $permission->id }}" id="softdeleteform{{ $permission->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -170,5 +167,64 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.softdeleteform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to soft delete this permission!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#softdeleteform'+dataid).unbind('submit').submit();
+
+            }
+          });
+    });
+
+    $('.restoreform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to restore this permission!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, restore it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#restoreform'+dataid).unbind('submit').submit();
+            }
+          });
+    });
+
+    $('.deleteform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to permenantly delete this permission!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#deleteform'+dataid).unbind('submit').submit();
+            }
+          });
+    });
+
 });
 @endsection

@@ -153,17 +153,16 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script>
-        var table = $('#usersTable').DataTable({
-
-        });
         $(document).ready(function() {
+            var table = $('#usersTable').DataTable({
+
+            });
             $('.js-example-basic-multiple').select2();
             $("#message").delay(3000).fadeOut();
+            @yield('jscontent')
         });
     </script>
-    <script>
-        @yield('jscontent')
-    </script>
+    <script></script>
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->

@@ -42,16 +42,14 @@
                                                 <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                             </a>
                                             @if ($module->deleted_at != null)
-                                                <form action="{{ route('restore-module', $module->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to restore this user?')"
+                                                <form action="{{ route('restore-module', $module->id) }}" method="POST" class="restoreform" data-id="{{ $module->id }}" id="restoreform{{ $module->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-warning">
                                                         <img src="{{ asset('assets/images/restore.svg') }}" alt="">
                                                     </button>
                                                 </form>
-                                                <form action="{{ route('force-delete-module', $module->id) }}" method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this user?')"
+                                                <form action="{{ route('force-delete-module', $module->id) }}" method="POST" class="deleteform" data-id="{{ $module->id }}" id="deleteform{{ $module->id }}"
                                                     style="display: inline">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger">
@@ -59,8 +57,7 @@
                                                     </button>
                                                 </form>
                                             @else
-                                                <form action="{{ route('delete-module', $module->id) }}" method="POST"
-                                                    onsubmit="return confirmSweetAlert()"
+                                                <form action="{{ route('delete-module', $module->id) }}" method="POST" class="softdeleteform" data-id="{{ $module->id }}" id="softdeleteform{{ $module->id }}"
                                                     style="display: inline" id="deleteForm">
                                                     @csrf
                                                     @method('DELETE')
@@ -176,22 +173,63 @@ $(document).ready(function() {
         });
     });
 
-    function confirmSweetAlert() {
-        return Swal.fire({
-            title: 'Are you sure?',
-            text: 'Are you sure you want to delete this user?',
-            icon: 'warning',
+    $('.softdeleteform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to soft delete this module!",
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
-            } else {
-                return false;
+                var dataid=$(this).attr('data-id');
+                $('#softdeleteform'+dataid).unbind('submit').submit();
+
             }
-        });
-    }
+          });
+    });
+
+    $('.restoreform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to restore this module!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, restore it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#restoreform'+dataid).unbind('submit').submit();
+            }
+          });
+    });
+
+    $('.deleteform').submit(function (e) {
+        e.preventDefault();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't to permenantly delete this module!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                var dataid=$(this).attr('data-id');
+                $('#deleteform'+dataid).unbind('submit').submit();
+            }
+          });
+    });
+
 });
 @endsection
