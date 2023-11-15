@@ -26,8 +26,13 @@ class Module extends Model
         });
     }
 
+    public function children()
+    {
+        return $this->hasMany(Module::class, 'parent_id');
+    }
+
     public function parent()
     {
-        return $this->belongsTo(Module::class,'parent_id');
+        return $this->belongsTo(Module::class, 'parent_id');
     }
 }

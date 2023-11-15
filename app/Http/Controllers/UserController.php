@@ -13,31 +13,28 @@ use DB;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /* function to display users list */
     public function index()
     {
         $users=User::whereNot('id',auth()->id())->whereNot('type','admin')->withTrashed()->get();
         return view('user.userList',compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function show($id)
-    {
-        $user=User::findOrFail($id);
-        return view('user.show',compact('user'));
-    }
-
+    /* function to render add user form */
     public function create()
     {
         $roles=Role::all();
         return view('user.create',compact('roles'));
     }
 
+    /* function to show user details by id */
+    public function show($id)
+    {
+        $user=User::findOrFail($id);
+        return view('user.show',compact('user'));
+    }
 
+    /* function to store user in database */
     public function store(Request $request)
     {
         $request->validate([
@@ -75,6 +72,7 @@ class UserController extends Controller
         return redirect()->route('add-user')->with('success','User Created Successfully');
     }
 
+    /* function to render edit user form */
     public function edit(string $id)
     {
         $roles=Role::all();
@@ -82,6 +80,7 @@ class UserController extends Controller
         return view('user.edit',compact('user','roles'));
     }
 
+     /* function to update user */
     public function update(Request $request, string $id)
     {
         $user=User::findOrFail($id);
@@ -114,6 +113,7 @@ class UserController extends Controller
         return redirect()->route('edit-user',$id)->with('success','User Updated Successfully');
     }
 
+    /* function to soft delete user */
     public function destroy(string $id)
     {
         $user=User::findOrFail($id);
@@ -122,6 +122,7 @@ class UserController extends Controller
         return redirect()->route('user-list')->with('success','User Soft Deleted Successfully');
     }
 
+    /* function to restore user */
     public function restore($id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
@@ -130,6 +131,7 @@ class UserController extends Controller
         return redirect()->route('user-list')->with('success','User Restored Successfully');
     }
 
+    /* function to force delete user */
     public function forceDelete($id)
     {
         $user = User::onlyTrashed()->findOrFail($id);
@@ -138,6 +140,7 @@ class UserController extends Controller
 
     }
 
+    /* function to update user status */
     public function updatestatus(Request $request)
     {
         $user=User::findOrFail($request->id);
@@ -149,11 +152,14 @@ class UserController extends Controller
         }
     }
 
+    /* function to render change password form */
     public function viewchangepassword()
     {
         return view('user.changePassword');
     }
 
+
+    /* function to render update password */
     public function changepassword(Request $request)
     {
         $request->validate([

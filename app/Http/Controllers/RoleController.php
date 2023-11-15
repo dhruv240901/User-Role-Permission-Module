@@ -8,27 +8,21 @@ use App\Models\Permission;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /* function to display roles list */
     public function index()
     {
         $roles=Role::withTrashed()->get();
         return view('role.list',compact('roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /* function to render add role form */
     public function create()
     {
         $permissions=Permission::all();
         return view('role.create',compact('permissions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /* function to store role in database */
     public function store(Request $request)
     {
         $request->validate([
@@ -53,18 +47,14 @@ class RoleController extends Controller
         return redirect()->route('add-role')->with('success','Role Created Successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /* function to show role details by id */
     public function show(string $id)
     {
         $role=Role::findOrFail($id);
         return view('role.show',compact('role'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /* function to render edit role form */
     public function edit(string $id)
     {
         $permissions=Permission::all();
@@ -72,9 +62,7 @@ class RoleController extends Controller
         return view('role.edit',compact('role','permissions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /* function to update role */
     public function update(Request $request, string $id)
     {
         $role=Role::findOrFail($id);
@@ -105,9 +93,7 @@ class RoleController extends Controller
         return redirect()->route('edit-role',$id)->with('success','Role Updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /* function to soft delete role */
     public function destroy(string $id)
     {
         $role=Role::findOrFail($id);
@@ -116,6 +102,7 @@ class RoleController extends Controller
         return redirect()->route('role-list')->with('success','Role Soft Deleted Successfully');
     }
 
+    /* function to restore role */
     public function restore($id)
     {
         $role = Role::onlyTrashed()->findOrFail($id);
@@ -124,6 +111,7 @@ class RoleController extends Controller
         return redirect()->route('role-list')->with('success','Role Restored Successfully');
     }
 
+    /* function to force delete role */
     public function forceDelete($id)
     {
         $role = Role::onlyTrashed()->findOrFail($id);
@@ -131,6 +119,7 @@ class RoleController extends Controller
         return redirect()->route('role-list')->with('success','Role Permanently Deleted Successfully');
     }
 
+    /* function to update role status */
     public function updatestatus(Request $request)
     {
         $role=Role::findOrFail($request->id);

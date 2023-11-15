@@ -32,4 +32,5 @@ class Permission extends Model
     {
         return $this->belongsToMany(Module::class,'permission_module');
     }
+
 }

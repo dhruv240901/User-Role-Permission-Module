@@ -7,27 +7,21 @@ use App\Models\Module;
 
 class ModuleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /* function to display modules list */
     public function index()
     {
         $modules=Module::withTrashed()->get();
         return view('module.list',compact('modules'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /* function to render add module form */
     public function create()
     {
         $modules=Module::all();
         return view('module.create',compact('modules'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /* function to store module in database */
     public function store(Request $request)
     {
         $request->validate([
@@ -55,18 +49,14 @@ class ModuleController extends Controller
         return redirect()->route('add-module')->with('success','Module created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /* function to show module details by id */
     public function show(string $id)
     {
         $module=Module::findOrFail($id);
         return view('module.show',compact('module'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /* function to render edit module form */
     public function edit(string $id)
     {
         $module=Module::findOrFail($id);
@@ -74,9 +64,7 @@ class ModuleController extends Controller
         return view('module.edit',compact('module','modules'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /* function to update module */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -105,9 +93,7 @@ class ModuleController extends Controller
         return redirect()->route('edit-module')->with('success','Module updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /* function to soft delete module */
     public function destroy(string $id)
     {
         $module=Module::findOrFail($id);
@@ -116,6 +102,7 @@ class ModuleController extends Controller
         return redirect()->route('module-list')->with('success','Module Soft Deleted Successfully');
     }
 
+    /* function to restore module */
     public function restore($id)
     {
         $module = Module::onlyTrashed()->findOrFail($id);
@@ -124,6 +111,7 @@ class ModuleController extends Controller
         return redirect()->route('module-list')->with('success','Module Restored Successfully');
     }
 
+    /* function to force delete module */
     public function forceDelete($id)
     {
         $module = Module::onlyTrashed()->findOrFail($id);
@@ -131,6 +119,7 @@ class ModuleController extends Controller
         return redirect()->route('module-list')->with('success','Role Permanently Deleted Successfully');
     }
 
+    /* function to update module status */
     public function updatestatus(Request $request)
     {
         $module=Module::findOrFail($request->id);

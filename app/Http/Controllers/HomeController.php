@@ -10,6 +10,7 @@ use App\Models\Module;
 
 class HomeController extends Controller
 {
+    /* function to render home page */
     public function index()
     {
         $count['users']=User::count();

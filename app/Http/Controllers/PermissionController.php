@@ -9,21 +9,21 @@ use App\Models\PermissionModule;
 
 class PermissionController extends Controller
 {
+    /* function to display permissions list */
     public function index()
     {
         $permissions=Permission::withTrashed()->get();
         return view('permission.list',compact('permissions'));
     }
 
+    /* function to render add permission form */
     public function create()
     {
         $modules=Module::all();
         return view('permission.create',compact('modules'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /* function to store permission in database */
     public function store(Request $request)
     {
         $request->validate([
@@ -69,9 +69,7 @@ class PermissionController extends Controller
         return redirect()->route('add-permission')->with('success','Role Created Successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /* function to show permission details by id */
     public function show(string $id)
     {
         $permission=Permission::findOrFail($id);
@@ -80,9 +78,7 @@ class PermissionController extends Controller
         return view('permission.show',compact('permission','modules','permissionmodules'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /* function to render edit permission form */
     public function edit(string $id)
     {
         $modules=Module::all();
@@ -90,9 +86,7 @@ class PermissionController extends Controller
         return view('permission.edit',compact('permission','modules'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /* function to update permission */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -148,9 +142,7 @@ class PermissionController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /* function to soft delete permission */
     public function destroy(string $id)
     {
         $permission=Permission::findOrFail($id);
@@ -159,6 +151,7 @@ class PermissionController extends Controller
         return redirect()->route('permission-list')->with('success','Permission Soft Deleted Successfully');
     }
 
+    /* function to restore permission */
     public function restore($id)
     {
         $permission = Permission::onlyTrashed()->findOrFail($id);
@@ -167,6 +160,7 @@ class PermissionController extends Controller
         return redirect()->route('permission-list')->with('success','Permission Restored Successfully');
     }
 
+    /* function to force delete permission */
     public function forceDelete($id)
     {
         $permission = Permission::onlyTrashed()->findOrFail($id);
@@ -174,6 +168,7 @@ class PermissionController extends Controller
         return redirect()->route('permission-list')->with('success','Role Permanently Deleted Successfully');
     }
 
+    /* function to update permission status */
     public function updatestatus(Request $request)
     {
         $permission=Permission::findOrFail($request->id);

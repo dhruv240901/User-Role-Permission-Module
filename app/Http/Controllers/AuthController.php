@@ -15,11 +15,13 @@ use Carbon\Carbon;
 
 class AuthController extends Controller
 {
+    /* function to render signup form */
     public function signup()
     {
         return view('signup');
     }
 
+    /* function to store user in database */
     public function customSignup(Request $request)
     {
         $validator=Validator::make($request->all(),[
@@ -45,11 +47,13 @@ class AuthController extends Controller
         return redirect()->route('login')->with('success','Account created successfully!');
     }
 
+    /* function to render login page */
     public function login()
     {
         return view('login');
     }
 
+    /* function to log user in */
     public function customLogin(Request $request)
     {
         $request->validate([
@@ -71,17 +75,20 @@ class AuthController extends Controller
         return redirect()->route('login')->with('error','Invalid Credentials');
     }
 
+    /* function to logout user */
     public function logout()
     {
         auth()->logout();
         return redirect()->route('index')->with('success','Logout Successfully');
     }
 
+    /* function to render change password page */
     public function viewchangepassword()
     {
         return view('changePassword');
     }
 
+    /* function to change user password */
     public function changepassword(Request $request)
     {
         $request->validate([
@@ -94,11 +101,13 @@ class AuthController extends Controller
         return redirect()->route('index')->with('success','Password Changed successfully');
     }
 
+    /* function to render forget password form */
     public function viewforgetpassword()
     {
         return view('forgetpassword');
     }
 
+    /* function to submit forget password form */
     public function forgetpassword(Request $request)
     {
         $validation = Validator::make($request->all(),[
@@ -131,6 +140,7 @@ class AuthController extends Controller
         }
     }
 
+    /* function to view reset password form */
     public function viewresetpassword($token)
     {
         $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
@@ -144,6 +154,7 @@ class AuthController extends Controller
         }
     }
 
+    /* function to reset password */
     public function resetpassword(Request $request,$token)
     {
         $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
