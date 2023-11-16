@@ -35,7 +35,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('resetpassword/{token}', 'resetpassword')->name('reset-password');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','firstlogin'])->group(function () {
 Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('list', 'index')->name('user-list');
     Route::get('show/{id}', 'show')->name('show-user');
