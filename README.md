@@ -1,13 +1,13 @@
-# Rendering sidebar elements and User CRUD Operation using AJAX in Laravel
+# User Role Permission Module
 
-This repository contains a Laravel application that demonstrates how to render sidebar elements of homepage using service provider and perform CRUD operations for users using AJAX (Asynchronous JavaScript and XML). This is a step-by-step guide to help you understand and implement user management functionalities with real-time updates.
+The User Role Permission Module is a comprehensive project aimed at providing a robust solution for managing user roles and permissions in your application. This module is designed to offer flexibility, ease of use, and fine-grained access control.
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - PHP(v8.2) and Laravel(v10.29) are installed on your system.
-- A basic understanding of Laravel and AJAX.
+- A basic understanding of Laravel.
 - Composer(v2.6.4) for PHP dependencies.
 
 ## Getting Started
