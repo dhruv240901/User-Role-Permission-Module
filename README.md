@@ -41,7 +41,7 @@ Before you begin, ensure you have met the following requirements:
 6. Migrate and seed the database:
 
    ```bash
-   php artisan migrate
+   php artisan migrate --seed
 
 7. Start the Laravel development server:
 
