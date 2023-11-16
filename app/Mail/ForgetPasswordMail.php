@@ -19,7 +19,7 @@ class ForgetPasswordMail extends Mailable
     public function __construct($user_name,$token)
     {
         $this->$user_name=$user_name;
-        $this->token=$token;
+        $this->token     =$token;
     }
 
     /**

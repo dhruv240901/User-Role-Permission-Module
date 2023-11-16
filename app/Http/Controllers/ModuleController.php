@@ -120,7 +120,7 @@ class ModuleController extends Controller
     }
 
     /* function to update module status */
-    public function updatestatus(Request $request)
+    public function updateStatus(Request $request)
     {
         $module=Module::findOrFail($request->id);
         if($request->checked=="false"){

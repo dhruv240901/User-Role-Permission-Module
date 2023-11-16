@@ -83,13 +83,13 @@ class AuthController extends Controller
     }
 
     /* function to render change password page */
-    public function viewchangepassword()
+    public function viewChangePassword()
     {
         return view('changePassword');
     }
 
     /* function to change user password */
-    public function changepassword(Request $request)
+    public function changePassword(Request $request)
     {
         $request->validate([
             'newpassword'     =>'required|min:6',
@@ -102,13 +102,13 @@ class AuthController extends Controller
     }
 
     /* function to render forget password form */
-    public function viewforgetpassword()
+    public function viewForgetPassword()
     {
         return view('forgetpassword');
     }
 
     /* function to submit forget password form */
-    public function forgetpassword(Request $request)
+    public function forgetPassword(Request $request)
     {
         $validation = Validator::make($request->all(),[
             'email' => 'required|email',
@@ -141,7 +141,7 @@ class AuthController extends Controller
     }
 
     /* function to view reset password form */
-    public function viewresetpassword($token)
+    public function viewResetPassword($token)
     {
         $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
 
@@ -155,7 +155,7 @@ class AuthController extends Controller
     }
 
     /* function to reset password */
-    public function resetpassword(Request $request,$token)
+    public function resetPassword(Request $request,$token)
     {
         $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
         // dd($password_reset_data);

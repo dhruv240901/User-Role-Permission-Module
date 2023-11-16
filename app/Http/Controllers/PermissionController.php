@@ -181,7 +181,7 @@ class PermissionController extends Controller
     }
 
     /* function to update permission status */
-    public function updatestatus(Request $request)
+    public function updateStatus(Request $request)
     {
         $permission=Permission::findOrFail($request->id);
         if($request->checked=="false"){

@@ -23,7 +23,7 @@ class UserController extends Controller
     /* function to render add user form */
     public function create()
     {
-        $roles=Role::all();
+        $roles=Role::where('is_active','1')->get();
         return view('user.create',compact('roles'));
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller
     /* function to render edit user form */
     public function edit(string $id)
     {
-        $roles=Role::all();
+        $roles=Role::where('is_active','1')->get();
         $user=User::findOrFail($id);
         return view('user.edit',compact('user','roles'));
     }
@@ -141,7 +141,7 @@ class UserController extends Controller
     }
 
     /* function to update user status */
-    public function updatestatus(Request $request)
+    public function updateStatus(Request $request)
     {
         $user=User::findOrFail($request->id);
         if($request->checked=="false"){
@@ -153,14 +153,14 @@ class UserController extends Controller
     }
 
     /* function to render change password form */
-    public function viewchangepassword()
+    public function viewChangePassword()
     {
         return view('user.changePassword');
     }
 
 
     /* function to render update password */
-    public function changepassword(Request $request)
+    public function changePassword(Request $request)
     {
         $request->validate([
             'oldpassword'     =>'required|min:6',
@@ -180,6 +180,7 @@ class UserController extends Controller
         }
     }
 
+    /* function to force logout user by id  */
     public function forceLogout($id)
     {
         $token=DB::table('personal_access_tokens')->where('tokenable_id',$id)->first();
@@ -190,6 +191,7 @@ class UserController extends Controller
         return redirect()->back()->with('success', 'User logged out from other devices.');
     }
 
+    /* function to view user profile */
     public function profile()
     {
         return view('user.profile');

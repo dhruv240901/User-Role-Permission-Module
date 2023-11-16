@@ -18,7 +18,7 @@ class RoleController extends Controller
     /* function to render add role form */
     public function create()
     {
-        $permissions=Permission::all();
+        $permissions=Permission::where('is_active','1')->get();
         return view('role.create',compact('permissions'));
     }
 
@@ -57,7 +57,7 @@ class RoleController extends Controller
     /* function to render edit role form */
     public function edit(string $id)
     {
-        $permissions=Permission::all();
+        $permissions=Permission::where('is_active','1')->get();
         $role=Role::findOrFail($id);
         return view('role.edit',compact('role','permissions'));
     }
@@ -120,7 +120,7 @@ class RoleController extends Controller
     }
 
     /* function to update role status */
-    public function updatestatus(Request $request)
+    public function updateStatus(Request $request)
     {
         $role=Role::findOrFail($request->id);
         if($request->checked=="false"){
