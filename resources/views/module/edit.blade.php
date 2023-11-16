@@ -9,8 +9,9 @@
             <div class="col-lg-12">
                 <div class="card card-outline-info">
                     <div class="card-body">
-                        <form action="{{ route('store-module') }}" method="POST">
+                        <form action="{{ route('update-module',$module->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="form-body">
                                 <h3 class="card-title">Edit Module</h3>
                                 <hr>
@@ -58,7 +59,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Select Parent Module</label>
                                             <select class="js-example-basic-multiple form-control" name="parentmodule">
-                                                <option>No Parent Module</option>
+                                                <option value="null">No Parent Module</option>
                                                 @foreach ($modules as $value)
                                                     <option value="{{ $value->id }}" @if($module->parent_id==$value->id) selected @endif>{{ $value->name }}</option>
                                                 @endforeach

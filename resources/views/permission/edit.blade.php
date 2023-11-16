@@ -1,15 +1,16 @@
 @extends('layouts.app')
-@section('title','Edit Permission')
+@section('title', 'Edit Permission')
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
-        <a href="{{ route('permission-list') }}" type="button" class="btn btn-primary my-2"><i class="bi bi-arrow-left"></i></a>
+        <a href="{{ route('permission-list') }}" type="button" class="btn btn-primary my-2"><i
+                class="bi bi-arrow-left"></i></a>
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-outline-info">
                     <div class="card-body">
-                        <form action="{{ route('update-permission',$permission->id) }}" method="POST">
+                        <form action="{{ route('update-permission', $permission->id) }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="form-body">
@@ -20,7 +21,8 @@
                                         <div class="form-group">
                                             <label class="control-label">Permission Name</label>
                                             <input type="text" id="rolename" class="form-control"
-                                                placeholder="Enter rolename" name="permissionname" value="{{ old('permissionname',$permission->name) }}">
+                                                placeholder="Enter rolename" name="permissionname"
+                                                value="{{ old('permissionname', $permission->name) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -30,7 +32,8 @@
                                         <div class="form-group">
                                             <label class="control-label">Description</label>
                                             <input type="text" id="description" class="form-control"
-                                                placeholder="Enter description" name="description" value="{{ old('description',$permission->description) }}">
+                                                placeholder="Enter description" name="description"
+                                                value="{{ old('description', $permission->description) }}">
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -54,31 +57,53 @@
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($modules as $module)
-                                                        <tr>
-                                                            <th scope="row">{{ $module->name }}</th>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" value="add" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" value="view" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" value="modify" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" value="delete" id="flexCheckIndeterminate" name="{{ $module->name }}[]">                                                                </div>
-                                                            </td>
+                                                        @if ($module->child_names != null)
+                                                            <tr>
+                                                                <th scope="row" colspan="6"
+                                                                    style="background-color: gray;">
+                                                                    {{ $module->parent_name }}</th>
+                                                            </tr>
+                                                            @foreach (explode(',', $module->child_names) as $childmodule)
+                                                                <tr>
+                                                                    <th scope="row">{{ $childmodule }}</th>
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                value="" id="flexCheckIndeterminate">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                value="add" id="flexCheckIndeterminate"
+                                                                                name="{{ $childmodule }}[]">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                value="view" id="flexCheckIndeterminate"
+                                                                                name="{{ $childmodule }}[]">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                value="modify" id="flexCheckIndeterminate"
+                                                                                name="{{ $childmodule }}[]">
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-check">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                value="delete" id="flexCheckIndeterminate"
+                                                                                name="{{ $childmodule }}[]">
+                                                                        </div>
+                                                                    </td>
 
-                                                        </tr>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                     @endforeach
                                                 </tbody>
                                             </table>

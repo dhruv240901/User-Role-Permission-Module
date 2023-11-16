@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Permission;
 use App\Models\Module;
 use App\Models\PermissionModule;
-
+use DB;
 class PermissionController extends Controller
 {
     /* function to display permissions list */
@@ -19,7 +19,11 @@ class PermissionController extends Controller
     /* function to render add permission form */
     public function create()
     {
-        $modules=Module::all();
+        $modules=DB::table('modules as parent')
+                ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'))
+                ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
+                ->groupBy('parent.id')
+                ->get();
         return view('permission.create',compact('modules'));
     }
 
@@ -73,7 +77,11 @@ class PermissionController extends Controller
     public function show(string $id)
     {
         $permission=Permission::findOrFail($id);
-        $modules=Module::all();
+        $modules=DB::table('modules as parent')
+        ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'))
+        ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
+        ->groupBy('parent.id')
+        ->get();
         $permissionmodules=PermissionModule::where('permission_id',$id)->get();
         return view('permission.show',compact('permission','modules','permissionmodules'));
     }
@@ -81,7 +89,11 @@ class PermissionController extends Controller
     /* function to render edit permission form */
     public function edit(string $id)
     {
-        $modules=Module::all();
+        $modules=DB::table('modules as parent')
+        ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'))
+        ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
+        ->groupBy('parent.id')
+        ->get();
         $permission=Permission::findOrFail($id);
         return view('permission.edit',compact('permission','modules'));
     }

@@ -1,9 +1,10 @@
 @extends('layouts.app')
-@section('title','Permission Details')
+@section('title', 'Permission Details')
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
-        <a href="{{ route('permission-list') }}" type="button" class="btn btn-primary my-2"><i class="bi bi-arrow-left"></i></a>
+        <a href="{{ route('permission-list') }}" type="button" class="btn btn-primary my-2"><i
+                class="bi bi-arrow-left"></i></a>
 
         <div class="table-responsive m-t-40">
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"
@@ -42,7 +43,7 @@
                                                 @endif
                                             @endforeach
                                         @endforeach --}}
-                                        @foreach ($modules as $k => $module)
+                                        {{-- @foreach ($modules as $k => $module)
                                             @if (count($permission->modules) > 0)
                                                 @for ($i = 0; $i < count($permissionmodules); $i++)
                                                     @if ($module->id == $permissionmodules[$i]->id)
@@ -69,11 +70,6 @@
                                                         </tr>
                                                     @endif
                                                 @endfor
-                                                {{-- @foreach ($permission->modules as $k => $permissionmodule)
-                                                    @if ($module->id == $permissionmodule->id)
-
-                                                    @endif
-                                                @endforeach --}}
                                             @else
                                                 <tr>
                                                     <th scope="row">{{ $module->name }}</th>
@@ -83,7 +79,7 @@
                                                     <td><i class="bi bi-x-lg"></td>
                                                     <td><i class="bi bi-x-lg"></td>
                                                 </tr>
-                                            @endif
+                                            @endif --}}
                                             {{-- @foreach ($permissionmodules as $permissionmodule)
                                                     @if ($permissionmodule->module_id == $module->id)
                                                         <td>
@@ -172,6 +168,34 @@
                                                     @endif --}}
                                             {{-- @endforeach --}}
                                             {{-- </tr> --}}
+                                        {{-- @endforeach --}}
+                                        @foreach ($modules as $module)
+                                            @if ($module->child_names != null)
+                                                <tr>
+                                                    <th scope="row" colspan="6" style="background-color: gray;">
+                                                        {{ $module->parent_name }}</th>
+                                                </tr>
+                                                @foreach (explode(',', $module->child_names) as $childmodule)
+                                                    <tr>
+                                                        <th scope="row">{{ $childmodule }}</th>
+                                                        <td>
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </td>
+                                                        <td>
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </td>
+                                                        <td>
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </td>
+                                                        <td>
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </td>
+                                                        <td>
+                                                            <i class="bi bi-x-lg"></i>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
