@@ -196,4 +196,9 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'User logged out from other devices.');
     }
+
+    public function profile()
+    {
+        return view('user.profile');
+    }
 }

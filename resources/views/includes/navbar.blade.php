@@ -56,7 +56,7 @@
                                     </div>
                                 </li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
+                                <li><a href="{{ route('user-profile') }}"><i class="ti-user"></i> My Profile</a></li>
                                 <li role="separator" class="divider"></li>
                                 <li><a href="{{ route('user-view-change-password') }}"><i class="ti-settings"></i> Change
                                         Password</a></li>

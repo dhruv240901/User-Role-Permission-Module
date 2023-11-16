@@ -50,6 +50,7 @@ Route::controller(UserController::class)->prefix('user')->group(function () {
     Route::get('changepassword', 'viewchangepassword')->name('user-view-change-password');
     Route::post('changepassword', 'changepassword')->name('user-change-password');
     Route::post('forceLogout/{id}', 'forceLogout')->name('force-logout');
+    Route::get('profile', 'profile')->name('user-profile');
 });
 
 Route::controller(RoleController::class)->prefix('role')->group(function () {
