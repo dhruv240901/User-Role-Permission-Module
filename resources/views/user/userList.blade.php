@@ -66,7 +66,7 @@
                                       <img src="{{asset('assets/images/delete.svg')}}" alt="">
                                     </button>
                                     </form>
-                                    <form action="{{route('force-logout',$user->id)}}" method="POST">
+                                    <form action="{{route('force-logout',$user->id)}}" method="POST" class="forcelogoutform" data-id="{{ $user->id }}" id="forcelogoutform{{ $user->id }}" style="display: inline">
                                         @csrf
                                         <button class="btn btn-dark">
                                             <i class="bi bi-box-arrow-right"></i>
@@ -240,5 +240,23 @@
               });
         });
 
+        $('.forcelogoutform').submit(function (e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't to force logout this user!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, logout it!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    var dataid=$(this).attr('data-id');
+                    $('#forcelogoutform'+dataid).unbind('submit').submit();
+                }
+              });
+        });
 @endsection
 

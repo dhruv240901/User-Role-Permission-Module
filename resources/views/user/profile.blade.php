@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Users List')
+@section('title', 'User Profile')
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')

@@ -90,7 +90,7 @@ class ModuleController extends Controller
         }
 
         $module->update($updatedata);
-        return redirect()->route('edit-module')->with('success','Module updated successfully');
+        return redirect()->route('edit-module',$id)->with('success','Module updated successfully');
     }
 
     /* function to soft delete module */

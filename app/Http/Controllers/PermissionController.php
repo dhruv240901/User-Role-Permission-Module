@@ -138,7 +138,7 @@ class PermissionController extends Controller
             }
         }
 
-        return redirect()->route('edit-permission')->with('success','Role Created Successfully');
+        return redirect()->route('edit-permission',$id)->with('success','Role Updated Successfully');
 
     }
 

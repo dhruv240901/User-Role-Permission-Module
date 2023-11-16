@@ -37,12 +37,12 @@ class UserController extends Controller
     /* function to store user in database */
     public function store(Request $request)
     {
-        $request->validate([
+        $validator=Validator::make($request->all(),[
             'firstname' =>'required',
             'lastname'  =>'required',
-            'email'     =>'required|email|unique:users',
+            'email'     =>'unique:users|required|email',
             'roles'     =>'required'
-        ]);
+        ],[  'email.unique'    => 'Email Id already exists']);
 
         $randompassword=rand(100000,999999);
         $insertdata=[
@@ -182,18 +182,11 @@ class UserController extends Controller
 
     public function forceLogout($id)
     {
-
-        // Step 2: Invalidate the user's session
-        // Auth::loginUsingId($id);
-        // or, if you don't have the user's password
-        // $user->update(['remember_token' => Str::random(60)]);
-
-        // Optionally, you can redirect the user or return a response
-        // $user = Auth::user();
-        // $userToLogout = User::find($id);
-        // Auth::setUser($userToLogout);
-        // Auth::logout();
-
+        $token=DB::table('personal_access_tokens')->where('tokenable_id',$id)->first();
+        if($token!=null)
+        {
+            Auth::user()->tokens()->where('id', $id)->delete();
+        }
         return redirect()->back()->with('success', 'User logged out from other devices.');
     }
 
