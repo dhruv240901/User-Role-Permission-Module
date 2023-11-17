@@ -53,7 +53,6 @@ class UserController extends Controller
             'password'      =>Hash::make($randomPassword),
             'is_active'     =>'1',
             'is_first_login'=>'1',
-            'created_by'    =>auth()->id()
         ];
 
         $user=User::create($insertData);
@@ -94,7 +93,6 @@ class UserController extends Controller
         $updateData=[
             'first_name' =>$request->firstname,
             'last_name'  =>$request->lastname,
-            'updated_by' =>auth()->id()
         ];
 
         $userUpdate=$user->update($updateData);
@@ -117,7 +115,6 @@ class UserController extends Controller
     {
         $user=User::findOrFail($id);
         $user->delete();
-        $user->update(['deleted_by'=>auth()->id(),'is_deleted'=>'1']);
         return redirect()->route('user-list')->with('success','User Soft Deleted Successfully');
     }
 
@@ -126,7 +123,6 @@ class UserController extends Controller
     {
         $user = User::onlyTrashed()->findOrFail($id);
         $user->restore();
-        $user->update(['deleted_by'=>null,'is_deleted'=>'0']);
         return redirect()->route('user-list')->with('success','User Restored Successfully');
     }
 
@@ -145,10 +141,13 @@ class UserController extends Controller
         $user=User::findOrFail($request->id);
         if($request->checked=="false"){
             $user->update(['is_active'=>0]);
+            $message="User Inactivated Successfully";
         }
         if($request->checked=="true"){
             $user->update(['is_active'=>1]);
+            $message="User Inactivated Successfully";
         }
+        return $message;
     }
 
     /* function to render change password form */

@@ -39,7 +39,6 @@ class PermissionController extends Controller
         $insertData=[
             'name'        =>$request->permissionname,
             'description' =>$request->description,
-            'created_by'  =>auth()->id()
         ];
 
         $permission=Permission::create($insertData);
@@ -110,7 +109,6 @@ class PermissionController extends Controller
         $updateData=[
             'name'        =>$request->permissionname,
             'description' =>$request->description,
-            'updated_by' =>auth()->id()
         ];
 
         $permission=Permission::findOrFail($id);
@@ -160,7 +158,6 @@ class PermissionController extends Controller
     {
         $permission=Permission::findOrFail($id);
         $permission->delete();
-        $permission->update(['deleted_by'=>auth()->id(),'is_deleted'=>'1']);
         return redirect()->route('permission-list')->with('success','Permission Soft Deleted Successfully');
     }
 
@@ -169,7 +166,6 @@ class PermissionController extends Controller
     {
         $permission = Permission::onlyTrashed()->findOrFail($id);
         $permission->restore();
-        $permission->update(['deleted_by'=>null,'is_deleted'=>'0']);
         return redirect()->route('permission-list')->with('success','Permission Restored Successfully');
     }
 
@@ -178,7 +174,7 @@ class PermissionController extends Controller
     {
         $permission = Permission::onlyTrashed()->findOrFail($id);
         $permission->forceDelete();
-        return redirect()->route('permission-list')->with('success','Role Permanently Deleted Successfully');
+        return redirect()->route('permission-list')->with('success','Permission Permanently Deleted Successfully');
     }
 
     /* function to update permission status */
