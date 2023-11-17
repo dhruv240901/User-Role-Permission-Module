@@ -31,14 +31,6 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('edit-role', $role->id) }}" type="button"
-                                                class="btn btn-success">
-                                                <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                            </a>
-                                            <a href="{{ route('show-role', $role->id) }}" type="button"
-                                                class="btn btn-info">
-                                                <img src="{{ asset('assets/images/show.svg') }}" alt="">
-                                            </a>
                                             @if ($role->deleted_at != null)
                                                 <form action="{{ route('restore-role', $role->id) }}" method="POST" class="restoreform" data-id="{{ $role->id }}" id="restoreform{{ $role->id }}"
                                                     style="display: inline">
@@ -55,6 +47,14 @@
                                                     </button>
                                                 </form>
                                             @else
+                                                <a href="{{ route('edit-role', $role->id) }}" type="button"
+                                                    class="btn btn-success">
+                                                    <img src="{{ asset('assets/images/edit.svg') }}" alt="">
+                                                </a>
+                                                <a href="{{ route('show-role', $role->id) }}" type="button"
+                                                    class="btn btn-info">
+                                                    <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                                </a>
                                                 <form action="{{ route('delete-role', $role->id) }}" method="POST" class="softdeleteform" data-id="{{ $role->id }}" id="softdeleteform{{ $role->id }}"
                                                     style="display: inline">
                                                     @csrf

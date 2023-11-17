@@ -29,13 +29,6 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('edit-permission', $permission->id) }}" type="button"
-                                                class="btn btn-success">
-                                                <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                            </a>
-                                            <a href="{{ route('show-permission',$permission->id) }}" type="button" class="btn btn-info">
-                                                <img src="{{ asset('assets/images/show.svg') }}" alt="">
-                                            </a>
                                             @if ($permission->deleted_at != null)
                                                 <form action="{{ route('restore-permission', $permission->id) }}" method="POST" class="restoreform" data-id="{{ $permission->id }}" id="restoreform{{ $permission->id }}"
                                                     style="display: inline">
@@ -52,6 +45,13 @@
                                                     </button>
                                                 </form>
                                             @else
+                                                <a href="{{ route('edit-permission', $permission->id) }}" type="button"
+                                                    class="btn btn-success">
+                                                    <img src="{{ asset('assets/images/edit.svg') }}" alt="">
+                                                </a>
+                                                <a href="{{ route('show-permission',$permission->id) }}" type="button" class="btn btn-info">
+                                                    <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                                </a>
                                                 <form action="{{ route('delete-permission', $permission->id) }}" method="POST" class="softdeleteform" data-id="{{ $permission->id }}" id="softdeleteform{{ $permission->id }}"
                                                     style="display: inline">
                                                     @csrf

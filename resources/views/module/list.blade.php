@@ -33,14 +33,6 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <a href="{{ route('edit-module', $module->id) }}" type="button"
-                                                class="btn btn-success">
-                                                <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                            </a>
-                                            <a href="{{ route('show-module', $module->id) }}" type="button"
-                                                class="btn btn-info">
-                                                <img src="{{ asset('assets/images/show.svg') }}" alt="">
-                                            </a>
                                             @if ($module->deleted_at != null)
                                                 <form action="{{ route('restore-module', $module->id) }}" method="POST" class="restoreform" data-id="{{ $module->id }}" id="restoreform{{ $module->id }}"
                                                     style="display: inline">
@@ -57,6 +49,14 @@
                                                     </button>
                                                 </form>
                                             @else
+                                                <a href="{{ route('edit-module', $module->id) }}" type="button"
+                                                    class="btn btn-success">
+                                                    <img src="{{ asset('assets/images/edit.svg') }}" alt="">
+                                                </a>
+                                                <a href="{{ route('show-module', $module->id) }}" type="button"
+                                                    class="btn btn-info">
+                                                    <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                                </a>
                                                 <form action="{{ route('delete-module', $module->id) }}" method="POST" class="softdeleteform" data-id="{{ $module->id }}" id="softdeleteform{{ $module->id }}"
                                                     style="display: inline" id="deleteForm">
                                                     @csrf

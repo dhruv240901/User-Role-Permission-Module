@@ -39,12 +39,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ route('edit-user',$user->id) }}" type="button" class="btn btn-success">
-                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="">
-                                    </a>
-                                    <a href="{{ route('show-user',$user->id) }}" type="button" class="btn btn-info">
-                                        <img src="{{ asset('assets/images/show.svg') }}" alt="">
-                                    </a>
+
                                     @if ($user->deleted_at!=null)
                                     <form action="{{route('restore-user',$user->id)}}" method="POST" class="restoreform" data-id="{{ $user->id }}" id="restoreform{{ $user->id }}" style="display: inline">
                                         @csrf
@@ -59,6 +54,12 @@
                                     </button>
                                     </form>
                                     @else
+                                    <a href="{{ route('edit-user',$user->id) }}" type="button" class="btn btn-success">
+                                        <img src="{{ asset('assets/images/edit.svg') }}" alt="">
+                                    </a>
+                                    <a href="{{ route('show-user',$user->id) }}" type="button" class="btn btn-info">
+                                        <img src="{{ asset('assets/images/show.svg') }}" alt="">
+                                    </a>
                                     <form action="{{route('delete-user',$user->id)}}" method="POST" class="softdeleteform" data-id="{{ $user->id }}" id="softdeleteform{{ $user->id }}" style="display: inline">
                                         @csrf
                                         @method('DELETE')
