@@ -18,7 +18,8 @@ class ModuleController extends Controller
     public function create()
     {
         $modules=Module::all();
-        return view('module.create',compact('modules'));
+        $module=null;
+        return view('module.create',compact('modules','module'));
     }
 
     /* function to store module in database */
@@ -61,7 +62,7 @@ class ModuleController extends Controller
     {
         $module=Module::findOrFail($id);
         $modules=Module::all();
-        return view('module.edit',compact('module','modules'));
+        return view('module.create',compact('module','modules'));
     }
 
     /* function to update module */

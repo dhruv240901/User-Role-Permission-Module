@@ -24,16 +24,12 @@ class AuthController extends Controller
     /* function to store user in database */
     public function customSignup(Request $request)
     {
-        $validator=$request->validate([
+        $request->validate([
             'firstname'       =>'required',
             'email'           =>'unique:users|required|email',
             'password'        =>'required|min:6',
             'confirmpassword' =>'required|min:6|same:password'
        ]);
-
-       if($validator->fails()) {
-            return redirect()->route('signup')->withErrors($validator);
-       }
 
        $insertData=[
             'first_name'     =>$request->firstname,
@@ -158,16 +154,12 @@ class AuthController extends Controller
     public function resetPassword(Request $request,$token)
     {
         $password_reset_data=DB::table('password_reset_tokens')->where('token',$token)->first();
-        // dd($password_reset_data);
         $email=$password_reset_data->email;
         $user=User::where('email',$email)->first();
-        // dd($user->id);
         if(!$password_reset_data || Carbon::now()->subminutes(10)>$password_reset_data->created_at)
         {
             return redirect()->route('view-forget-password')->with('error','Invalid password reset link or link expired.');
         }
-
-
         else{
             $request->validate([
                 'newpassword'     => 'required|min:6',

@@ -24,7 +24,8 @@ class PermissionController extends Controller
                 ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
                 ->groupBy('parent.id')
                 ->get();
-        return view('permission.create',compact('modules'));
+        $permission=null;
+        return view('permission.create',compact('modules','permission'));
     }
 
     /* function to store permission in database */
@@ -95,7 +96,7 @@ class PermissionController extends Controller
         ->groupBy('parent.id')
         ->get();
         $permission=Permission::findOrFail($id);
-        return view('permission.edit',compact('permission','modules'));
+        return view('permission.create',compact('permission','modules'));
     }
 
     /* function to update permission */

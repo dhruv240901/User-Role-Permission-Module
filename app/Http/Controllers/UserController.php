@@ -24,7 +24,8 @@ class UserController extends Controller
     public function create()
     {
         $roles=Role::where('is_active','1')->get();
-        return view('user.create',compact('roles'));
+        $user=null;
+        return view('user.create',compact('roles','user'));
     }
 
     /* function to show user details by id */
@@ -37,15 +38,13 @@ class UserController extends Controller
     /* function to store user in database */
     public function store(Request $request)
     {
-        $validator=$request->validate([
+        $request->validate([
             'firstname' =>'required',
             'lastname'  =>'required',
             'email'     =>'unique:users|required|email',
             'roles'     =>'required'
         ]);
-        if($validator->fails()) {
-            return redirect()->route('add-user')->withErrors($validator);
-        }
+
         $randomPassword=rand(100000,999999);
         $insertData=[
             'first_name'    =>$request->firstname,
@@ -79,7 +78,7 @@ class UserController extends Controller
     {
         $roles=Role::where('is_active','1')->get();
         $user=User::findOrFail($id);
-        return view('user.edit',compact('user','roles'));
+        return view('user.create',compact('user','roles'));
     }
 
      /* function to update user */

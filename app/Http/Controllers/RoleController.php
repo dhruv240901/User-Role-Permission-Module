@@ -19,7 +19,8 @@ class RoleController extends Controller
     public function create()
     {
         $permissions=Permission::where('is_active','1')->get();
-        return view('role.create',compact('permissions'));
+        $role=null;
+        return view('role.create',compact('permissions','role'));
     }
 
     /* function to store role in database */
@@ -59,7 +60,7 @@ class RoleController extends Controller
     {
         $permissions=Permission::where('is_active','1')->get();
         $role=Role::findOrFail($id);
-        return view('role.edit',compact('role','permissions'));
+        return view('role.create',compact('role','permissions'));
     }
 
     /* function to update role */
@@ -78,7 +79,7 @@ class RoleController extends Controller
             'updated_by'  =>auth()->id()
         ];
 
-        $roleupdate=$role->update($updateData);
+        $role->update($updateData);
 
         if($request->permissions){
 
