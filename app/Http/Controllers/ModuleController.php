@@ -122,9 +122,12 @@ class ModuleController extends Controller
         $module=Module::findOrFail($request->id);
         if($request->checked=="false"){
             $module->update(['is_active'=>0]);
+            $message="Module Inactivated Successfully";
         }
         if($request->checked=="true"){
             $module->update(['is_active'=>1]);
+            $message="Module Activated Successfully";
         }
+        return $message;
     }
 }

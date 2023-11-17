@@ -91,11 +91,8 @@ $(document).ready(function() {
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-
+                toastr.success(""+response+"");
             },
-            error: function(error) {
-
-            }
         });
     });
 

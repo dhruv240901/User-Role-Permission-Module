@@ -183,9 +183,12 @@ class PermissionController extends Controller
         $permission=Permission::findOrFail($request->id);
         if($request->checked=="false"){
             $permission->update(['is_active'=>0]);
+            $message="Permission Inactivated Successfully";
         }
         if($request->checked=="true"){
             $permission->update(['is_active'=>1]);
+            $message="Permission Activated Successfully";
         }
+        return $message;
     }
 }

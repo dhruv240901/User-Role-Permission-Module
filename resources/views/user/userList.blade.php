@@ -92,8 +92,6 @@
 @section('jscontent')
 
         $(document).on("change",".user-status",function() {
-
-            console.log('dfvdf')
             const id = $(this).data('id');
             const isChecked = $(this).is(':checked');
 
@@ -106,11 +104,8 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-
+                    toastr.success(""+response+"");
                 },
-                error: function(error) {
-
-                }
             });
         });
 

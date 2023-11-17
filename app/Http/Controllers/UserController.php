@@ -145,7 +145,7 @@ class UserController extends Controller
         }
         if($request->checked=="true"){
             $user->update(['is_active'=>1]);
-            $message="User Inactivated Successfully";
+            $message="User Activated Successfully";
         }
         return $message;
     }

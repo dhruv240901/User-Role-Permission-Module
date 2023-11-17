@@ -122,9 +122,12 @@ class RoleController extends Controller
         $role=Role::findOrFail($request->id);
         if($request->checked=="false"){
             $role->update(['is_active'=>0]);
+            $message="Role Inactivated Successfully";
         }
         if($request->checked=="true"){
             $role->update(['is_active'=>1]);
+            $message="Role Activated Successfully";
         }
+        return $message;
     }
 }
