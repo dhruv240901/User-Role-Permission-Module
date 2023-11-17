@@ -59,6 +59,7 @@ class AuthController extends Controller
 
         $credentials=$request->only('email','password');
         if(Auth::attempt($credentials)){
+                Auth::user()->createToken('auth-token')->plainTextToken;
                 if(auth()->user()->is_first_login=='1'){
                     return redirect()->route('view-change-password')->with('success','Please change your password!');
                 }
@@ -74,6 +75,10 @@ class AuthController extends Controller
     /* function to logout user */
     public function logout()
     {
+        $token=DB::table('personal_access_tokens')->where('tokenable_id',auth()->id())->first();
+
+        Auth::user()->tokens()->delete();
+
         auth()->logout();
         return redirect()->route('index')->with('success','Logout Successfully');
     }

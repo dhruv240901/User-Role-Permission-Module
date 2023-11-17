@@ -176,24 +176,46 @@
                                                         {{ $module->parent_name }}</th>
                                                 </tr>
                                                 @foreach (explode(',', $module->child_names) as $childmodule)
-                                                    <tr>
-                                                        <th scope="row">{{ $childmodule }}</th>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                    </tr>
+                                                    @if(count($permissionModules)>0)
+                                                        <tr>
+                                                            <th scope="row">{{ $childmodule }}</th>
+                                                            <td>
+                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
+                                                            </td>
+                                                        </tr>
+                                                    @else
+                                                        <tr>
+                                                            <th scope="row">{{ $childmodule }}</th>
+                                                            <td>
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </td>
+                                                            <td>
+                                                                <i class="bi bi-x-lg"></i>
+                                                            </td>
+                                                        </tr>
+                                                    @endif
+
                                                 @endforeach
                                             @endif
                                         @endforeach

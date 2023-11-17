@@ -78,12 +78,14 @@ class PermissionController extends Controller
     {
         $permission=Permission::findOrFail($id);
         $modules=DB::table('modules as parent')
-        ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'))
+        ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'),DB::raw('GROUP_CONCAT(child.id) as child_ids'))
         ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
         ->groupBy('parent.id')
         ->get();
+        $child_ids=$modules->pluck('child_ids');
+        $child_names=$modules->pluck('child_names');
         $permissionModules=PermissionModule::where('permission_id',$id)->get();
-        return view('permission.show',compact('permission','modules','permissionModules'));
+        return view('permission.show',compact('permission','modules','permissionModules','child'));
     }
 
     /* function to render edit permission form */
@@ -95,7 +97,9 @@ class PermissionController extends Controller
         ->groupBy('parent.id')
         ->get();
         $permission=Permission::findOrFail($id);
-        return view('permission.create',compact('permission','modules'));
+
+        $permissionModule=PermissionModule::where('module_id',$id)->get();
+        return view('permission.create',compact('permission','modules','permissionModule'));
     }
 
     /* function to update permission */
