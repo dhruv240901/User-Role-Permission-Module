@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email',51)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password',251);
-            $table->boolean('is_active')->default(0)->comment("0:Blocked,1:Active");
+            $table->boolean('is_active')->default(1)->comment("0:Blocked,1:Active");
             $table->boolean('is_first_login')->default(0)->comment("0:No,1:Yes");
             $table->string('code',6)->nullable();
             $table->enum('type',['admin','user'])->default('user');
