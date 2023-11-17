@@ -31,13 +31,13 @@ class RoleController extends Controller
             'permissions' =>'required'
         ]);
 
-        $insertdata=[
+        $insertData=[
             'name'        =>$request->rolename,
             'description' =>$request->description,
             'created_by'  =>auth()->id()
         ];
 
-        $role=Role::create($insertdata);
+        $role=Role::create($insertData);
         if($request->permissions){
             foreach($request->permissions as $key => $permissionId){
                 $role->permissions()->attach($request->permissions[$key]);
@@ -72,13 +72,13 @@ class RoleController extends Controller
             'permissions' =>'required'
         ]);
 
-        $updatedata=[
+        $updateData=[
             'name'        =>$request->rolename,
             'description' =>$request->description,
             'updated_by'  =>auth()->id()
         ];
 
-        $roleupdate=$role->update($updatedata);
+        $roleupdate=$role->update($updateData);
 
         if($request->permissions){
 

@@ -35,38 +35,38 @@ class PermissionController extends Controller
             'description'    =>'required',
         ]);
 
-        $insertdata=[
+        $insertData=[
             'name'        =>$request->permissionname,
             'description' =>$request->description,
             'created_by'  =>auth()->id()
         ];
 
-        $permission=Permission::create($insertdata);
+        $permission=Permission::create($insertData);
 
         $modules=Module::all();
 
-        $insertmoduledata=array();
+        $insertModuleData=array();
         foreach($modules as $k=>$value){
             if($request[$value->name]){
-                $insertmoduledata=[
+                $insertModuleData=[
                     'permission_id'=>$permission->id,
                     'module_id'    =>$value->id
                 ];
                 foreach($request[$value->name] as $key => $value){
                     if($value=='add'){
-                        $insertmoduledata['add_access']='1';
+                        $insertModuleData['add_access']='1';
                     }
                     if($value=='view'){
-                        $insertmoduledata['view_access']='1';
+                        $insertModuleData['view_access']='1';
                     }
                     if($value=='modify'){
-                        $insertmoduledata['edit_access']='1';
+                        $insertModuleData['edit_access']='1';
                     }
                     if($value=='delete'){
-                        $insertmoduledata['delete_access']='1';
+                        $insertModuleData['delete_access']='1';
                     }
                 }
-                PermissionModule::create($insertmoduledata);
+                PermissionModule::create($insertModuleData);
             }
         }
 
@@ -82,8 +82,8 @@ class PermissionController extends Controller
         ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
         ->groupBy('parent.id')
         ->get();
-        $permissionmodules=PermissionModule::where('permission_id',$id)->get();
-        return view('permission.show',compact('permission','modules','permissionmodules'));
+        $permissionModules=PermissionModule::where('permission_id',$id)->get();
+        return view('permission.show',compact('permission','modules','permissionModules'));
     }
 
     /* function to render edit permission form */
@@ -106,45 +106,45 @@ class PermissionController extends Controller
             'description'    =>'required',
         ]);
 
-        $updatedata=[
+        $updateData=[
             'name'        =>$request->permissionname,
             'description' =>$request->description,
             'updated_by' =>auth()->id()
         ];
 
         $permission=Permission::findOrFail($id);
-        $permission->update($updatedata);
+        $permission->update($updateData);
 
-        $permissionmodules=PermissionModule::where('permission_id',$id)->get();
-        foreach($permissionmodules as $k=>$permissionmodule){
-            $permissionmodule->delete();
+        $permissionModules=PermissionModule::where('permission_id',$id)->get();
+        foreach($permissionModules as $k=>$permissionModule){
+            $permissionModule->delete();
 
         }
 
         $modules=Module::all();
 
-        $insertmoduledata=array();
+        $insertModuleData=array();
         foreach($modules as $k=>$value){
             if($request[$value->name]){
-                $insertmoduledata=[
+                $insertModuleData=[
                     'permission_id'=>$permission->id,
                     'module_id'    =>$value->id
                 ];
                 foreach($request[$value->name] as $key => $value){
                     if($value=='add'){
-                        $insertmoduledata['add_access']='1';
+                        $insertModuleData['add_access']='1';
                     }
                     if($value=='view'){
-                        $insertmoduledata['view_access']='1';
+                        $insertModuleData['view_access']='1';
                     }
                     if($value=='modify'){
-                        $insertmoduledata['edit_access']='1';
+                        $insertModuleData['edit_access']='1';
                     }
                     if($value=='delete'){
-                        $insertmoduledata['delete_access']='1';
+                        $insertModuleData['delete_access']='1';
                     }
 
-                    PermissionModule::create($insertmoduledata);
+                    PermissionModule::create($insertModuleData);
                 }
 
             }

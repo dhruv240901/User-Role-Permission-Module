@@ -28,6 +28,7 @@ class User extends Authenticatable
         'password',
         'is_first_login',
         'is_active',
+        'type',
         'created_by',
         'updated_by',
         'deleted_by',

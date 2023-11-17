@@ -30,7 +30,7 @@ class ModuleController extends Controller
             'is_in_menu'    =>'required',
         ]);
 
-        $insertdata=[
+        $insertData=[
             'module_code'   =>$request->modulecode,
             'name'          =>$request->modulename,
             'is_in_menu'    =>$request->is_in_menu,
@@ -39,13 +39,13 @@ class ModuleController extends Controller
         ];
 
         if($request->parentmodule=="null"){
-            $insertdata['parent_id']=null;
+            $insertData['parent_id']=null;
         }
         else{
-            $insertdata['parent_id']=$request->parentmodule;
+            $insertData['parent_id']=$request->parentmodule;
         }
 
-        Module::create($insertdata);
+        Module::create($insertData);
         return redirect()->route('add-module')->with('success','Module created successfully');
     }
 
@@ -73,7 +73,7 @@ class ModuleController extends Controller
             'is_in_menu'    =>'required',
         ]);
 
-        $updatedata=[
+        $updateData=[
             'module_code'   =>$request->modulecode,
             'name'          =>$request->modulename,
             'is_in_menu'    =>$request->is_in_menu,
@@ -89,7 +89,7 @@ class ModuleController extends Controller
             $updatedata['parent_id']=$request->parentmodule;
         }
 
-        $module->update($updatedata);
+        $module->update($updateData);
         return redirect()->route('edit-module',$id)->with('success','Module updated successfully');
     }
 

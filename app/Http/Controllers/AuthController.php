@@ -24,18 +24,18 @@ class AuthController extends Controller
     /* function to store user in database */
     public function customSignup(Request $request)
     {
-        $validator=Validator::make($request->all(),[
+        $validator=$request->validate([
             'firstname'       =>'required',
             'email'           =>'unique:users|required|email',
             'password'        =>'required|min:6',
             'confirmpassword' =>'required|min:6|same:password'
-       ],[  'email.unique'    => 'Email Id already exists']);
+       ]);
 
        if($validator->fails()) {
             return redirect()->route('signup')->withErrors($validator);
        }
 
-       $insertdata=[
+       $insertData=[
             'first_name'     =>$request->firstname,
             'last_name'      =>$request->lastname,
             'email'          =>$request->email,
@@ -43,7 +43,7 @@ class AuthController extends Controller
             'is_first_login' =>'0',
             'is_active'      =>'0'
         ];
-        User::create($insertdata);
+        User::create($insertData);
         return redirect()->route('login')->with('success','Account created successfully!');
     }
 
@@ -104,7 +104,7 @@ class AuthController extends Controller
     /* function to render forget password form */
     public function viewForgetPassword()
     {
-        return view('forgetpassword');
+        return view('forgetPassword');
     }
 
     /* function to submit forget password form */

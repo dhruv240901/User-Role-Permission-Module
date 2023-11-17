@@ -37,35 +37,37 @@ class UserController extends Controller
     /* function to store user in database */
     public function store(Request $request)
     {
-        $validator=Validator::make($request->all(),[
+        $validator=$request->validate([
             'firstname' =>'required',
             'lastname'  =>'required',
             'email'     =>'unique:users|required|email',
             'roles'     =>'required'
-        ],[  'email.unique'    => 'Email Id already exists']);
-
-        $randompassword=rand(100000,999999);
-        $insertdata=[
+        ]);
+        if($validator->fails()) {
+            return redirect()->route('add-user')->withErrors($validator);
+        }
+        $randomPassword=rand(100000,999999);
+        $insertData=[
             'first_name'    =>$request->firstname,
             'last_name'     =>$request->lastname,
             'email'         =>$request->email,
-            'password'      =>Hash::make($randompassword),
+            'password'      =>Hash::make($randomPassword),
             'is_active'     =>'1',
             'is_first_login'=>'1',
             'created_by'    =>auth()->id()
         ];
 
-        $user=User::create($insertdata);
+        $user=User::create($insertData);
         if($request->roles){
             foreach($request->roles as $key => $roleId){
                 $user->roles()->attach($request->roles[$key]);
             }
         }
-        $authuser=Auth::user();
+        $authUser=Auth::user();
 
         if($user){
-            dispatch(function() use ($user, $randompassword,$authuser){
-                Mail::to($user['email'])->send(new AddUserMail($user,$randompassword,$authuser));
+            dispatch(function() use ($user, $randomPassword,$authUser){
+                Mail::to($user['email'])->send(new AddUserMail($user,$randomPassword,$authUser));
             })->delay(now()->addSeconds(5));
         }
 
@@ -90,15 +92,13 @@ class UserController extends Controller
             'roles'     =>'required'
         ]);
 
-        $randompassword=rand(100000,999999);
-        $updatedata=[
+        $updateData=[
             'first_name' =>$request->firstname,
             'last_name'  =>$request->lastname,
-            'password'   =>Hash::make($randompassword),
             'updated_by' =>auth()->id()
         ];
 
-        $userupdate=$user->update($updatedata);
+        $userUpdate=$user->update($updateData);
 
         if($request->roles){
             // $user->roles()->detach();
@@ -168,8 +168,8 @@ class UserController extends Controller
             'confirmpassword' =>'required|min:6|same:newpassword'
         ]);
 
-        $currentuser=auth()->user();
-        if(Hash::check($request->oldpassword,$currentuser->password))
+        $currentUser=auth()->user();
+        if(Hash::check($request->oldpassword,$currentUser->password))
         {
             $currentuser->update(['password'=>Hash::make($request->newpassword)]);
             return redirect()->route('index')->with('success','Password updated successfully');
