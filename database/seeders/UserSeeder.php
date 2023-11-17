@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use Hash;
+use Illuminate\Support\Str;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -14,7 +16,7 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = [
-            ['id'=>'c9dd5497-0546-4d3a-95d9-f027d217e23d',
+            ['id'=>Str::uuid(),
             'first_name' => 'Admin',
             'last_name'=> 'User',
             'email'=>'admin@gmail.com',
