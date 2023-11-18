@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         $user = [
-            ['id'=>Str::uuid(),
-            'first_name' => 'Admin',
-            'last_name'=> 'User',
-            'email'=>'admin@gmail.com',
-            'password'=> Hash::make('123456'),
-            'is_first_login'=>'0',
-            'type'=>'admin',
+            ['id'            =>Str::uuid(),
+            'first_name'     => 'Admin',
+            'last_name'      => 'User',
+            'email'          =>'admin@gmail.com',
+            'password'       => Hash::make('123456'),
+            'is_first_login' =>'0',
+            'type'           =>'admin',
             ],
        ];
 
