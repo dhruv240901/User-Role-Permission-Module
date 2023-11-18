@@ -19,13 +19,18 @@ class PermissionController extends Controller
     /* function to render add permission form */
     public function create()
     {
-        $modules=DB::table('modules as parent')
-                ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'))
-                ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
-                ->groupBy('parent.id')
-                ->get();
+        $modules = Module::whereNotNull('parent_id')
+            ->with('parent')
+            ->where([
+                ['is_active', 1],
+                ['is_in_menu',1]
+            ])
+            ->orderBy('display_order')
+            ->get();
+        $parentModules = Module::whereNull('parent_id')->where('is_active',1)->where('is_in_menu',1)->orderBy('display_order')->get();
         $permission=null;
-        return view('permission.create',compact('modules','permission'));
+        $permissionModules=null;
+        return view('permission.create',compact('permission','modules','parentModules','permissionModules'));
     }
 
     /* function to store permission in database */
@@ -54,16 +59,16 @@ class PermissionController extends Controller
                 ];
                 foreach($request[$value->name] as $key => $value){
                     if($value=='add'){
-                        $insertModuleData['add_access']='1';
+                        $insertModuleData['add_access']=1;
                     }
                     if($value=='view'){
-                        $insertModuleData['view_access']='1';
+                        $insertModuleData['view_access']=1;
                     }
                     if($value=='modify'){
-                        $insertModuleData['edit_access']='1';
+                        $insertModuleData['edit_access']=1;
                     }
                     if($value=='delete'){
-                        $insertModuleData['delete_access']='1';
+                        $insertModuleData['delete_access']=1;
                     }
                 }
                 PermissionModule::create($insertModuleData);
@@ -77,29 +82,34 @@ class PermissionController extends Controller
     public function show(string $id)
     {
         $permission=Permission::findOrFail($id);
-        $modules=DB::table('modules as parent')
-        ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'),DB::raw('GROUP_CONCAT(child.id) as child_ids'))
-        ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
-        ->groupBy('parent.id')
-        ->get();
-        $child_ids=$modules->pluck('child_ids');
-        $child_names=$modules->pluck('child_names');
-        $permissionModules=PermissionModule::where('permission_id',$id)->get();
-        return view('permission.show',compact('permission','modules','permissionModules','child'));
+        $permissionModules = $permission->modules->pluck('pivot')->toArray();
+        $modules = Module::whereNotNull('parent_id')
+            ->with('parent')
+            ->where([
+                ['is_active', 1],
+                ['is_in_menu',1]
+            ])
+            ->orderBy('display_order')
+            ->get();
+        $parentModules = Module::whereNull('parent_id')->where('is_active',1)->where('is_in_menu',1)->orderBy('display_order')->get();
+        return view('permission.show',compact('permission','modules','parentModules','permissionModules'));
     }
 
     /* function to render edit permission form */
     public function edit(string $id)
     {
-        $modules=DB::table('modules as parent')
-        ->select('parent.name as parent_name', DB::raw('GROUP_CONCAT(child.name) as child_names'))
-        ->leftJoin('modules as child', 'parent.id', '=', 'child.parent_id')
-        ->groupBy('parent.id')
-        ->get();
         $permission=Permission::findOrFail($id);
-
-        $permissionModule=PermissionModule::where('module_id',$id)->get();
-        return view('permission.create',compact('permission','modules','permissionModule'));
+        $permissionModules = $permission->modules->pluck('pivot')->toArray();
+        $modules = Module::whereNotNull('parent_id')
+            ->with('parent')
+            ->where([
+                ['is_active', 1],
+                ['is_in_menu',1]
+            ])
+            ->orderBy('display_order')
+            ->get();
+        $parentModules = Module::whereNull('parent_id')->where('is_active',1)->where('is_in_menu',1)->orderBy('display_order')->get();
+        return view('permission.create',compact('permission','modules','parentModules','permissionModules'));
     }
 
     /* function to update permission */

@@ -33,191 +33,54 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($permissions as $k => $permission)
-                                            @foreach ($role->permissions as $k => $rolepermission)
-                                                @if ($permission->id == $rolepermission->id)
-                                                    <option value="{{ $permission->id }}" selected>{{ $permission->name }}
-                                                    </option>
-                                                @else
-                                                    <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                        @foreach ($parentModules as $parentModule)
+                                            <tr>
+                                                <th scope="row" colspan="6" style="background-color: gray;">
+                                                    {{ $parentModule->name }}</th>
+                                            </tr>
+                                            @foreach ($modules as $module)
+                                                @if ($module->parent->id == $parentModule->id)
+                                                    <tr>
+                                                        <th scope="row">{{ $module->name }}</th>
+                                                        <td>
+                                                            {!! $permission->modules->contains(function ($value) use ($module) {
+                                                                return $value->id === $module->id && $value->pivot->add_access === 1 && $value->pivot->edit_access === 1 && $value->pivot->delete_access === 1 && $value->pivot->view_access === 1;
+                                                            })
+                                                                ? "<i class='bi bi-check2'></i>"
+                                                                : "<i class='bi bi-x-lg'></i>" !!}
+                                                        </td>
+                                                        <td>
+                                                            {!! $permission->modules->contains(function ($value) use ($module) {
+                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                            })
+                                                                ? "<i class='bi bi-check2'></i>"
+                                                                : "<i class='bi bi-x-lg'></i>" !!}
+                                                        </td>
+                                                        <td>
+                                                            {!! $permission->modules->contains(function ($value) use ($module) {
+                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                            })
+                                                                ? "<i class='bi bi-check2'></i>"
+                                                                : "<i class='bi bi-x-lg'></i>" !!}
+                                                        </td>
+                                                        <td>
+                                                            {!! $permission->modules->contains(function ($value) use ($module) {
+                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                            })
+                                                                ? "<i class='bi bi-check2'></i>"
+                                                                : "<i class='bi bi-x-lg'></i>" !!}
+                                                        </td>
+                                                        <td>
+                                                            {!! $permission->modules->contains(function ($value) use ($module) {
+                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                            })
+                                                                ? "<i class='bi bi-check2'></i>"
+                                                                : "<i class='bi bi-x-lg'></i>" !!}
+                                                        </td>
+
+                                                    </tr>
                                                 @endif
                                             @endforeach
-                                        @endforeach --}}
-                                        {{-- @foreach ($modules as $k => $module)
-                                            @if (count($permission->modules) > 0)
-                                                @for ($i = 0; $i < count($permissionmodules); $i++)
-                                                    @if ($module->id == $permissionmodules[$i]->id)
-                                                        <tr>
-                                                            <th scope="row">{{ $module->name }}</th>
-                                                            @if ($permissionmodules[$i]->add_access == '1')
-                                                                <td><i class="bi bi-check2"></td>
-                                                            @else
-                                                                <td><i class="bi bi-x-lg"></td>
-                                                            @endif
-                                                            <td><i class="bi bi-check2"></td>
-                                                            <td><i class="bi bi-check2"></td>
-                                                            <td><i class="bi bi-check2"></td>
-                                                            <td><i class="bi bi-check2"></td>
-                                                        </tr>
-                                                    @else
-                                                        <tr>
-                                                            <th scope="row">{{ $module->name }}</th>
-                                                            <td><i class="bi bi-x-lg"></td>
-                                                            <td><i class="bi bi-x-lg"></td>
-                                                            <td><i class="bi bi-x-lg"></td>
-                                                            <td><i class="bi bi-x-lg"></td>
-                                                            <td><i class="bi bi-x-lg"></td>
-                                                        </tr>
-                                                    @endif
-                                                @endfor
-                                            @else
-                                                <tr>
-                                                    <th scope="row">{{ $module->name }}</th>
-                                                    <td><i class="bi bi-x-lg"></td>
-                                                    <td><i class="bi bi-x-lg"></td>
-                                                    <td><i class="bi bi-x-lg"></td>
-                                                    <td><i class="bi bi-x-lg"></td>
-                                                    <td><i class="bi bi-x-lg"></td>
-                                                </tr>
-                                            @endif --}}
-                                            {{-- @foreach ($permissionmodules as $permissionmodule)
-                                                    @if ($permissionmodule->module_id == $module->id)
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        @if ($permissionmodule->add_access = '1')
-                                                            <td>
-                                                                <i class="bi bi-check2"></i>
-                                                            </td>
-                                                        @else
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                        @endif
-                                                        @if ($permissionmodule->view_access = '1')
-                                                            <td>
-                                                                <i class="bi bi-check2"></i>
-                                                            </td>
-                                                        @else
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                        @endif
-                                                        @if ($permissionmodule->edit_access = '1')
-                                                            <td>
-                                                                <i class="bi bi-check2"></i>
-                                                            </td>
-                                                        @else
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                        @endif
-                                                        @if ($permissionmodule->delete_access = '1')
-                                                            <td>
-                                                                <i class="bi bi-check2"></i>
-                                                            </td>
-                                                        @else
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                        @endif --}}
-                                            {{-- <td>
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="add" id="flexCheckIndeterminate"
-                                                                    name="{{ $module->name }}[]">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="view" id="flexCheckIndeterminate"
-                                                                    name="{{ $module->name }}[]">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="modify" id="flexCheckIndeterminate"
-                                                                    name="{{ $module->name }}[]">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-check form-switch">
-                                                                <input class="form-check-input" type="checkbox"
-                                                                    value="delete" id="flexCheckIndeterminate"
-                                                                    name="{{ $module->name }}[]">
-                                                            </div>
-                                                        </td> --}}
-                                            {{-- @else
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                        <td>
-                                                            <i class="bi bi-x-lg"></i>
-                                                        </td>
-                                                    @endif --}}
-                                            {{-- @endforeach --}}
-                                            {{-- </tr> --}}
-                                        {{-- @endforeach --}}
-                                        @foreach ($modules as $module)
-                                            @if ($module->child_names != null)
-                                                <tr>
-                                                    <th scope="row" colspan="6" style="background-color: gray;">
-                                                        {{ $module->parent_name }}</th>
-                                                </tr>
-                                                @foreach (explode(',', $module->child_names) as $childmodule)
-                                                    @if(count($permissionModules)>0)
-                                                        <tr>
-                                                            <th scope="row">{{ $childmodule }}</th>
-                                                            <td>
-                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class=" {{ in_array($childmodule, $permission->modules->pluck('name')->toArray()) ? 'bi bi-check2' : 'bi bi-x-lg' }}"></i>
-                                                            </td>
-                                                        </tr>
-                                                    @else
-                                                        <tr>
-                                                            <th scope="row">{{ $childmodule }}</th>
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                            <td>
-                                                                <i class="bi bi-x-lg"></i>
-                                                            </td>
-                                                        </tr>
-                                                    @endif
-
-                                                @endforeach
-                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
