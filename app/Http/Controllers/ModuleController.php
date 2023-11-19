@@ -17,7 +17,7 @@ class ModuleController extends Controller
     /* function to render add module form */
     public function create()
     {
-        $modules=Module::all();
+        $modules=Module::whereNull('parent_id')->get();
         $module=null;
         return view('module.create',compact('modules','module'));
     }
@@ -60,7 +60,7 @@ class ModuleController extends Controller
     public function edit(string $id)
     {
         $module=Module::findOrFail($id);
-        $modules=Module::all();
+        $modules=Module::whereNull('parent_id')->get();
         return view('module.create',compact('module','modules'));
     }
 

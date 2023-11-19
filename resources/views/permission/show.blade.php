@@ -58,21 +58,21 @@
                                                         </td>
                                                         <td>
                                                             {!! $permission->modules->contains(function ($value) use ($module) {
-                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                                return $value->id === $module->id && $value->pivot->view_access === 1;
                                                             })
                                                                 ? "<i class='bi bi-check2'></i>"
                                                                 : "<i class='bi bi-x-lg'></i>" !!}
                                                         </td>
                                                         <td>
                                                             {!! $permission->modules->contains(function ($value) use ($module) {
-                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                                return $value->id === $module->id && $value->pivot->edit_access === 1;
                                                             })
                                                                 ? "<i class='bi bi-check2'></i>"
                                                                 : "<i class='bi bi-x-lg'></i>" !!}
                                                         </td>
                                                         <td>
                                                             {!! $permission->modules->contains(function ($value) use ($module) {
-                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                                return $value->id === $module->id && $value->pivot->delete_access === 1;
                                                             })
                                                                 ? "<i class='bi bi-check2'></i>"
                                                                 : "<i class='bi bi-x-lg'></i>" !!}
