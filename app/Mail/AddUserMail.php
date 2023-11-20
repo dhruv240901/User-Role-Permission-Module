@@ -19,9 +19,9 @@ class AddUserMail extends Mailable
      */
     public function __construct($user,$randomPassword,$authUser)
     {
-        $this->user          =$user;
-        $this->randomPassword=$randomPassword;
-        $this->authUser      =$authUser;
+        $this->user           = $user;
+        $this->randomPassword = $randomPassword;
+        $this->authUser       = $authUser;
     }
 
     /**
@@ -42,9 +42,9 @@ class AddUserMail extends Mailable
         return new Content(
             markdown: 'emails.addUserMail',
             with:[
-                'user'           =>$this->user,
-                'randomPassword' =>$this->randomPassword,
-                'authUser'       =>$this->authUser
+                'user'           => $this->user,
+                'randomPassword' => $this->randomPassword,
+                'authUser'       => $this->authUser
             ]
         );
     }

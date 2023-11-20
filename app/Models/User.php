@@ -85,7 +85,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-        'is_first_login'=>'boolean'
+        'password'          => 'hashed',
+        'is_first_login'    => 'boolean',
+        'is_active'         => 'boolean',
+        'is_deleted'        => 'boolean'
     ];
 }

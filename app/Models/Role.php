@@ -14,6 +14,11 @@ class Role extends Model
 
     protected $fillable=['name','description','is_active','created_by','updated_by','deleted_by','is_deleted'];
 
+    protected $casts = [
+        'is_active'         => 'boolean',
+        'is_deleted'        => 'boolean'
+    ];
+
     protected $keyType = 'string';
     protected $primaryKey = 'id';
     public $incrementing = false;

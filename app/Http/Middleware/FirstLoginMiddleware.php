@@ -15,7 +15,7 @@ class FirstLoginMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if($request->user()->is_first_login=='0')
+        if($request->user()->is_first_login==0)
         {
             return $next($request);
         }

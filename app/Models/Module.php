@@ -13,6 +13,11 @@ class Module extends Model
 
     protected $fillable=['name','module_code','name','is_in_menu','parent_id','is_active','display_order','created_by','updated_by','deleted_by','is_deleted'];
 
+    protected $casts = [
+        'is_active'         => 'boolean',
+        'is_deleted'        => 'boolean'
+    ];
+
     protected $keyType = 'string';
     protected $primaryKey = 'id';
     public $incrementing = false;

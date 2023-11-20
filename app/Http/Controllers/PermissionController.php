@@ -145,16 +145,16 @@ class PermissionController extends Controller
                 ];
                 foreach($request[$value->name] as $key => $value){
                     if($value=='add'){
-                        $insertModuleData['add_access']='1';
+                        $insertModuleData['add_access']=1;
                     }
                     if($value=='view'){
-                        $insertModuleData['view_access']='1';
+                        $insertModuleData['view_access']=1;
                     }
                     if($value=='modify'){
-                        $insertModuleData['edit_access']='1';
+                        $insertModuleData['edit_access']=1;
                     }
                     if($value=='delete'){
-                        $insertModuleData['delete_access']='1';
+                        $insertModuleData['delete_access']=1;
                     }
 
                     PermissionModule::create($insertModuleData);

@@ -23,7 +23,7 @@ class UserController extends Controller
     /* function to render add user form */
     public function create()
     {
-        $roles=Role::where('is_active','1')->get();
+        $roles=Role::where('is_active',1)->get();
         $user=null;
         return view('user.addEdit',compact('roles','user'));
     }
@@ -51,8 +51,8 @@ class UserController extends Controller
             'last_name'     =>$request->lastName,
             'email'         =>$request->email,
             'password'      =>Hash::make($randomPassword),
-            'is_active'     =>'1',
-            'is_first_login'=>'1',
+            'is_active'     =>1,
+            'is_first_login'=>1,
         ];
 
         $user=User::create($insertData);
@@ -75,7 +75,7 @@ class UserController extends Controller
     /* function to render edit user form */
     public function edit(string $id)
     {
-        $roles=Role::where('is_active','1')->get();
+        $roles=Role::where('is_active',1)->get();
         $user=User::findOrFail($id);
         return view('user.addEdit',compact('user','roles'));
     }
@@ -166,7 +166,7 @@ class UserController extends Controller
             'confirmPassword' =>'required|min:6|same:newPassword'
         ]);
 
-        $currentUser=auth()->user();
+        $currentUser = auth()->user();
         if(Hash::check($request->oldPassword,$currentUser->password))
         {
             $currentUser->update(['password'=>Hash::make($request->newPassword)]);

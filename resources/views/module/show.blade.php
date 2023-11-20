@@ -31,7 +31,7 @@
                           <tr>
                             <th scope="row">is_in_menu</th>
                             <td>
-                                @if($module->is_in_menu=='1')
+                                @if($module->is_in_menu==1)
                                     Yes
                                 @else
                                     No

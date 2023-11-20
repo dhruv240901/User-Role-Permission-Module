@@ -36,8 +36,8 @@ class AuthController extends Controller
             'last_name'      =>$request->lastName,
             'email'          =>$request->email,
             'password'       =>Hash::make($request->password),
-            'is_first_login' =>'0',
-            'is_active'      =>'0'
+            'is_first_login' =>0,
+            'is_active'      =>0
         ];
         User::create($insertData);
         return redirect()->route('login')->with('success','Account created successfully. Please contact admin to active your account!');
@@ -65,7 +65,7 @@ class AuthController extends Controller
             }
             if(Auth::attempt($credentials)){
                 Auth::user()->createToken('auth-token')->plainTextToken;
-                if(auth()->user()->is_first_login=='1'){
+                if(auth()->user()->is_first_login==1){
                     return redirect()->route('view-change-password')->with('success','Please change your password!');
                 }
                 return redirect()->route('index')->with('success','Logged In successfully!');
@@ -100,7 +100,7 @@ class AuthController extends Controller
         ]);
 
         $user=User::findOrFail(auth()->id());
-        $user->update(['password'=>Hash::make($request->newPassword),'is_first_login'=>'0']);
+        $user->update(['password'=>Hash::make($request->newPassword),'is_first_login'=>0]);
         return redirect()->route('index')->with('success','Password Changed successfully');
     }
 

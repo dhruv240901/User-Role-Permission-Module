@@ -24,12 +24,8 @@
                                     <tr>
                                         <td>{{ $module->name }}</td>
                                         <td>
-                                            {{-- <div class="form-check form-switch">
-                                                <input class="form-check-input module-status" type="checkbox" role="switch"
-                                                    id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active=='1') checked @endif>
-                                            </div> --}}
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input module-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active=='1') checked @endif>
+                                                <input class="form-check-input module-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active==1) checked @endif>
                                             </div>
                                         </td>
                                         <td>

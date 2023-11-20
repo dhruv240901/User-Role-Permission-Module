@@ -18,7 +18,7 @@ class RoleController extends Controller
     /* function to render add role form */
     public function create()
     {
-        $permissions=Permission::where('is_active','1')->get();
+        $permissions=Permission::where('is_active',1)->get();
         $role=null;
         return view('role.addEdit',compact('permissions','role'));
     }
@@ -57,7 +57,7 @@ class RoleController extends Controller
     /* function to render edit role form */
     public function edit(string $id)
     {
-        $permissions=Permission::where('is_active','1')->get();
+        $permissions=Permission::where('is_active',1)->get();
         $role=Role::findOrFail($id);
         return view('role.addEdit',compact('role','permissions'));
     }

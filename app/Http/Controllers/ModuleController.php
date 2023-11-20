@@ -28,7 +28,8 @@ class ModuleController extends Controller
         $request->validate([
             'moduleCode'    =>'required|string',
             'moduleName'    =>'required|string',
-            'is_in_menu'    =>'required',
+            'is_in_menu'    =>'required|boolean',
+            'display_order' =>'required'
         ]);
 
         $insertData=[
@@ -70,7 +71,8 @@ class ModuleController extends Controller
         $request->validate([
             'moduleCode'    =>'required|string',
             'moduleName'    =>'required|string',
-            'is_in_menu'    =>'required',
+            'is_in_menu'    =>'required|boolean',
+            'display_order' =>'required'
         ]);
 
         $updateData=[
