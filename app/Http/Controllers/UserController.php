@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         $roles=Role::where('is_active','1')->get();
         $user=null;
-        return view('user.create',compact('roles','user'));
+        return view('user.addEdit',compact('roles','user'));
     }
 
     /* function to show user details by id */
@@ -77,7 +77,7 @@ class UserController extends Controller
     {
         $roles=Role::where('is_active','1')->get();
         $user=User::findOrFail($id);
-        return view('user.create',compact('user','roles'));
+        return view('user.addEdit',compact('user','roles'));
     }
 
      /* function to update user */
@@ -182,7 +182,7 @@ class UserController extends Controller
     public function forceLogout($id)
     {
         $token=DB::table('personal_access_tokens')->where('tokenable_id',$id)->delete();
-        
+
         if($token == null){
             Auth::guard('web')->logout();
             return route('login');

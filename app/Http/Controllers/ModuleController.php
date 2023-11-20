@@ -19,7 +19,7 @@ class ModuleController extends Controller
     {
         $modules=Module::whereNull('parent_id')->get();
         $module=null;
-        return view('module.create',compact('modules','module'));
+        return view('module.addEdit',compact('modules','module'));
     }
 
     /* function to store module in database */
@@ -61,7 +61,7 @@ class ModuleController extends Controller
     {
         $module=Module::findOrFail($id);
         $modules=Module::whereNull('parent_id')->get();
-        return view('module.create',compact('module','modules'));
+        return view('module.addEdit',compact('module','modules'));
     }
 
     /* function to update module */

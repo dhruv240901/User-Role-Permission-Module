@@ -30,7 +30,7 @@ class PermissionController extends Controller
         $parentModules = Module::whereNull('parent_id')->where('is_active',1)->where('is_in_menu',1)->orderBy('display_order')->get();
         $permission=null;
         $permissionModules=null;
-        return view('permission.create',compact('permission','modules','parentModules','permissionModules'));
+        return view('permission.addEdit',compact('permission','modules','parentModules','permissionModules'));
     }
 
     /* function to store permission in database */
@@ -109,7 +109,7 @@ class PermissionController extends Controller
             ->orderBy('display_order')
             ->get();
         $parentModules = Module::whereNull('parent_id')->where('is_active',1)->where('is_in_menu',1)->orderBy('display_order')->get();
-        return view('permission.create',compact('permission','modules','parentModules','permissionModules'));
+        return view('permission.addEdit',compact('permission','modules','parentModules','permissionModules'));
     }
 
     /* function to update permission */
