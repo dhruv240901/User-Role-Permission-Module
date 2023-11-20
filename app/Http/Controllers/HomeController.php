@@ -13,10 +13,10 @@ class HomeController extends Controller
     /* function to render home page */
     public function index()
     {
-        $count['users']=User::count();
-        $count['roles']=Role::count();
-        $count['permissions']=Permission::count();
-        $count['modules']=Module::count();
+        $count['users']       = User::count();
+        $count['roles']       = Role::count();
+        $count['permissions'] = Permission::count();
+        $count['modules']     = Module::count();
         return view('index',compact('count'));
     }
 }
