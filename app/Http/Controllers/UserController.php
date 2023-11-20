@@ -39,16 +39,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'firstname' =>'required',
-            'lastname'  =>'required',
+            'firstName' =>'required|string',
+            'lastName'  =>'required|string',
             'email'     =>'unique:users|required|email',
-            'roles'     =>'required'
+            'roles'     =>'required|exists:roles,id'
         ]);
 
         $randomPassword=rand(100000,999999);
         $insertData=[
-            'first_name'    =>$request->firstname,
-            'last_name'     =>$request->lastname,
+            'first_name'    =>$request->firstName,
+            'last_name'     =>$request->lastName,
             'email'         =>$request->email,
             'password'      =>Hash::make($randomPassword),
             'is_active'     =>'1',
@@ -85,14 +85,14 @@ class UserController extends Controller
     {
         $user=User::findOrFail($id);
         $request->validate([
-            'firstname' =>'required',
-            'lastname'  =>'required',
-            'roles'     =>'required'
+            'firstName' =>'required|string',
+            'lastName'  =>'required|string',
+            'roles'     =>'required|exists:roles,id'
         ]);
 
         $updateData=[
-            'first_name' =>$request->firstname,
-            'last_name'  =>$request->lastname,
+            'first_name' =>$request->firstName,
+            'last_name'  =>$request->lastName,
         ];
 
         $userUpdate=$user->update($updateData);
@@ -161,15 +161,15 @@ class UserController extends Controller
     public function changePassword(Request $request)
     {
         $request->validate([
-            'oldpassword'     =>'required|min:6',
-            'newpassword'     =>'required|min:6',
-            'confirmpassword' =>'required|min:6|same:newpassword'
+            'oldPassword'     =>'required|min:6',
+            'newPassword'     =>'required|min:6',
+            'confirmPassword' =>'required|min:6|same:newPassword'
         ]);
 
         $currentUser=auth()->user();
-        if(Hash::check($request->oldpassword,$currentUser->password))
+        if(Hash::check($request->oldPassword,$currentUser->password))
         {
-            $currentuser->update(['password'=>Hash::make($request->newpassword)]);
+            $currentUser->update(['password'=>Hash::make($request->newPassword)]);
             return redirect()->route('index')->with('success','Password updated successfully');
         }
         else

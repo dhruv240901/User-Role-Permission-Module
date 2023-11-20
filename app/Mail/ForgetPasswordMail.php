@@ -12,13 +12,14 @@ use Illuminate\Queue\SerializesModels;
 class ForgetPasswordMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user_name,$token;
+    public $firstName,$lastName,$token;
     /**
      * Create a new message instance.
      */
-    public function __construct($user_name,$token)
+    public function __construct($firstName,$lastName,$token)
     {
-        $this->$user_name=$user_name;
+        $this->$firstName=$firstName;
+        $this->$lastName =$lastName;
         $this->token     =$token;
     }
 
@@ -38,10 +39,11 @@ class ForgetPasswordMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.forgetpasswordmail',
+            markdown: 'emails.forgetPasswordMail',
             with:[
-                'username' =>$this->user_name,
-                'token'    =>$this->token,
+                'firstName' =>$this->firstName,
+                'lastName'  =>$this->lastName,
+                'token'     =>$this->token,
             ]
         );
     }

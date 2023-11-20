@@ -29,7 +29,7 @@
                                         <div class="form-group">
                                             <label class="control-label">First Name</label>
                                             <input type="text" id="firstName" class="form-control"
-                                                placeholder="Enter firstname" name="firstname" value="{{ $user->first_name ?? old('firstname') }}">
+                                                placeholder="Enter firstname" name="firstName" value="{{ $user->first_name ?? old('firstName') }}">
                                         </div>
                                     </div>
                                     <!--/span-->
@@ -37,7 +37,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Last Name</label>
                                             <input type="text" id="lastName" class="form-control"
-                                                placeholder="Enter lastname" name="lastname" value="{{ $user->last_name ?? old('lastname') }}">
+                                                placeholder="Enter lastname" name="lastName" value="{{ $user->last_name ?? old('lastname') }}">
                                         </div>
                                     </div>
                                     <!--/span-->

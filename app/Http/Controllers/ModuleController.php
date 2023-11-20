@@ -26,23 +26,23 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'modulecode'    =>'required',
-            'modulename'    =>'required',
+            'moduleCode'    =>'required',
+            'moduleName'    =>'required',
             'is_in_menu'    =>'required',
         ]);
 
         $insertData=[
-            'module_code'   =>$request->modulecode,
-            'name'          =>$request->modulename,
+            'module_code'   =>$request->moduleCode,
+            'name'          =>$request->moduleName,
             'is_in_menu'    =>$request->is_in_menu,
             'display_order' =>$request->display_order,
         ];
 
-        if($request->parentmodule=="null"){
+        if($request->parentModule=="null"){
             $insertData['parent_id']=null;
         }
         else{
-            $insertData['parent_id']=$request->parentmodule;
+            $insertData['parent_id']=$request->parentModule;
         }
 
         Module::create($insertData);
@@ -68,24 +68,24 @@ class ModuleController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'modulecode'    =>'required',
-            'modulename'    =>'required',
+            'moduleCode'    =>'required',
+            'moduleName'    =>'required',
             'is_in_menu'    =>'required',
         ]);
 
         $updateData=[
-            'module_code'   =>$request->modulecode,
-            'name'          =>$request->modulename,
+            'module_code'   =>$request->moduleCode,
+            'name'          =>$request->moduleName,
             'is_in_menu'    =>$request->is_in_menu,
             'display_order' =>$request->display_order,
         ];
 
         $module=Module::findOrFail($id);
-        if($request->parentmodule=="null"){
-            $updatedata['parent_id']=null;
+        if($request->parentModule=="null"){
+            $updateData['parent_id']=null;
         }
         else{
-            $updatedata['parent_id']=$request->parentmodule;
+            $updateData['parent_id']=$request->parentModule;
         }
 
         $module->update($updateData);

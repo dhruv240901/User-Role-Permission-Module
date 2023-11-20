@@ -27,13 +27,13 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'rolename'    =>'required',
-            'description' =>'required',
-            'permissions' =>'required'
+            'roleName'    =>'required|string',
+            'description' =>'required|string',
+            'permissions' =>'required|exists:permissions,id'
         ]);
 
         $insertData=[
-            'name'        =>$request->rolename,
+            'name'        =>$request->roleName,
             'description' =>$request->description,
         ];
 
@@ -67,13 +67,13 @@ class RoleController extends Controller
     {
         $role=Role::findOrFail($id);
         $request->validate([
-            'rolename'    =>'required',
-            'description' =>'required',
-            'permissions' =>'required'
+            'roleName'    =>'required|string',
+            'description' =>'required|string',
+            'permissions' =>'required|exists:permissions,id'
         ]);
 
         $updateData=[
-            'name'        =>$request->rolename,
+            'name'        =>$request->roleName,
             'description' =>$request->description,
         ];
 

@@ -27,7 +27,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label">Role Name</label>
-                                        <input type="text" id="rolename" class="form-control" placeholder="Enter rolename" name="rolename" value="{{ $role->name ?? old('rolename') }}">
+                                        <input type="text" id="rolename" class="form-control" placeholder="Enter rolename" name="roleName" value="{{ $role->name ?? old('roleName') }}">
                                     </div>
                                 </div>
                             </div>

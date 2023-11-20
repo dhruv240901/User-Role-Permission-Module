@@ -25,22 +25,22 @@ class AuthController extends Controller
     public function customSignup(Request $request)
     {
         $request->validate([
-            'firstname'       =>'required',
+            'firstName'       =>'required',
             'email'           =>'unique:users|required|email',
             'password'        =>'required|min:6',
-            'confirmpassword' =>'required|min:6|same:password'
+            'confirmPassword' =>'required|min:6|same:password'
        ]);
 
        $insertData=[
-            'first_name'     =>$request->firstname,
-            'last_name'      =>$request->lastname,
+            'first_name'     =>$request->firstName,
+            'last_name'      =>$request->lastName,
             'email'          =>$request->email,
             'password'       =>Hash::make($request->password),
             'is_first_login' =>'0',
             'is_active'      =>'0'
         ];
         User::create($insertData);
-        return redirect()->route('login')->with('success','Account created successfully!');
+        return redirect()->route('login')->with('success','Account created successfully. Please contact admin to active your account!');
     }
 
     /* function to render login page */
@@ -58,18 +58,23 @@ class AuthController extends Controller
         ]);
 
         $credentials=$request->only('email','password');
-        if(Auth::attempt($credentials)){
+        $checkEmail=User::where('email',$request->email)->first();
+        if($checkEmail!=null){
+            if($checkEmail->is_active==0){
+                return redirect()->route('login')->with('error','Your account is deactivated !');
+            }
+            if(Auth::attempt($credentials)){
                 Auth::user()->createToken('auth-token')->plainTextToken;
                 if(auth()->user()->is_first_login=='1'){
                     return redirect()->route('view-change-password')->with('success','Please change your password!');
                 }
-                if(auth()->user()->is_active==0){
-                    Auth::logout();
-                    return redirect()->route('login')->with('error','Your account is deactivated !');
-                }
                 return redirect()->route('index')->with('success','Logged In successfully!');
+            }
+            return redirect()->route('login')->with('error','Invalid Credentials');
+        }else{
+            return redirect()->route('login')->with('error','Invalid Credentials');
         }
-        return redirect()->route('login')->with('error','Invalid Credentials');
+
     }
 
     /* function to logout user */
@@ -93,12 +98,12 @@ class AuthController extends Controller
     public function changePassword(Request $request)
     {
         $request->validate([
-            'newpassword'     =>'required|min:6',
-            'confirmpassword' =>'required|min:6|same:newpassword'
+            'newPassword'     =>'required|min:6',
+            'confirmPassword' =>'required|min:6|same:newPassword'
         ]);
 
         $user=User::findOrFail(auth()->id());
-        $user->update(['password'=>Hash::make($request->newpassword),'is_first_login'=>'0']);
+        $user->update(['password'=>Hash::make($request->newPassword),'is_first_login'=>'0']);
         return redirect()->route('index')->with('success','Password Changed successfully');
     }
 
@@ -128,13 +133,13 @@ class AuthController extends Controller
         {
             $token=Str::random(100);
             DB::table('password_reset_tokens')->insert([
-                'email'=>$user->email,
-                'token'=>$token,
-                'created_at'=>Carbon::now(),
+                'email'      =>$user->email,
+                'token'      =>$token,
+                'created_at' =>Carbon::now(),
             ]);
 
             dispatch(function() use ($user,$token){
-                Mail::to($user->email)->send(new ForgetPasswordMail($user->name,$token));
+                Mail::to($user->email)->send(new ForgetPasswordMail($user->first_name,$user->last_name,$token));
             })->delay(now()->addSeconds(5));
 
             return redirect()->route('view-forget-password')->with('success','We have sent you a mail');
@@ -167,13 +172,13 @@ class AuthController extends Controller
         }
         else{
             $request->validate([
-                'newpassword'     => 'required|min:6',
-                'confirmpassword' => 'required|same:newpassword'
+                'newPassword'     => 'required|min:6',
+                'confirmPassword' => 'required|same:newPassword'
             ]);
 
             // $password_reset_data->delete();
             $user->update([
-                'password'=>Hash::make($request->newpassword)
+                'password'=>Hash::make($request->newPassword)
             ]);
 
             return redirect()->route('login')->with('success','Password reseted successfully.');

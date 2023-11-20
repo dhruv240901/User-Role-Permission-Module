@@ -1,6 +1,6 @@
 @component('mail::message')
 
-Hello {{ $username }}
+Hello {{ $firstName }} {{ $lastName }}
 
 @component('mail::button',['url'=> route('view-reset-password',$token)])
     Click Here To Reset Your Password

@@ -30,8 +30,8 @@
                                     <div class="form-group">
                                         <label class="control-label">Permission Name</label>
                                         <input type="text" id="rolename" class="form-control"
-                                            placeholder="Enter permission name" name="permissionname"
-                                            value="{{ $permission->name ?? old('permissionname') }}">
+                                            placeholder="Enter permission name" name="permissionName"
+                                            value="{{ $permission->name ?? old('permissionName') }}">
                                     </div>
                                 </div>
                             </div>

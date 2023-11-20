@@ -12,16 +12,16 @@ use Illuminate\Queue\SerializesModels;
 class AddUserMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user,$randompassword,$authuser;
+    public $user,$randomPassword,$authUser;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user,$randompassword,$authuser)
+    public function __construct($user,$randomPassword,$authUser)
     {
         $this->user          =$user;
-        $this->randompassword=$randompassword;
-        $this->authuser      =$authuser;
+        $this->randomPassword=$randomPassword;
+        $this->authUser      =$authUser;
     }
 
     /**
@@ -40,11 +40,11 @@ class AddUserMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.addusermail',
+            markdown: 'emails.addUserMail',
             with:[
                 'user'           =>$this->user,
-                'randompassword' =>$this->randompassword,
-                'authuser'       =>$this->authuser
+                'randomPassword' =>$this->randomPassword,
+                'authUser'       =>$this->authUser
             ]
         );
     }

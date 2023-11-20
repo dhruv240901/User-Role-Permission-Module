@@ -37,12 +37,12 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'permissionname' =>'required',
-            'description'    =>'required',
+            'permissionName' =>'required|string',
+            'description'    =>'required|string',
         ]);
 
         $insertData=[
-            'name'        =>$request->permissionname,
+            'name'        =>$request->permissionName,
             'description' =>$request->description,
         ];
 
@@ -116,12 +116,12 @@ class PermissionController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'permissionname' =>'required',
+            'permissionName' =>'required',
             'description'    =>'required',
         ]);
 
         $updateData=[
-            'name'        =>$request->permissionname,
+            'name'        =>$request->permissionName,
             'description' =>$request->description,
         ];
 

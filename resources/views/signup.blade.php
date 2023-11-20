@@ -11,12 +11,12 @@
                     <h3 class="box-title mb-3">Sign Up</h3>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" placeholder="First Name" name="firstname">
+                            <input class="form-control" type="text" placeholder="First Name" name="firstName">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="text" placeholder="Last Name" name="lastname">
+                            <input class="form-control" type="text" placeholder="Last Name" name="lastName">
                         </div>
                     </div>
                     <div class="form-group ">
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" placeholder="Confirm Password" name="confirmpassword">
+                            <input class="form-control" type="password" placeholder="Confirm Password" name="confirmPassword">
                         </div>
                     </div>
                     <div class="form-group text-center mt-3">

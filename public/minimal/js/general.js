@@ -1,6 +1,6 @@
 $("#signupform").validate({
     rules: {
-        firstname: {
+        firstName: {
             required: true,
         },
         email: {
@@ -11,14 +11,14 @@ $("#signupform").validate({
             required: true,
             minlength: 6,
         },
-        confirmpassword:{
+        confirmPassword:{
             required:true,
             minlength: 6,
             equalTo: "#password"
         }
     },
     messages: {
-        firstname: "Please enter your firstname",
+        firstName: "Please enter your firstname",
         email: {
             required: "Please enter your email",
             email: "Please enter valid email",
@@ -27,7 +27,7 @@ $("#signupform").validate({
             required: "Please enter password",
             minlength:"Please enter password greater than or equal to 6 characters",
         },
-        confirmpassword: {
+        confirmPassword: {
             required: "Please enter confirm password",
             minlength:"Please enter password greater than or equal to 6 characters",
             equalTo:"Please enter the same password as above"
@@ -66,30 +66,30 @@ $("#loginform").validate({
 
 $("#userchangepassword").validate({
     rules: {
-        oldpassword:{
+        oldPassword:{
             required: true,
             minlength: 6,
         },
-        newpassword: {
+        newPassword: {
             required: true,
             minlength: 6,
         },
-        confirmpassword: {
+        confirmPassword: {
             required: true,
             minlength: 6,
-            equalTo: "#newpassword"
+            equalTo: "#newPassword"
         },
     },
     messages: {
-        oldpassword: {
+        oldPassword: {
             required: "Please enter your password",
             minlength: "Please enter password greater than or equals to 6 character",
         },
-        newpassword: {
+        newPassword: {
             required: "Please enter your new password",
             minlength: "Please enter password greater than or equals to 6 character",
         },
-        confirmpassword: {
+        confirmPassword: {
             required: "Please enter password",
             minlength: "Please enter password greater than or equal to 6 characters",
             equalTo:"Please enter the same password as above"
@@ -102,22 +102,22 @@ $("#userchangepassword").validate({
 
 $("#changepasswordform").validate({
     rules: {
-        newpassword: {
+        newPassword: {
             required: true,
             minlength: 6,
         },
-        confirmpassword: {
+        confirmPassword: {
             required: true,
             minlength: 6,
-            equalTo: "#newpassword"
+            equalTo: "#newPassword"
         },
     },
     messages: {
-        newpassword: {
+        newPassword: {
             required: "Please enter your new password",
             minlength: "Please enter password greater than or equals to 6 character",
         },
-        confirmpassword: {
+        confirmPassword: {
             required: "Please enter password",
             minlength: "Please enter password greater than or equal to 6 characters",
             equalTo:"Please enter the same password as above"
@@ -130,7 +130,7 @@ $("#changepasswordform").validate({
 
  $("#userform").validate({
     rules: {
-        firstname: {
+        firstName: {
             required: true,
         },
         email:{
@@ -142,7 +142,7 @@ $("#changepasswordform").validate({
         }
     },
     messages: {
-        firstname: {
+        firstName: {
             required: "Please enter firstname",
         },
         email:{
@@ -160,7 +160,7 @@ $("#changepasswordform").validate({
 
 $("#roleform").validate({
     rules: {
-        rolename: {
+        roleName: {
             required: true,
         },
         description:{
@@ -171,7 +171,7 @@ $("#roleform").validate({
         }
     },
     messages: {
-        rolename: {
+        roleName: {
             required: "Please enter role name",
         },
         description:{
@@ -188,7 +188,7 @@ $("#roleform").validate({
 
 $("#permissionform").validate({
     rules: {
-        permissionname: {
+        permissionName: {
             required: true,
         },
         description:{
@@ -196,7 +196,7 @@ $("#permissionform").validate({
         },
     },
     messages: {
-        permissionname: {
+        permissionName: {
             required: "Please enter permission name",
         },
         description:{
@@ -210,19 +210,65 @@ $("#permissionform").validate({
 
 $("#moduleform").validate({
     rules: {
-        modulecode: {
+        moduleCode: {
             required: true,
         },
-        modulename:{
+        moduleName:{
             required: true,
         },
     },
     messages: {
-        modulecode: {
+        moduleCode: {
             required: "Please enter module code",
         },
-        modulename:{
+        moduleName:{
             required:"Please enter module name",
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
+
+$("#resetpasswordform").validate({
+    rules: {
+        newPassword: {
+            required: true,
+            minlength: 6,
+        },
+        confirmPassword: {
+            required: true,
+            minlength: 6,
+            equalTo: "#newPassword"
+        },
+    },
+    messages: {
+        newPassword: {
+            required: "Please enter your new password",
+            minlength: "Please enter password greater than or equals to 6 character",
+        },
+        confirmPassword: {
+            required: "Please enter confirm password",
+            minlength: "Please enter password greater than or equal to 6 characters",
+            equalTo:"Please enter the same password as above"
+        },
+    },
+    submitHandler: function (form) {
+        form.submit();
+    },
+});
+
+$("#forgetpasswordform").validate({
+    rules: {
+        email: {
+            required: true,
+            email:true
+        },
+    },
+    messages: {
+        email: {
+            required: "Please enter email",
+            email: "Please enter valid email",
         },
     },
     submitHandler: function (form) {

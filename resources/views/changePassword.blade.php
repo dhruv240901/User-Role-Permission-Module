@@ -11,11 +11,11 @@
                     <h3 class="box-title mb-3">Change Password</h3>
                     <div class="form-group ">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" placeholder="Enter New Password" name="newpassword"></div>
+                            <input class="form-control" type="password" placeholder="Enter New Password" name="newPassword" id="newPassword"></div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" type="password" placeholder="Please Confirm Password" name="confirmpassword"></div>
+                            <input class="form-control" type="password" placeholder="Please Confirm Password" name="confirmPassword"></div>
                     </div>
                     <div class="form-group text-center mt-3">
                         <div class="col-xs-12">
