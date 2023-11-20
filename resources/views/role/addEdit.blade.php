@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Role Name</label>
+                                        <label class="control-label">Role Name <sup class="required_field">*</sup></label>
                                         <input type="text" id="rolename" class="form-control" placeholder="Enter rolename" name="roleName" value="{{ $role->name ?? old('roleName') }}">
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Description</label>
+                                        <label class="control-label">Description <sup class="required_field">*</sup></label>
                                         <input type="text" id="description" class="form-control" placeholder="Enter description" name="description" value="{{ $role->description ?? old('description') }}">
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Select Permission</label>
+                                        <label class="control-label">Select Permission <sup class="required_field">*</sup></label>
                                         <select class="js-example-basic-multiple form-control" name="permissions[]" multiple="multiple">
                                             @if (isset($role) || $role != null)
                                                 @foreach ($permissions as $permission)

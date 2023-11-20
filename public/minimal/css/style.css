@@ -6460,3 +6460,7 @@ File: scss
     margin-top: 10%;
     font-family: 'Young Serif', serif;
 }
+
+.required_field{
+    color: red;
+}

@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Permission Name</label>
+                                        <label class="control-label">Permission Name <sup class="required_field">*</sup></label>
                                         <input type="text" id="rolename" class="form-control"
                                             placeholder="Enter permission name" name="permissionName"
                                             value="{{ $permission->name ?? old('permissionName') }}">
@@ -39,7 +39,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Description</label>
+                                        <label class="control-label">Description <sup class="required_field">*</sup></label>
                                         <input type="text" id="description" class="form-control"
                                             placeholder="Enter description" name="description"
                                             value="{{ $permission->description ?? old('description') }}">

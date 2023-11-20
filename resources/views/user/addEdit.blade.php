@@ -27,7 +27,7 @@
                                 <div class="row pt-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">First Name</label>
+                                            <label class="control-label">First Name <sup class="required_field">*</sup></label>
                                             <input type="text" id="firstName" class="form-control"
                                                 placeholder="Enter firstname" name="firstName" value="{{ $user->first_name ?? old('firstName') }}">
                                         </div>
@@ -46,7 +46,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Email</label>
+                                            <label class="control-label">Email <sup class="required_field">*</sup></label>
                                             <input type="text" id="email" class="form-control"
                                                 placeholder="Enter email" name="email" value="{{ $user->email ?? old('email') }}" @if(isset($user)) readonly @endif>
                                         </div>
@@ -54,7 +54,7 @@
                                     <!--/span-->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Select Roles</label>
+                                            <label class="control-label">Select Roles <sup class="required_field">*</sup></label>
                                             <select class="js-example-basic-multiple form-control" name="roles[]"
                                                 multiple="multiple">
                                                 @if (isset($user) || $user != null)

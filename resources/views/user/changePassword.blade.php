@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Enter Password</label>
+                                        <label class="control-label">Enter Password <sup class="required_field">*</sup></label>
                                         <input type="password" id="oldpassword" class="form-control" placeholder="Enter Password" name="oldPassword">
                                     </div>
                                 </div>
@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Enter New Password</label>
+                                        <label class="control-label">Enter New Password <sup class="required_field">*</sup></label>
                                         <input type="password" id="newpassword" class="form-control" placeholder="Enter New Password" name="newPassword">
                                     </div>
                                 </div>
@@ -32,7 +32,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Confirm Password</label>
+                                        <label class="control-label">Confirm Password <sup class="required_field">*</sup></label>
                                         <input type="password" id="confirmpassword" class="form-control" placeholder="Confirm Password" name="confirmPassword">
                                     </div>
                                 </div>

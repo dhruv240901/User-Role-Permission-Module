@@ -23,8 +23,6 @@ class Authenticate extends Middleware
 
     public function handle($request, Closure $next, ...$guards)
     {
-        $this->authenticate($request, $guards);
-
         $token = DB::table('personal_access_tokens')->where('tokenable_id', auth()->id())->first();
 
         if ($token == null) {

@@ -27,8 +27,8 @@ class AuthController extends Controller
         $request->validate([
             'firstName'       =>'required|string',
             'email'           =>'unique:users|required|email',
-            'password'        =>'required|min:6',
-            'confirmPassword' =>'required|min:6|same:password'
+            'password'        =>'required|min:6|string',
+            'confirmPassword' =>'required|min:6|same:password|string'
        ]);
 
        $insertData=[
@@ -54,7 +54,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'email'    =>'required|email',
-            'password' =>'required|min:6'
+            'password' =>'required|min:6|string'
         ]);
 
         $credentials=$request->only('email','password');
@@ -80,10 +80,7 @@ class AuthController extends Controller
     /* function to logout user */
     public function logout()
     {
-        $token=DB::table('personal_access_tokens')->where('tokenable_id',auth()->id())->first();
-
         Auth::user()->tokens()->delete();
-
         auth()->logout();
         return redirect()->route('index')->with('success','Logout Successfully');
     }
@@ -98,8 +95,8 @@ class AuthController extends Controller
     public function changePassword(Request $request)
     {
         $request->validate([
-            'newPassword'     =>'required|min:6',
-            'confirmPassword' =>'required|min:6|same:newPassword'
+            'newPassword'     =>'required|min:6|string',
+            'confirmPassword' =>'required|min:6|same:newPassword|string'
         ]);
 
         $user=User::findOrFail(auth()->id());
@@ -116,13 +113,9 @@ class AuthController extends Controller
     /* function to submit forget password form */
     public function forgetPassword(Request $request)
     {
-        $validation = Validator::make($request->all(),[
+        $request->validate([
             'email' => 'required|email',
         ]);
-
-        if($validation->fails()){
-            return Redirect::back()->withErrors($validation)->withInput();
-        }
 
         $user=User::where('email',$request->email)->first();
         if(!$user)
@@ -172,11 +165,10 @@ class AuthController extends Controller
         }
         else{
             $request->validate([
-                'newPassword'     => 'required|min:6',
-                'confirmPassword' => 'required|same:newPassword'
+                'newPassword'     => 'required|min:6|string',
+                'confirmPassword' => 'required|same:newPassword|string'
             ]);
 
-            // $password_reset_data->delete();
             $user->update([
                 'password'=>Hash::make($request->newPassword)
             ]);

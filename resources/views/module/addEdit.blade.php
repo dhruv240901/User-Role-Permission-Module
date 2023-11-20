@@ -26,7 +26,7 @@
                                 <div class="row pt-3">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Module Code</label>
+                                            <label class="control-label">Module Code <sup class="required_field">*</sup></label>
                                             <input type="text" id="firstName" class="form-control"
                                                 placeholder="Enter module code" name="moduleCode" value="{{ $module->module_code ?? old('moduleCode') }}">
                                         </div>
@@ -34,7 +34,7 @@
                                     <!--/span-->
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Module Name</label>
+                                            <label class="control-label">Module Name <sup class="required_field">*</sup></label>
                                             <input type="text" id="lastName" class="form-control"
                                                 placeholder="Enter module name" name="moduleName" value="{{ $module->name ?? old('moduleName') }}">
                                         </div>
