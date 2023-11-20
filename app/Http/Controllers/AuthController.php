@@ -25,7 +25,7 @@ class AuthController extends Controller
     public function customSignup(Request $request)
     {
         $request->validate([
-            'firstName'       =>'required',
+            'firstName'       =>'required|string',
             'email'           =>'unique:users|required|email',
             'password'        =>'required|min:6',
             'confirmPassword' =>'required|min:6|same:password'
