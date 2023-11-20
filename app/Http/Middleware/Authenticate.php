@@ -4,6 +4,9 @@ namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
+use Closure;
+use DB;
+use Auth;
 
 class Authenticate extends Middleware
 {
@@ -16,5 +19,19 @@ class Authenticate extends Middleware
             session()->flash('error', 'Please Login!.');
             return route('login');
         }
+    }
+
+    public function handle($request, Closure $next, ...$guards)
+    {
+        $this->authenticate($request, $guards);
+
+        $token = DB::table('personal_access_tokens')->where('tokenable_id', auth()->id())->first();
+
+        if ($token == null) {
+            Auth::guard('web')->logout();
+            return redirect()->route('login')->with('error','You are logged out');
+        }
+
+        return $next($request);
     }
 }

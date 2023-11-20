@@ -182,11 +182,6 @@ class UserController extends Controller
     public function forceLogout($id)
     {
         $token=DB::table('personal_access_tokens')->where('tokenable_id',$id)->delete();
-
-        if($token == null){
-            Auth::guard('web')->logout();
-            return route('login');
-        }
         return redirect()->back()->with('success', 'User logged out from other devices.');
     }
 
