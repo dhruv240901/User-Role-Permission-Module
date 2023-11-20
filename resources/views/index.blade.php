@@ -43,7 +43,9 @@
         </div>
     </div>
     @endauth
-    <h1>Welcome to User Role Management</h1>
+    @guest
+    <h1 class="welcome-text">Welcome to User Role<br>Permission Management</h1>
+    @endguest
 </div>
 @endsection
 

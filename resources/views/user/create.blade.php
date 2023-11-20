@@ -48,7 +48,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Email</label>
                                             <input type="text" id="email" class="form-control"
-                                                placeholder="Enter email" name="email" value="{{ $user->email ?? old('email') }}">
+                                                placeholder="Enter email" name="email" value="{{ $user->email ?? old('email') }}" @if(isset($user)) readonly @endif>
                                         </div>
                                     </div>
                                     <!--/span-->
