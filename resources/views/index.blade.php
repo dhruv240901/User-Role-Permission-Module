@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container-fluid">
-    @auth
     @include('includes.flash')
+    @auth
     <div class="row">
         <!-- Column -->
         <div class="col-md-6 col-lg-3 col-xlg-3">
