@@ -18,9 +18,9 @@ class ForgetPasswordMail extends Mailable
      */
     public function __construct($firstName,$lastName,$token)
     {
-        $this->$firstName=$firstName;
-        $this->$lastName =$lastName;
-        $this->token     =$token;
+        $this->$firstName = $firstName;
+        $this->$lastName  = $lastName;
+        $this->token      = $token;
     }
 
     /**
@@ -41,9 +41,9 @@ class ForgetPasswordMail extends Mailable
         return new Content(
             markdown: 'emails.forgetPasswordMail',
             with:[
-                'firstName' =>$this->firstName,
-                'lastName'  =>$this->lastName,
-                'token'     =>$this->token,
+                'firstName' => $this->firstName,
+                'lastName'  => $this->lastName,
+                'token'     => $this->token,
             ]
         );
     }
