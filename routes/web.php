@@ -37,15 +37,15 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['auth','firstlogin'])->group(function () {
     Route::controller(UserController::class)->prefix('user')->group(function () {
-        Route::get('list', 'index')->name('user-list');
-        Route::get('show/{id}', 'show')->name('show-user');
-        Route::get('create', 'create')->name('add-user');
-        Route::post('store', 'store')->name('store-user');
-        Route::get('edit/{id}', 'edit')->name('edit-user');
-        Route::put('update/{id}', 'update')->name('update-user');
-        Route::delete('delete/{id}', 'destroy')->name('delete-user');
-        Route::post('restore/{id}', 'restore')->name('restore-user');
-        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user');
+        Route::get('list', 'index')->name('user-list')->middleware('user_access:User,any');
+        Route::get('show/{id}', 'show')->name('show-user')->middleware('user_access:User,view');
+        Route::get('create', 'create')->name('add-user')->middleware('user_access:User,add');
+        Route::post('store', 'store')->name('store-user')->middleware('user_access:User,add');
+        Route::get('edit/{id}', 'edit')->name('edit-user')->middleware('user_access:User,edit');
+        Route::put('update/{id}', 'update')->name('update-user')->middleware('user_access:User,edit');
+        Route::delete('delete/{id}', 'destroy')->name('delete-user')->middleware('user_access:User,delete');
+        Route::post('restore/{id}', 'restore')->name('restore-user')->middleware('user_access:User,delete');
+        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user')->middleware('user_access:User,delete');
         Route::post('updateStatus', 'updateStatus')->name('update-user-status');
         Route::get('changePassword', 'viewChangePassword')->name('user-view-change-password');
         Route::post('changePassword', 'changePassword')->name('user-change-password');
@@ -54,29 +54,29 @@ Route::middleware(['auth','firstlogin'])->group(function () {
     });
 
     Route::controller(RoleController::class)->prefix('role')->group(function () {
-        Route::get('list', 'index')->name('role-list');
-        Route::get('show/{id}', 'show')->name('show-role');
-        Route::get('create', 'create')->name('add-role');
-        Route::post('store', 'store')->name('store-role');
-        Route::get('edit/{id}', 'edit')->name('edit-role');
-        Route::put('update/{id}', 'update')->name('update-role');
-        Route::delete('delete/{id}', 'destroy')->name('delete-role');
-        Route::post('restore/{id}', 'restore')->name('restore-role');
-        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-role');
-        Route::post('updateStatus', 'updateStatus')->name('update-role-status');
+        Route::get('list', 'index')->name('role-list')->middleware('user_access:Role,any');
+        Route::get('show/{id}', 'show')->name('show-role')->middleware('user_access:Role,view');
+        Route::get('create', 'create')->name('add-role')->middleware('user_access:Role,add');
+        Route::post('store', 'store')->name('store-role')->middleware('user_access:Role,add');
+        Route::get('edit/{id}', 'edit')->name('edit-role')->middleware('user_access:Role,edit');
+        Route::put('update/{id}', 'update')->name('update-role')->middleware('user_access:Role,edit');
+        Route::delete('delete/{id}', 'destroy')->name('delete-role')->middleware('user_access:Role,delete');
+        Route::post('restore/{id}', 'restore')->name('restore-role')->middleware('user_access:Role,delete');
+        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-role')->middleware('user_access:Role,delete');
+        Route::post('updateStatus', 'updateStatus')->name('update-role-status')->middleware('user_access:Role,any');
     });
 
     Route::controller(PermissionController::class)->prefix('permission')->group(function (){
-        Route::get('list', 'index')->name('permission-list');
-        Route::get('show/{id}', 'show')->name('show-permission');
-        Route::get('create', 'create')->name('add-permission');
-        Route::post('store', 'store')->name('store-permission');
-        Route::get('edit/{id}', 'edit')->name('edit-permission');
-        Route::put('update/{id}', 'update')->name('update-permission');
-        Route::delete('delete/{id}', 'destroy')->name('delete-permission');
-        Route::post('restore/{id}', 'restore')->name('restore-permission');
-        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-permission');
-        Route::post('updateStatus', 'updateStatus')->name('update-permission-status');
+        Route::get('list', 'index')->name('permission-list')->middleware('user_access:Permission,any');
+        Route::get('show/{id}', 'show')->name('show-permission')->middleware('user_access:Permission,view');
+        Route::get('create', 'create')->name('add-permission')->middleware('user_access:Permission,add');
+        Route::post('store', 'store')->name('store-permission')->middleware('user_access:Permission,add');
+        Route::get('edit/{id}', 'edit')->name('edit-permission')->middleware('user_access:Permission,edit');
+        Route::put('update/{id}', 'update')->name('update-permission')->middleware('user_access:Permission,edit');
+        Route::delete('delete/{id}', 'destroy')->name('delete-permission')->middleware('user_access:Permission,delete');
+        Route::post('restore/{id}', 'restore')->name('restore-permission')->middleware('user_access:Permission,delete');
+        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-permission')->middleware('user_access:Permission,delete');
+        Route::post('updateStatus', 'updateStatus')->name('update-permission-status')->middleware('user_access:Permission,any');
     });
 
     Route::controller(ModuleController::class)->prefix('module')->group(function (){
