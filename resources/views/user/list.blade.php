@@ -18,8 +18,8 @@
                                 <th style="width: 292.312px;">Last Name</th>
                                 <th style="width: 139.125px;">Type</th>
                                 <th style="width: 61.0312px;">Role</th>
-                                <th style="width: 130.25px;">Status</th>
-                                <th style="width: 108.359px;">Action</th>
+                                <th style="width: 108.359px;">Status</th>
+                                <th style="width: 130.25px;">Action</th>
                             </tr>
                         </thead>
                         <tbody>

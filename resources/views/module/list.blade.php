@@ -10,7 +10,7 @@
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="usersTable" class="table table-bordered table-striped dataTable no-footer" role="grid"
+                        <table id="modulesTable" class="table table-bordered table-striped dataTable no-footer" role="grid"
                             aria-describedby="myTable_info">
                             <thead>
                                 <tr>

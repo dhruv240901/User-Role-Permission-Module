@@ -167,7 +167,37 @@
     <script>
         $(document).ready(function() {
             var table = $('#usersTable').DataTable({
+                "columnDefs": [
+                {
+                    "targets": [2,4,5], // Replace 'columnIndex' with the index of the column you want to disable sorting for (0-based index)
+                    "orderable": false
+                }
+            ],
 
+            });
+            $('#rolesTable').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [1,2], // Replace 'columnIndex' with the index of the column you want to disable sorting for (0-based index)
+                        "orderable": false
+                    }
+                ],
+            });
+            $('#permissionsTable').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [1,2], // Replace 'columnIndex' with the index of the column you want to disable sorting for (0-based index)
+                        "orderable": false
+                    }
+                ],
+            });
+            $('#modulesTable').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": [1,2], // Replace 'columnIndex' with the index of the column you want to disable sorting for (0-based index)
+                        "orderable": false
+                    }
+                ],
             });
             $('.js-example-basic-multiple').select2();
             $("#message").delay(3000).fadeOut();

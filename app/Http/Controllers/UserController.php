@@ -17,7 +17,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::whereNot('id', auth()->id())->whereNot('type', 'admin')->withTrashed()->get();
-        return view('user.userList', compact('users'));
+        return view('user.list', compact('users'));
     }
 
     /* function to render add user form */
