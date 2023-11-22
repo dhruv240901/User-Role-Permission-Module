@@ -68,6 +68,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class,'role_user');
     }
+
+    public function hasModule($module)
+    {
+        return $this->roles->flatMap->permissions->flatMap->modules->pluck('name')->contains($module);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

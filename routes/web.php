@@ -80,16 +80,16 @@ Route::middleware(['auth','firstlogin'])->group(function () {
     });
 
     Route::controller(ModuleController::class)->prefix('module')->group(function (){
-        Route::get('list', 'index')->name('module-list');
-        Route::get('show/{id}', 'show')->name('show-module');
-        Route::get('create', 'create')->name('add-module');
-        Route::post('store', 'store')->name('store-module');
-        Route::get('edit/{id}', 'edit')->name('edit-module');
-        Route::put('update/{id}', 'update')->name('update-module');
-        Route::delete('delete/{id}', 'destroy')->name('delete-module');
-        Route::post('restore/{id}', 'restore')->name('restore-module');
-        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-module');
-        Route::post('updateStatus', 'updateStatus')->name('update-module-status');
+        Route::get('list', 'index')->name('module-list')->middleware('user_access:Module,any');
+        Route::get('show/{id}', 'show')->name('show-module')->middleware('user_access:Module,view');
+        Route::get('create', 'create')->name('add-module')->middleware('user_access:Module,add');
+        Route::post('store', 'store')->name('store-module')->middleware('user_access:Module,add');
+        Route::get('edit/{id}', 'edit')->name('edit-module')->middleware('user_access:Module,edit');
+        Route::put('update/{id}', 'update')->name('update-module')->middleware('user_access:Module,edit');
+        Route::delete('delete/{id}', 'destroy')->name('delete-module')->middleware('user_access:Module,delete');
+        Route::post('restore/{id}', 'restore')->name('restore-module')->middleware('user_access:Module,delete');
+        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-module')->middleware('user_access:Module,delete');
+        Route::post('updateStatus', 'updateStatus')->name('update-module-status')->middleware('user_access:Module,any');
     });
 
 });
