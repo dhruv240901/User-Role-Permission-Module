@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable=['name','description','is_active','created_by','updated_by','deleted_by','is_deleted'];
+    protected $fillable = ['name', 'description', 'is_active', 'created_by', 'updated_by', 'deleted_by', 'is_deleted'];
 
     protected $casts = [
         'is_active'         => 'boolean',
@@ -29,7 +29,7 @@ class Permission extends Model
 
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
-            $model->created_by=auth()->id();
+            $model->created_by = auth()->id();
         });
 
         static::updating(function ($model) {
@@ -38,20 +38,18 @@ class Permission extends Model
 
         static::deleting(function ($model) {
             $model->is_deleted = 1;
-            $model->deleted_by=auth()->id();
+            $model->deleted_by = auth()->id();
             $model->save();
         });
 
         static::restoring(function ($model) {
             $model->is_deleted = 0;
-            $model->deleted_by=null;
+            $model->deleted_by = null;
         });
-
     }
 
     public function modules()
     {
-        return $this->belongsToMany(Module::class,'permission_module')->withPivot('add_access', 'edit_access', 'delete_access', 'view_access');
+        return $this->belongsToMany(Module::class, 'permission_module')->withPivot('add_access', 'edit_access', 'delete_access', 'view_access');
     }
-
 }

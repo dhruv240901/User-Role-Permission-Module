@@ -15,21 +15,21 @@ class ModuleSeeder extends Seeder
     public function run(): void
     {
         $modules = [
-            ['id'=>Str::uuid(),'module_code'=>'Acc','name'=>'Account','parent_id'=>null],
-            ['id'=>Str::uuid(),'module_code'=>'AL','name'=>'Activity Log','parent_id'=>null],
-            ['id'=>Str::uuid(),'module_code'=>'FL','name'=>'File','parent_id'=>null],
-            ['id'=>Str::uuid(),'module_code'=>'PER','name'=>'Permission','parent_id'=>null],
-            ['id'=>Str::uuid(),'module_code'=>'RO','name'=>'Role','parent_id'=>null],
-            ['id'=>Str::uuid(),'module_code'=>'US','name'=>'User','parent_id'=>null],
-            ['id'=>Str::uuid(),'module_code'=>'Mo','name'=>'Module','parent_id'=>null],
-       ];
+            ['id' => Str::uuid(), 'module_code' => 'Acc', 'name' => 'Account', 'parent_id' => null],
+            ['id' => Str::uuid(), 'module_code' => 'AL', 'name' => 'Activity Log', 'parent_id' => null],
+            ['id' => Str::uuid(), 'module_code' => 'FL', 'name' => 'File', 'parent_id' => null],
+            ['id' => Str::uuid(), 'module_code' => 'PER', 'name' => 'Permission', 'parent_id' => null],
+            ['id' => Str::uuid(), 'module_code' => 'RO', 'name' => 'Role', 'parent_id' => null],
+            ['id' => Str::uuid(), 'module_code' => 'US', 'name' => 'User', 'parent_id' => null],
+            ['id' => Str::uuid(), 'module_code' => 'Mo', 'name' => 'Module', 'parent_id' => null],
+        ];
 
-       $parentId = $modules[0]['id'];
+        $parentId = $modules[0]['id'];
 
-       for ($i = 1; $i < count($modules); $i++) {
+        for ($i = 1; $i < count($modules); $i++) {
             $modules[$i]['parent_id'] = $parentId;
-       }
+        }
 
-       Module::insert($modules);
+        Module::insert($modules);
     }
 }

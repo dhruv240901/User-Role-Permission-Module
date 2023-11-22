@@ -15,7 +15,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo(Request $request): ?string
     {
-        if (! $request->expectsJson()) {
+        if (!$request->expectsJson()) {
             session()->flash('error', 'Please Login!.');
             return route('login');
         }
@@ -27,7 +27,7 @@ class Authenticate extends Middleware
 
         if ($token == null) {
             Auth::guard('web')->logout();
-            return redirect()->route('login')->with('error','You are logged out');
+            return redirect()->route('login')->with('error', 'You are logged out');
         }
 
         return $next($request);

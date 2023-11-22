@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -45,7 +45,7 @@ class User extends Authenticatable
 
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
-            $model->created_by=auth()->id();
+            $model->created_by = auth()->id();
         });
 
         static::updating(function ($model) {
@@ -54,19 +54,19 @@ class User extends Authenticatable
 
         static::deleting(function ($model) {
             $model->is_deleted = 1;
-            $model->deleted_by=auth()->id();
+            $model->deleted_by = auth()->id();
             $model->save();
         });
 
         static::restoring(function ($model) {
             $model->is_deleted = 0;
-            $model->deleted_by=null;
+            $model->deleted_by = null;
         });
     }
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class,'role_user');
+        return $this->belongsToMany(Role::class, 'role_user');
     }
 
     public function hasModule($module)

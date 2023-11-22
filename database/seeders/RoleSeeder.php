@@ -15,11 +15,11 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         $roles = [
-            ['id'=>Str::uuid(),'name'=>'Account Owner-Role','description'=>'Can access all permission'],
-            ['id'=>Str::uuid(),'name'=>'User Owner-Role','description'=>'Can access only user related permission'],
-            ['id'=>Str::uuid(),'name'=>'Guest-Role','description'=>'Can access only show users list'],
-       ];
+            ['id' => Str::uuid(), 'name' => 'Account Owner-Role', 'description' => 'Can access all permission'],
+            ['id' => Str::uuid(), 'name' => 'User Owner-Role', 'description' => 'Can access only user related permission'],
+            ['id' => Str::uuid(), 'name' => 'Guest-Role', 'description' => 'Can access only show users list'],
+        ];
 
-       Role::insert($roles);
+        Role::insert($roles);
     }
 }

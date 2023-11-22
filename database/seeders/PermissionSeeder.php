@@ -15,11 +15,11 @@ class PermissionSeeder extends Seeder
     public function run(): void
     {
         $permissions = [
-            ['id'=>Str::uuid(),'name'=>'User CRUD permission','description'=>'Can access only user crud permission'],
-            ['id'=>Str::uuid(),'name'=>'User, Role, Permission Read permission','description'=>'Can only read User, Role, Permission details'],
-            ['id'=>Str::uuid(),'name'=>'User Read permission','description'=>'Can access only show users list'],
-       ];
+            ['id' => Str::uuid(), 'name' => 'User CRUD permission', 'description' => 'Can access only user crud permission'],
+            ['id' => Str::uuid(), 'name' => 'User, Role, Permission Read permission', 'description' => 'Can only read User, Role, Permission details'],
+            ['id' => Str::uuid(), 'name' => 'User Read permission', 'description' => 'Can access only show users list'],
+        ];
 
-       Permission::insert($permissions);
+        Permission::insert($permissions);
     }
 }

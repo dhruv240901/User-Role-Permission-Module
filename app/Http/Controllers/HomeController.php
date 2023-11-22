@@ -17,6 +17,6 @@ class HomeController extends Controller
         $count['roles']       = Role::count();
         $count['permissions'] = Permission::count();
         $count['modules']     = Module::count();
-        return view('index',compact('count'));
+        return view('index', compact('count'));
     }
 }

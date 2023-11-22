@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Module extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable=['name','module_code','name','is_in_menu','parent_id','is_active','display_order','created_by','updated_by','deleted_by','is_deleted'];
+    protected $fillable = ['name', 'module_code', 'name', 'is_in_menu', 'parent_id', 'is_active', 'display_order', 'created_by', 'updated_by', 'deleted_by', 'is_deleted'];
 
     protected $casts = [
-        'is_active'         => 'boolean',
-        'is_deleted'        => 'boolean'
+        'is_active'  => 'boolean',
+        'is_deleted' => 'boolean'
     ];
 
     protected $keyType = 'string';
@@ -28,7 +28,7 @@ class Module extends Model
 
         static::creating(function ($model) {
             $model->id = (string) Str::uuid();
-            $model->created_by=auth()->id();
+            $model->created_by = auth()->id();
         });
 
         static::updating(function ($model) {
@@ -37,13 +37,13 @@ class Module extends Model
 
         static::deleting(function ($model) {
             $model->is_deleted = 1;
-            $model->deleted_by=auth()->id();
+            $model->deleted_by = auth()->id();
             $model->save();
         });
 
         static::restoring(function ($model) {
             $model->is_deleted = 0;
-            $model->deleted_by=null;
+            $model->deleted_by = null;
         });
     }
 

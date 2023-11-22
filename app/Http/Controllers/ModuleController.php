@@ -10,96 +10,94 @@ class ModuleController extends Controller
     /* function to display modules list */
     public function index()
     {
-        $modules=Module::withTrashed()->get();
-        return view('module.list',compact('modules'));
+        $modules = Module::withTrashed()->get();
+        return view('module.list', compact('modules'));
     }
 
     /* function to render add module form */
     public function create()
     {
-        $modules=Module::whereNull('parent_id')->get();
-        $module=null;
-        return view('module.addEdit',compact('modules','module'));
+        $modules = Module::whereNull('parent_id')->get();
+        $module = null;
+        return view('module.addEdit', compact('modules', 'module'));
     }
 
     /* function to store module in database */
     public function store(Request $request)
     {
         $request->validate([
-            'moduleCode'    =>'required|string',
-            'moduleName'    =>'required|string',
-            'is_in_menu'    =>'required|boolean',
-            'display_order' =>'required'
+            'moduleCode'    => 'required|string',
+            'moduleName'    => 'required|string',
+            'is_in_menu'    => 'required|boolean',
+            'display_order' => 'required'
         ]);
 
-        $insertData=[
-            'module_code'   =>$request->moduleCode,
-            'name'          =>$request->moduleName,
-            'is_in_menu'    =>$request->is_in_menu,
-            'display_order' =>$request->display_order,
+        $insertData = [
+            'module_code'   => $request->moduleCode,
+            'name'          => $request->moduleName,
+            'is_in_menu'    => $request->is_in_menu,
+            'display_order' => $request->display_order,
         ];
 
-        if($request->parentModule=="null"){
-            $insertData['parent_id']=null;
-        }
-        else{
-            $insertData['parent_id']=$request->parentModule;
+        if ($request->parentModule == "null") {
+            $insertData['parent_id'] = null;
+        } else {
+            $insertData['parent_id'] = $request->parentModule;
         }
 
         Module::create($insertData);
-        return redirect()->route('add-module')->with('success','Module created successfully');
+        return redirect()->route('add-module')->with('success', 'Module created successfully');
     }
 
     /* function to show module details by id */
     public function show(string $id)
     {
-        $module=Module::findOrFail($id);
-        return view('module.show',compact('module'));
+        $module = Module::findOrFail($id);
+        return view('module.show', compact('module'));
     }
 
     /* function to render edit module form */
     public function edit(string $id)
     {
-        $module=Module::findOrFail($id);
-        $modules=Module::whereNull('parent_id')->get();
-        return view('module.addEdit',compact('module','modules'));
+        $module = Module::findOrFail($id);
+        $modules = Module::whereNull('parent_id')->get();
+        return view('module.addEdit', compact('module', 'modules'));
     }
 
     /* function to update module */
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'moduleCode'    =>'required|string',
-            'moduleName'    =>'required|string',
-            'is_in_menu'    =>'required|boolean',
-            'display_order' =>'required'
+            'moduleCode'    => 'required|string',
+            'moduleName'    => 'required|string',
+            'is_in_menu'    => 'required|boolean',
+            'display_order' => 'required'
         ]);
 
-        $updateData=[
-            'module_code'   =>$request->moduleCode,
-            'name'          =>$request->moduleName,
-            'is_in_menu'    =>$request->is_in_menu,
-            'display_order' =>$request->display_order,
+        $updateData = [
+            'module_code'   => $request->moduleCode,
+            'name'          => $request->moduleName,
+            'is_in_menu'    => $request->is_in_menu,
+            'display_order' => $request->display_order,
         ];
 
-        $module=Module::findOrFail($id);
-        if($request->parentModule=="null"){
-            $updateData['parent_id']=null;
-        }
-        else{
-            $updateData['parent_id']=$request->parentModule;
+        $module = Module::findOrFail($id);
+        if ($request->parentModule == "null") {
+            $updateData['parent_id'] = null;
+        } else {
+            $updateData['parent_id'] = $request->parentModule;
         }
 
         $module->update($updateData);
-        return redirect()->route('edit-module',$id)->with('success','Module updated successfully');
+        return redirect()->route('edit-module', $id)->with('success', 'Module updated successfully');
     }
 
     /* function to soft delete module */
     public function destroy(string $id)
     {
-        $module=Module::findOrFail($id);
+        $module = Module::findOrFail($id);
         $module->delete();
-        return redirect()->route('module-list')->with('success','Module Soft Deleted Successfully');
+        return redirect()->route('module-list')->with('success', 'Module Soft Deleted Successfully');
     }
 
     /* function to restore module */
@@ -107,7 +105,7 @@ class ModuleController extends Controller
     {
         $module = Module::onlyTrashed()->findOrFail($id);
         $module->restore();
-        return redirect()->route('module-list')->with('success','Module Restored Successfully');
+        return redirect()->route('module-list')->with('success', 'Module Restored Successfully');
     }
 
     /* function to force delete module */
@@ -115,20 +113,20 @@ class ModuleController extends Controller
     {
         $module = Module::onlyTrashed()->findOrFail($id);
         $module->forceDelete();
-        return redirect()->route('module-list')->with('success','Role Permanently Deleted Successfully');
+        return redirect()->route('module-list')->with('success', 'Role Permanently Deleted Successfully');
     }
 
     /* function to update module status */
     public function updateStatus(Request $request)
     {
-        $module=Module::findOrFail($request->id);
-        if($request->checked=="false"){
-            $module->update(['is_active'=>0]);
-            $message="Module Inactivated Successfully";
+        $module = Module::findOrFail($request->id);
+        if ($request->checked == "false") {
+            $module->update(['is_active' => 0]);
+            $message = "Module Inactivated Successfully";
         }
-        if($request->checked=="true"){
-            $module->update(['is_active'=>1]);
-            $message="Module Activated Successfully";
+        if ($request->checked == "true") {
+            $module->update(['is_active' => 1]);
+            $message = "Module Activated Successfully";
         }
         return $message;
     }
