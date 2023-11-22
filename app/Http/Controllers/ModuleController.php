@@ -128,6 +128,11 @@ class ModuleController extends Controller
             $module->update(['is_active' => 1]);
             $message = "Module Activated Successfully";
         }
-        return $message;
+        $response = [
+            'status' => 200,
+            'message' => $message
+        ];
+
+        return $response;
     }
 }

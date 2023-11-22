@@ -128,6 +128,11 @@ class RoleController extends Controller
             $role->update(['is_active' => 1]);
             $message = "Role Activated Successfully";
         }
-        return $message;
+        $response=[
+            'status' => 200,
+            'message'=> $message
+        ];
+
+        return $response;
     }
 }

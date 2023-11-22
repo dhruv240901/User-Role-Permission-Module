@@ -200,6 +200,11 @@ class PermissionController extends Controller
             $permission->update(['is_active' => 1]);
             $message = "Permission Activated Successfully";
         }
-        return $message;
+        $response=[
+            'status' => 200,
+            'message'=> $message
+        ];
+
+        return $response;
     }
 }

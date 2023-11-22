@@ -146,7 +146,12 @@ class UserController extends Controller
             $user->update(['is_active' => 1]);
             $message = "User Activated Successfully";
         }
-        return $message;
+        $response=[
+            'status' => 200,
+            'message'=> $message
+        ];
+
+        return $response;
     }
 
     /* function to render change password form */

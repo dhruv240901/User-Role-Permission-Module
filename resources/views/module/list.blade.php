@@ -92,7 +92,11 @@ $(document).ready(function() {
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-                toastr.success(""+response+"");
+                if(response.status == 200){
+                    toastr.success(""+response.message+"");
+                }else{
+                    toastr.error(""+response.message+"");
+                }
             },
         });
     });

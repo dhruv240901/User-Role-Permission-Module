@@ -39,10 +39,20 @@ class UserAccessMiddleware
                             if ($item['delete_access'] == 1 && $action == 'delete') {
                                 return $next($request);
                             }
+                            if ($item['edit_access'] == 1 && $action == 'status') {
+                                return $next($request);
+                            }
                         }
                     }
                 }
             }
+        }
+        if ($action == 'status') {
+            $response = [
+                'status'  => 403,
+                'message' => 'You cannot update status'
+            ];
+            return response()->json($response);
         }
         return response()->view('error.Unauthorized');
     }
