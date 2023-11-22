@@ -44,6 +44,6 @@ class UserAccessMiddleware
                 }
             }
         }
-        abort(403, 'Unauthorized action.');
+        return response()->view('error.Unauthorized');
     }
 }
