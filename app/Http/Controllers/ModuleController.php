@@ -129,7 +129,7 @@ class ModuleController extends Controller
             $message = "Module Activated Successfully";
         }
         $response = [
-            'status' => 200,
+            'status'  => 200,
             'message' => $message
         ];
 

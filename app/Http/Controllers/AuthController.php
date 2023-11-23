@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
 use Hash;
 use Auth;
 use App\Models\User;
 use Mail;
 use App\Mail\ForgetPasswordMail;
+use App\Mail\SignUpMail;
 use Illuminate\Support\Str;
 use DB;
 use Carbon\Carbon;
@@ -39,7 +39,14 @@ class AuthController extends Controller
             'is_first_login' => 0,
             'is_active'      => 0
         ];
-        User::create($insertData);
+        $user = User::create($insertData);
+        $adminUser = User::where('type', 'admin')->first();
+
+        if ($user) {
+            dispatch(function () use ($adminUser, $user) {
+                Mail::to($adminUser['email'])->send(new SignUpMail($adminUser, $user));
+            })->delay(now()->addSeconds(5));
+        }
         return redirect()->route('login')->with('success', 'Account created successfully. Please contact admin to active your account!');
     }
 

@@ -129,8 +129,8 @@ class RoleController extends Controller
             $message = "Role Activated Successfully";
         }
         $response=[
-            'status' => 200,
-            'message'=> $message
+            'status'  => 200,
+            'message' => $message
         ];
 
         return $response;

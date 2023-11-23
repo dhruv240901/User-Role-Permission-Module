@@ -201,8 +201,8 @@ class PermissionController extends Controller
             $message = "Permission Activated Successfully";
         }
         $response=[
-            'status' => 200,
-            'message'=> $message
+            'status'  => 200,
+            'message' => $message
         ];
 
         return $response;

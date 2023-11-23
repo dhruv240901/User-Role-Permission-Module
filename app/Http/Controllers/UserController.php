@@ -146,9 +146,9 @@ class UserController extends Controller
             $user->update(['is_active' => 1]);
             $message = "User Activated Successfully";
         }
-        $response=[
-            'status' => 200,
-            'message'=> $message
+        $response = [
+            'status'  => 200,
+            'message' => $message
         ];
 
         return $response;
