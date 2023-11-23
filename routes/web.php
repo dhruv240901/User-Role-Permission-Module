@@ -26,9 +26,11 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('signup', 'customSignup')->name('custom-signup');
     Route::get('login', 'login')->name('login');
     Route::post('login', 'customLogin')->name('custom-login');
-    Route::get('logout', 'logout')->name('logout');
-    Route::get('changePassword', 'viewChangePassword')->name('view-change-password');
-    Route::post('changePassword', 'changePassword')->name('change-password');
+    Route::middleware('auth')->group(function () {
+        Route::get('logout', 'logout')->name('logout');
+        Route::get('changePassword', 'viewChangePassword')->name('view-change-password');
+        Route::post('changePassword', 'changePassword')->name('change-password');
+    });
     Route::get('forgetPassword', 'viewForgetPassword')->name('view-forget-password');
     Route::post('forgetPassword', 'forgetPassword')->name('forget-password');
     Route::get('resetPassword/{token}', 'viewResetPassword')->name('view-reset-password');
