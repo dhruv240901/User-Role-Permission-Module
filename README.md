@@ -49,7 +49,7 @@ Before you begin, ensure you have met the following requirements:
    php artisan serve
 
 8. Access the application in your web browser at http://localhost:8000.
-9. While adding the user and reseting the password perform the following steps:
+9. While SignUp, adding the user and reseting the password perform the following steps:
     1. Set Mail Credential and Queue Connection in .env file
 
         ```bash
