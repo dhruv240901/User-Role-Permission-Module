@@ -9,10 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\ModelStaticMethods;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes,ModelStaticMethods;
 
     /**
      * The attributes that are mass assignable.
@@ -37,30 +38,31 @@ class User extends Authenticatable
     protected $primaryKey = 'id';
     public $incrementing = false;
 
-    public static function boot()
-    {
-        parent::boot();
+    // public static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($model) {
-            $model->id = (string) Str::uuid();
-            $model->created_by = auth()->id();
-        });
+    //     static::creating(function ($model) {
+    //         $model->id = (string) Str::uuid();
+    //         $model->created_by = auth()->id();
+    //     });
 
-        static::updating(function ($model) {
-            $model->updated_by = auth()->id();
-        });
+    //     static::updating(function ($model) {
+    //         $model->updated_by = auth()->id();
+    //     });
 
-        static::deleting(function ($model) {
-            $model->is_deleted = 1;
-            $model->deleted_by = auth()->id();
-            $model->save();
-        });
+    //     static::deleting(function ($model) {
+    //         $model->is_deleted = 1;
+    //         $model->deleted_by = auth()->id();
+    //         $model->save();
+    //     });
 
-        static::restoring(function ($model) {
-            $model->is_deleted = 0;
-            $model->deleted_by = null;
-        });
-    }
+    //     static::restoring(function ($model) {
+    //         $model->is_deleted = 0;
+    //         $model->deleted_by = null;
+    //     });
+    //     $this->staticMethods();
+    // }
 
     public function roles()
     {
