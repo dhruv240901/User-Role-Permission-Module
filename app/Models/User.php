@@ -10,10 +10,11 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\ModelStaticMethods;
+use App\Traits\UserAccess;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, SoftDeletes,ModelStaticMethods;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes,ModelStaticMethods,UserAccess;
 
     /**
      * The attributes that are mass assignable.

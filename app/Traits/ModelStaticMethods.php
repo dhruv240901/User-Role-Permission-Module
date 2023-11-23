@@ -5,7 +5,7 @@ use Illuminate\Support\Str;
 
 trait ModelStaticMethods
 {
-    public static function bootStaticMethods()
+    public static function boot()
     {
         parent::boot();
 

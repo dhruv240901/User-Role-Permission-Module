@@ -3,9 +3,11 @@
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
+        @if(auth()->user()->userAccess('Permission','add'))
         <div class="row float-right">
             <a href="{{ route('add-permission') }}" type="button" class="btn btn-primary">+ Add Permission</a>
         </div>
+        @endif
         <div class="table-responsive m-t-40">
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                 <div class="row">
@@ -30,6 +32,7 @@
                                         </td>
                                         <td>
                                             @if ($permission->deleted_at != null)
+                                            @if(auth()->user()->userAccess('Permission','delete'))
                                                 <form action="{{ route('restore-permission', $permission->id) }}" method="POST" class="restoreform" data-id="{{ $permission->id }}" id="restoreform{{ $permission->id }}"
                                                     style="display: inline">
                                                     @csrf
@@ -44,14 +47,20 @@
                                                         <img src="{{ asset('assets/images/delete.svg') }}" alt="">
                                                     </button>
                                                 </form>
+                                            @endif
                                             @else
+                                                @if(auth()->user()->userAccess('Permission','edit'))
                                                 <a href="{{ route('edit-permission', $permission->id) }}" type="button"
                                                     class="btn btn-success">
                                                     <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                                 </a>
+                                                @endif
+                                                @if(auth()->user()->userAccess('Permission','view'))
                                                 <a href="{{ route('show-permission',$permission->id) }}" type="button" class="btn btn-info">
                                                     <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                                 </a>
+                                                @endif
+                                                @if(auth()->user()->userAccess('Permission','delete'))
                                                 <form action="{{ route('delete-permission', $permission->id) }}" method="POST" class="softdeleteform" data-id="{{ $permission->id }}" id="softdeleteform{{ $permission->id }}"
                                                     style="display: inline">
                                                     @csrf
@@ -60,6 +69,7 @@
                                                         <img src="{{ asset('assets/images/delete.svg') }}" alt="">
                                                     </button>
                                                 </form>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>

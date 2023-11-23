@@ -25,18 +25,26 @@
                 <li>
                     <a class="" href="{{ route('index') }}" aria-expanded="false"><i class="mdi mdi-gauge"></i><span class="hide-menu">Dashboard</span></a>
                 </li>
+                @if(auth()->user()->userAccess('User','any'))
                 <li>
                     <a class="" href="{{ route('user-list') }}" aria-expanded="false"><i class="bi bi-people"></i><span class="hide-menu">Users</span></a>
                 </li>
+                @endif
+                @if(auth()->user()->userAccess('Role','any'))
                 <li>
                     <a class="" href="{{ route('role-list') }}" aria-expanded="false"><i class="mdi mdi-email"></i><span class="hide-menu">Roles</span></a>
                 </li>
+                @endif
+                @if(auth()->user()->userAccess('Permission','any'))
                 <li>
                     <a class="" href="{{ route('permission-list') }}" aria-expanded="false"><i class="bi bi-unlock"></i><span class="hide-menu">Permissions</span></a>
                 </li>
+                @endif
+                @if(auth()->user()->userAccess('Module','any'))
                 <li>
                     <a class="" href="{{ route('module-list') }}" aria-expanded="false"><i class="bi bi-box"></i><span class="hide-menu">Modules</span></a>
                 </li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -3,9 +3,11 @@
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
+        @if(auth()->user()->userAccess('Role','add'))
         <div class="row float-right">
             <a href="{{ route('add-role') }}" type="button" class="btn btn-primary">+ Add Role</a>
         </div>
+        @endif
         <div class="table-responsive m-t-40">
             <div id="myTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
                 <div class="row">
@@ -32,6 +34,7 @@
                                         </td>
                                         <td>
                                             @if ($role->deleted_at != null)
+                                            @if(auth()->user()->userAccess('Role','delete'))
                                                 <form action="{{ route('restore-role', $role->id) }}" method="POST" class="restoreform" data-id="{{ $role->id }}" id="restoreform{{ $role->id }}"
                                                     style="display: inline">
                                                     @csrf
@@ -46,15 +49,21 @@
                                                         <img src="{{ asset('assets/images/delete.svg') }}" alt="">
                                                     </button>
                                                 </form>
+                                            @endif
                                             @else
+                                                @if(auth()->user()->userAccess('Role','edit'))
                                                 <a href="{{ route('edit-role', $role->id) }}" type="button"
                                                     class="btn btn-success">
                                                     <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                                 </a>
+                                                @endif
+                                                @if(auth()->user()->userAccess('Role','view'))
                                                 <a href="{{ route('show-role', $role->id) }}" type="button"
                                                     class="btn btn-info">
                                                     <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                                 </a>
+                                                @endif
+                                                @if(auth()->user()->userAccess('Role','delete'))
                                                 <form action="{{ route('delete-role', $role->id) }}" method="POST" class="softdeleteform" data-id="{{ $role->id }}" id="softdeleteform{{ $role->id }}"
                                                     style="display: inline">
                                                     @csrf
@@ -63,6 +72,7 @@
                                                         <img src="{{ asset('assets/images/delete.svg') }}" alt="">
                                                     </button>
                                                 </form>
+                                                @endif
                                             @endif
                                         </td>
                                     </tr>
