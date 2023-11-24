@@ -5,21 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Module;
 
-class ModuleController extends Controller
+class ModuleController extends BaseController
 {
     /* function to display modules list */
     public function index()
     {
-        $modules = Module::withTrashed()->get();
-        return view('module.list', compact('modules'));
+        $Modules = Module::withTrashed()->get();
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('module.list', compact('Modules','modules','parentModules'));
     }
 
     /* function to render add module form */
     public function create()
     {
-        $modules = Module::whereNull('parent_id')->get();
+        $Modules = Module::whereNull('parent_id')->get();
         $module = null;
-        return view('module.addEdit', compact('modules', 'module'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('module.addEdit', compact('Modules', 'module','modules','parentModules'));
     }
 
     /* function to store module in database */
@@ -52,16 +56,20 @@ class ModuleController extends Controller
     /* function to show module details by id */
     public function show(string $id)
     {
-        $module = Module::findOrFail($id);
-        return view('module.show', compact('module'));
+        $Module = Module::findOrFail($id);
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('module.show', compact('Module','modules','parentModules'));
     }
 
     /* function to render edit module form */
     public function edit(string $id)
     {
         $module = Module::findOrFail($id);
-        $modules = Module::whereNull('parent_id')->get();
-        return view('module.addEdit', compact('module', 'modules'));
+        $Modules = Module::whereNull('parent_id')->get();
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('module.addEdit', compact('module', 'Modules','modules','parentModules'));
     }
 
     /* function to update module */

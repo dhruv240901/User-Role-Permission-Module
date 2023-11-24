@@ -7,7 +7,7 @@ use App\Models\Role;
 use App\Models\Permission;
 use App\Models\Module;
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     /* function to render home page */
     public function index()
@@ -16,6 +16,8 @@ class HomeController extends Controller
         $count['roles']       = Role::count();
         $count['permissions'] = Permission::count();
         $count['modules']     = Module::count();
-        return view('index', compact('count'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('index', compact('count','modules','parentModules'));
     }
 }

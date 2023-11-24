@@ -81,7 +81,7 @@
                                             <label class="control-label">Select Parent Module</label>
                                             <select class="js-example-basic-multiple form-control" name="parentModule">
                                                 <option value="null">No Parent Module</option>
-                                                @foreach ($modules as $value)
+                                                @foreach ($Modules as $value)
                                                     <option value="{{ $value->id }}" @if(isset($module) && $module->parent_id==$value->id) selected @endif>{{ $value->name }}</option>
                                                 @endforeach
                                             </select>

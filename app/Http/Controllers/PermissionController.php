@@ -7,27 +7,22 @@ use App\Models\Permission;
 use App\Models\Module;
 use App\Models\PermissionModule;
 
-class PermissionController extends Controller
+class PermissionController extends BaseController
 {
     /* function to display permissions list */
     public function index()
     {
         $permissions = Permission::withTrashed()->get();
-        return view('permission.list', compact('permissions'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('permission.list', compact('permissions','modules', 'parentModules'));
     }
 
     /* function to render add permission form */
     public function create()
     {
-        $modules = Module::whereNotNull('parent_id')
-            ->with('parent')
-            ->where([
-                ['is_active', 1],
-                ['is_in_menu', 1]
-            ])
-            ->orderBy('display_order')
-            ->get();
-        $parentModules = Module::whereNull('parent_id')->where('is_active', 1)->where('is_in_menu', 1)->orderBy('display_order')->get();
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
         $permission = null;
         $permissionModules = null;
         return view('permission.addEdit', compact('permission', 'modules', 'parentModules', 'permissionModules'));
@@ -83,15 +78,8 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permissionModules = $permission->modules->pluck('pivot')->toArray();
-        $modules = Module::whereNotNull('parent_id')
-            ->with('parent')
-            ->where([
-                ['is_active', 1],
-                ['is_in_menu', 1]
-            ])
-            ->orderBy('display_order')
-            ->get();
-        $parentModules = Module::whereNull('parent_id')->where('is_active', 1)->where('is_in_menu', 1)->orderBy('display_order')->get();
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
         return view('permission.show', compact('permission', 'modules', 'parentModules', 'permissionModules'));
     }
 
@@ -100,15 +88,8 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
         $permissionModules = $permission->modules->pluck('pivot')->toArray();
-        $modules = Module::whereNotNull('parent_id')
-            ->with('parent')
-            ->where([
-                ['is_active', 1],
-                ['is_in_menu', 1]
-            ])
-            ->orderBy('display_order')
-            ->get();
-        $parentModules = Module::whereNull('parent_id')->where('is_active', 1)->where('is_in_menu', 1)->orderBy('display_order')->get();
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
         return view('permission.addEdit', compact('permission', 'modules', 'parentModules', 'permissionModules'));
     }
 

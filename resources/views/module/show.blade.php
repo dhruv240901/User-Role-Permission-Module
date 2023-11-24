@@ -12,16 +12,16 @@
                     <table class="table table-striped table-primary">
                           <tr>
                             <th scope="row">Module Code</th>
-                            <td>{{ $module->module_code }}</td>
+                            <td>{{ $Module->module_code }}</td>
                           </tr>
                           <tr>
                             <th scope="row">Module Name</th>
-                            <td>{{ $module->name }}</td>
+                            <td>{{ $Module->name }}</td>
                           </tr>
                           <tr>
                             <th scope="row">Status</th>
                             <td>
-                                @if($module->is_active==1)
+                                @if($Module->is_active==1)
                                     Active
                                 @else
                                     Inactive
@@ -31,7 +31,7 @@
                           <tr>
                             <th scope="row">is_in_menu</th>
                             <td>
-                                @if($module->is_in_menu==1)
+                                @if($Module->is_in_menu==1)
                                     Yes
                                 @else
                                     No
@@ -40,12 +40,12 @@
                           </tr>
                           <tr>
                             <th scope="row">Display Order</th>
-                            <td>{{ $module->display_order }}</td>
+                            <td>{{ $Module->display_order }}</td>
                           </tr>
                           <tr>
                             <th scope="row">Parent Module</th>
-                            @if($module->parent_id!=null)
-                                <td>{{ $module->parent->name }}</td>
+                            @if($Module->parent_id!=null)
+                                <td>{{ $Module->parent->name }}</td>
                             @else
                                 <td>No Parent Module Found</td>
                             @endif

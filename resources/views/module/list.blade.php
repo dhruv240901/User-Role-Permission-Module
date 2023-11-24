@@ -20,7 +20,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($modules as $k => $module)
+                                @foreach ($Modules as $k => $module)
                                     <tr>
                                         <td>{{ $module->name }}</td>
                                         <td>

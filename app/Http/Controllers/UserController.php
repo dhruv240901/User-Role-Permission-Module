@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Hash;
-use App\Models\User;
-use App\Models\Role;
-use Auth;
-use Mail;
-use App\Mail\AddUserMail;
 use DB;
+use Auth;
+use Hash;
+use Mail;
+use App\Models\Role;
+use App\Models\User;
+use App\Mail\AddUserMail;
+use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
     /* function to display users list */
     public function index()
     {
         $users = User::whereNot('id', auth()->id())->whereNot('type', 'admin')->withTrashed()->get();
-        return view('user.list', compact('users'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('user.list', compact('users','modules','parentModules'));
     }
 
     /* function to render add user form */
@@ -25,14 +27,18 @@ class UserController extends Controller
     {
         $roles = Role::where('is_active', 1)->get();
         $user = null;
-        return view('user.addEdit', compact('roles', 'user'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('user.addEdit', compact('roles', 'user','modules','parentModules'));
     }
 
     /* function to show user details by id */
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('user.show', compact('user'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('user.show', compact('user','modules','parentModules'));
     }
 
     /* function to store user in database */
@@ -77,7 +83,9 @@ class UserController extends Controller
     {
         $roles = Role::where('is_active', 1)->get();
         $user = User::findOrFail($id);
-        return view('user.addEdit', compact('user', 'roles'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('user.addEdit', compact('user', 'roles','modules','parentModules'));
     }
 
     /* function to update user */

@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Permission;
 
-class RoleController extends Controller
+class RoleController extends BaseController
 {
     /* function to display roles list */
     public function index()
     {
         $roles = Role::withTrashed()->get();
-        return view('role.list', compact('roles'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('role.list', compact('roles','modules','parentModules'));
     }
 
     /* function to render add role form */
@@ -20,7 +22,9 @@ class RoleController extends Controller
     {
         $permissions = Permission::where('is_active', 1)->get();
         $role = null;
-        return view('role.addEdit', compact('permissions', 'role'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('role.addEdit', compact('permissions', 'role','modules','parentModules'));
     }
 
     /* function to store role in database */
@@ -51,7 +55,9 @@ class RoleController extends Controller
     public function show(string $id)
     {
         $role = Role::findOrFail($id);
-        return view('role.show', compact('role'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('role.show', compact('role','modules','parentModules'));
     }
 
     /* function to render edit role form */
@@ -59,7 +65,9 @@ class RoleController extends Controller
     {
         $permissions = Permission::where('is_active', 1)->get();
         $role = Role::findOrFail($id);
-        return view('role.addEdit', compact('role', 'permissions'));
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('role.addEdit', compact('role', 'permissions','modules','parentModules'));
     }
 
     /* function to update role */

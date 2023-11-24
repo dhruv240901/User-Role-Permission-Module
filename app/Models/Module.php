@@ -11,7 +11,7 @@ class Module extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'module_code', 'name', 'is_in_menu', 'parent_id', 'is_active', 'display_order', 'created_by', 'updated_by', 'deleted_by', 'is_deleted'];
+    protected $fillable = ['name', 'module_code', 'is_in_menu', 'parent_id', 'is_active', 'display_order', 'created_by', 'updated_by', 'deleted_by', 'is_deleted'];
 
     protected $casts = [
         'is_active'  => 'boolean',

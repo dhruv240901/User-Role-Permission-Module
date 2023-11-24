@@ -39,7 +39,7 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware(['auth', 'firstlogin'])->group(function () {
     Route::controller(UserController::class)->prefix('user')->group(function () {
-        Route::get('list', 'index')->name('user-list')->middleware('user_access:User,any');
+        Route::get('list', 'index')->name('user-list')->middleware('user_access:User,view');
         Route::get('show/{id}', 'show')->name('show-user')->middleware('user_access:User,view');
         Route::get('create', 'create')->name('add-user')->middleware('user_access:User,add');
         Route::post('store', 'store')->name('store-user')->middleware('user_access:User,add');
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
     });
 
     Route::controller(RoleController::class)->prefix('role')->group(function () {
-        Route::get('list', 'index')->name('role-list')->middleware('user_access:Role,any');
+        Route::get('list', 'index')->name('role-list')->middleware('user_access:Role,view');
         Route::get('show/{id}', 'show')->name('show-role')->middleware('user_access:Role,view');
         Route::get('create', 'create')->name('add-role')->middleware('user_access:Role,add');
         Route::post('store', 'store')->name('store-role')->middleware('user_access:Role,add');
@@ -69,7 +69,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
     });
 
     Route::controller(PermissionController::class)->prefix('permission')->group(function () {
-        Route::get('list', 'index')->name('permission-list')->middleware('user_access:Permission,any');
+        Route::get('list', 'index')->name('permission-list')->middleware('user_access:Permission,view');
         Route::get('show/{id}', 'show')->name('show-permission')->middleware('user_access:Permission,view');
         Route::get('create', 'create')->name('add-permission')->middleware('user_access:Permission,add');
         Route::post('store', 'store')->name('store-permission')->middleware('user_access:Permission,add');
@@ -82,7 +82,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
     });
 
     Route::controller(ModuleController::class)->prefix('module')->group(function () {
-        Route::get('list', 'index')->name('module-list')->middleware('user_access:Module,any');
+        Route::get('list', 'index')->name('module-list')->middleware('user_access:Module,view');
         Route::get('show/{id}', 'show')->name('show-module')->middleware('user_access:Module,view');
         Route::get('create', 'create')->name('add-module')->middleware('user_access:Module,add');
         Route::post('store', 'store')->name('store-module')->middleware('user_access:Module,add');
