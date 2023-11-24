@@ -6,9 +6,11 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Permission;
 use App\Models\Module;
+use App\Traits\ModulesDisplay;
 
-class HomeController extends BaseController
+class HomeController extends Controller
 {
+    use ModulesDisplay;
     /* function to render home page */
     public function index()
     {

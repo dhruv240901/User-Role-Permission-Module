@@ -12,7 +12,7 @@ trait UserAccess
             return true;
         } else {
             if (auth()->user()->hasModule($module)) {
-                $moduleData = Module::where('name', $module)->first();
+                $moduleData = Module::where('module_code', $module)->first();
                 $pivotData = auth()->user()->roles->flatMap->permissions->flatMap->modules->pluck('pivot')->toArray();
                 foreach ($pivotData as $item) {
                     if ($item["module_id"] === $moduleData->id) {

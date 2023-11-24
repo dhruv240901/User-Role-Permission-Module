@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Traits\AjaxResponse;
+use App\Traits\ModulesDisplay;
 
-class RoleController extends BaseController
+class RoleController extends Controller
 {
+    use AjaxResponse,ModulesDisplay;
     /* function to display roles list */
     public function index()
     {
@@ -136,11 +139,7 @@ class RoleController extends BaseController
             $role->update(['is_active' => 1]);
             $message = "Role Activated Successfully";
         }
-        $response=[
-            'status'  => 200,
-            'message' => $message
-        ];
-
+        $response=$this->success(200,$message);
         return $response;
     }
 }

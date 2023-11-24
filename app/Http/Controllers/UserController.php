@@ -10,9 +10,12 @@ use App\Models\Role;
 use App\Models\User;
 use App\Mail\AddUserMail;
 use Illuminate\Http\Request;
+use App\Traits\AjaxResponse;
+use App\Traits\ModulesDisplay;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
+    use AjaxResponse,ModulesDisplay;
     /* function to display users list */
     public function index()
     {
@@ -154,18 +157,16 @@ class UserController extends BaseController
             $user->update(['is_active' => 1]);
             $message = "User Activated Successfully";
         }
-        $response = [
-            'status'  => 200,
-            'message' => $message
-        ];
-
+        $response=$this->success(200,$message);
         return $response;
     }
 
     /* function to render change password form */
     public function viewChangePassword()
     {
-        return view('user.changePassword');
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('user.changePassword',compact('modules','parentModules'));
     }
 
 
@@ -197,6 +198,8 @@ class UserController extends BaseController
     /* function to view user profile */
     public function profile()
     {
-        return view('user.profile');
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('user.profile',compact('modules','parentModules'));
     }
 }

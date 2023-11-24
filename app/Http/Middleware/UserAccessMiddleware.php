@@ -6,9 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Module;
+use App\Traits\AjaxResponse;
 
 class UserAccessMiddleware
 {
+    use AjaxResponse;
     /**
      * Handle an incoming request.
      *
@@ -20,7 +22,7 @@ class UserAccessMiddleware
             return $next($request);
         } else {
             if ($request->user()->hasModule($module)) {
-                $moduleData = Module::where('name', $module)->first();
+                $moduleData = Module::where('module_code', $module)->first();
                 $pivotData = $request->user()->roles->flatMap->permissions->flatMap->modules->pluck('pivot')->toArray();
                 foreach ($pivotData as $item) {
                     if ($item["module_id"] === $moduleData->id) {
@@ -44,10 +46,7 @@ class UserAccessMiddleware
             }
         }
         if ($action == 'status') {
-            $response = [
-                'status'  => 403,
-                'message' => 'You cannot update status'
-            ];
+            $response=$this->error(403,'You cannot update status');
             return response()->json($response);
         }
         return response()->view('error.Unauthorized');

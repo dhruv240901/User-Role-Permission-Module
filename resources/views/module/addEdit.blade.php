@@ -28,7 +28,7 @@
                                         <div class="form-group">
                                             <label class="control-label">Module Code <sup class="required_field">*</sup></label>
                                             <input type="text" id="firstName" class="form-control"
-                                                placeholder="Enter module code" name="moduleCode" value="{{ $module->module_code ?? old('moduleCode') }}">
+                                                placeholder="Enter module code" name="moduleCode" value="{{ $module->module_code ?? old('moduleCode') }}" @if(isset($module)) readonly @endif>
                                         </div>
                                     </div>
                                     <!--/span-->

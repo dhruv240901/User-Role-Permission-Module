@@ -199,6 +199,14 @@
                     }
                 ],
             });
+            $('#filesTable').DataTable({
+                "columnDefs": [
+                    {
+                        "targets": 1, // Replace 'columnIndex' with the index of the column you want to disable sorting for (0-based index)
+                        "orderable": false
+                    }
+                ],
+            });
             $('.js-example-basic-multiple').select2();
             $("#message").delay(3000).fadeOut();
             @yield('jscontent')

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         @include('includes.flash')
-        @if(auth()->user()->UserAccess('Module','add'))
+        @if(auth()->user()->UserAccess('Mo','add'))
         <div class="row float-right">
             <a href="{{ route('add-module') }}" type="button" class="btn btn-primary">+ Add Module</a>
         </div>
@@ -32,7 +32,7 @@
                                         </td>
                                         <td>
                                             @if ($module->deleted_at != null)
-                                                @if(auth()->user()->UserAccess('Module','delete'))
+                                                @if(auth()->user()->UserAccess('Mo','delete'))
                                                 <form action="{{ route('restore-module', $module->id) }}" method="POST" class="restoreform" data-id="{{ $module->id }}" id="restoreform{{ $module->id }}"
                                                     style="display: inline">
                                                     @csrf
@@ -49,19 +49,19 @@
                                                 </form>
                                                 @endif
                                             @else
-                                                @if(auth()->user()->UserAccess('Module','edit'))
+                                                @if(auth()->user()->UserAccess('Mo','edit'))
                                                 <a href="{{ route('edit-module', $module->id) }}" type="button"
                                                     class="btn btn-success">
                                                     <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                                 </a>
                                                 @endif
-                                                @if(auth()->user()->UserAccess('Module','view'))
+                                                @if(auth()->user()->UserAccess('Mo','view'))
                                                 <a href="{{ route('show-module', $module->id) }}" type="button"
                                                     class="btn btn-info">
                                                     <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                                 </a>
                                                 @endif
-                                                @if(auth()->user()->UserAccess('Module','delete'))
+                                                @if(auth()->user()->UserAccess('Mo','delete'))
                                                 <form action="{{ route('delete-module', $module->id) }}" method="POST" class="softdeleteform" data-id="{{ $module->id }}" id="softdeleteform{{ $module->id }}"
                                                     style="display: inline" id="deleteForm">
                                                     @csrf
@@ -102,6 +102,7 @@ $(document).ready(function() {
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
+                console.log(response);
                 if(response.status == 200){
                     toastr.success(""+response.message+"");
                 }else{

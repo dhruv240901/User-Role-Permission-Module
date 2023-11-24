@@ -27,17 +27,18 @@
                     <a class="" href="{{ route('index') }}" aria-expanded="false"><span class="hide-menu">Dashboard</span></a>
                 </li>
                 @foreach ($parentModules as $parentModule)
-                    @if(in_array($parentModule->id,$modules->pluck('parent_id')->toArray()))
-                    <li class="nav-small-cap">{{strtoupper($parentModule->name) }}</li>
-                    @endif
+                    {{-- @if(auth()->user()->type=='admin' || in_array($parentModule->id,$modules->pluck('parent_id')->toArray())) --}}
+                    <li class="nav-small-cap" style="background-color: blueviolet;">{{strtoupper($parentModule->name) }}</li>
+                    {{-- @endif --}}
                     @foreach ($modules as $module)
                         @if ($module->parent->id == $parentModule->id)
-                            @if(auth()->user()->type=='admin' || auth()->user()->hasModule($module->name))
+                            @if(auth()->user()->type=='admin' || auth()->user()->hasModule($module->module_code))
                             <li>
-                                <a class="" href="@if($module->name=='User') {{ route('user-list') }}
-                                                  @elseif ($module->name=='Role') {{ route('role-list') }}
-                                                  @elseif ($module->name=='Permission') {{ route('permission-list') }}
-                                                  @elseif ($module->name=='Module') {{ route('module-list') }}
+                                <a class="" href="@if($module->module_code=='US') {{ route('user-list') }}
+                                                  @elseif ($module->module_code=='RO') {{ route('role-list') }}
+                                                  @elseif ($module->module_code=='PER') {{ route('permission-list') }}
+                                                  @elseif ($module->module_code=='Mo') {{ route('module-list') }}
+                                                  @elseif ($module->module_code=='FL') {{ route('file-list') }}
                                                   @else {{ route('index') }}
                                                   @endif"
                                 aria-expanded="false"><span class="hide-menu">{{ $module->name }}</span></a>

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Module;
+use App\Traits\AjaxResponse;
+use App\Traits\ModulesDisplay;
 
-class ModuleController extends BaseController
+class ModuleController extends Controller
 {
+    use AjaxResponse,ModulesDisplay;
     /* function to display modules list */
     public function index()
     {
@@ -32,7 +35,7 @@ class ModuleController extends BaseController
         $request->validate([
             'moduleCode'    => 'required|string',
             'moduleName'    => 'required|string',
-            'is_in_menu'    => 'required|boolean',
+            'is_in_menu'    => 'required|boolean|unique:modules',
             'display_order' => 'required'
         ]);
 
@@ -78,14 +81,12 @@ class ModuleController extends BaseController
         $request->validate([
             'moduleCode'    => 'required|string',
             'moduleName'    => 'required|string',
-            'is_in_menu'    => 'required|boolean',
-            'display_order' => 'required'
+            'display_order' => 'required',
         ]);
 
         $updateData = [
             'module_code'   => $request->moduleCode,
             'name'          => $request->moduleName,
-            'is_in_menu'    => $request->is_in_menu,
             'display_order' => $request->display_order,
         ];
 
@@ -105,6 +106,7 @@ class ModuleController extends BaseController
     {
         $module = Module::findOrFail($id);
         $module->delete();
+        $module = Module::where('parent_id',$id)->delete();
         return redirect()->route('module-list')->with('success', 'Module Soft Deleted Successfully');
     }
 
@@ -136,11 +138,7 @@ class ModuleController extends BaseController
             $module->update(['is_active' => 1]);
             $message = "Module Activated Successfully";
         }
-        $response = [
-            'status'  => 200,
-            'message' => $message
-        ];
-
+        $response=$this->success(200,$message);
         return $response;
     }
 }

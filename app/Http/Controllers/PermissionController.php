@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Models\Permission;
 use App\Models\Module;
 use App\Models\PermissionModule;
+use App\Traits\AjaxResponse;
+use App\Traits\ModulesDisplay;
 
-class PermissionController extends BaseController
+class PermissionController extends Controller
 {
+    use AjaxResponse,ModulesDisplay;
     /* function to display permissions list */
     public function index()
     {
@@ -181,11 +184,7 @@ class PermissionController extends BaseController
             $permission->update(['is_active' => 1]);
             $message = "Permission Activated Successfully";
         }
-        $response=[
-            'status'  => 200,
-            'message' => $message
-        ];
-
+        $response=$this->success(200,$message);
         return $response;
     }
 }

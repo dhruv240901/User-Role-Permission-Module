@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     @include('includes.flash')
-    @if(auth()->user()->UserAccess('User','add'))
+    @if(auth()->user()->UserAccess('US','add'))
     <div class="row float-right">
         <a href="{{ route('add-user') }}" type="button" class="btn btn-primary">+ Add User</a>
     </div>
@@ -43,7 +43,7 @@
                                 <td>
 
                                     @if ($user->deleted_at!=null)
-                                        @if(auth()->user()->UserAccess('User','delete'))
+                                        @if(auth()->user()->UserAccess('US','delete'))
                                         <form action="{{route('restore-user',$user->id)}}" method="POST" class="restoreform" data-id="{{ $user->id }}" id="restoreform{{ $user->id }}" style="display: inline">
                                             @csrf
                                         <button type="submit" class="btn btn-warning">
@@ -58,17 +58,17 @@
                                         </form>
                                         @endif
                                     @else
-                                    @if(auth()->user()->UserAccess('User','edit'))
+                                    @if(auth()->user()->UserAccess('US','edit'))
                                     <a href="{{ route('edit-user',$user->id) }}" type="button" class="btn btn-success">
                                         <img src="{{ asset('assets/images/edit.svg') }}" alt="">
                                     </a>
                                     @endif
-                                    @if(auth()->user()->UserAccess('User','view'))
+                                    @if(auth()->user()->UserAccess('US','view'))
                                     <a href="{{ route('show-user',$user->id) }}" type="button" class="btn btn-info">
                                         <img src="{{ asset('assets/images/show.svg') }}" alt="">
                                     </a>
                                     @endif
-                                    @if(auth()->user()->UserAccess('User','delete'))
+                                    @if(auth()->user()->UserAccess('US','delete'))
                                     <form action="{{route('delete-user',$user->id)}}" method="POST" class="softdeleteform" data-id="{{ $user->id }}" id="softdeleteform{{ $user->id }}" style="display: inline">
                                         @csrf
                                         @method('DELETE')
