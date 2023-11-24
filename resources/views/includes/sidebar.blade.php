@@ -23,6 +23,9 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+                <li>
+                    <a class="" href="{{ route('index') }}" aria-expanded="false"><span class="hide-menu">Dashboard</span></a>
+                </li>
                 @foreach ($parentModules as $parentModule)
                     @if(in_array($parentModule->id,$modules->pluck('parent_id')->toArray()))
                     <li class="nav-small-cap">{{strtoupper($parentModule->name) }}</li>
