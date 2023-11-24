@@ -4,6 +4,7 @@ namespace app\Traits;
 
 trait AjaxResponse
 {
+    // function to display success message
     public function success($status, $message, $data=null)
     {
         $successMessages = [
@@ -23,6 +24,8 @@ trait AjaxResponse
             return $this->error('Invalid success code!', 400);
         }
     }
+
+    // function to display error message 
     public function error($status, $message,$data=null)
     {
         $errorMessages = [

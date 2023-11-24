@@ -70,8 +70,9 @@ class User extends Authenticatable
 
     public function hasModule($module)
     {
-        return $this->roles->flatMap->permissions->flatMap->modules->pluck('module_code')->contains($module);
+        return $this->roles->pluck('permissions')->flatten()->pluck('modules')->flatten()->pluck('module_code')->contains($module);
     }
+            // return $this->roles->flatMap->permissions->flatMap->modules->pluck('module_code')->contains($module);
     /**
      * The attributes that should be hidden for serialization.
      *
