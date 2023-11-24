@@ -22,6 +22,7 @@ use App\Http\Controllers\FileController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
+Route::get('/comingSoon', [HomeController::class, 'comingSoon'])->name('coming-soon');
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('signup', 'signup')->name('signup');

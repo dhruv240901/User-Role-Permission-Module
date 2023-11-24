@@ -37,7 +37,7 @@
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input class="form-check-input user-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $user->id }}" @if($user->is_active==1) checked @endif>
+                                        <input class="form-check-input user-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $user->id }}" @if($user->is_active==true) checked @endif>
                                     </div>
                                 </td>
                                 <td>

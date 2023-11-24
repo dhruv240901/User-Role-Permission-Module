@@ -47,8 +47,8 @@
                                         <div class="form-group">
                                             <label class="control-label">is_in_menu</label>
                                             <select class="js-example-basic-multiple form-control" name="is_in_menu">
-                                                <option value="1" @if( isset($module) && $module->is_in_menu==1) selected @endif>Yes</option>
-                                                <option value="0" @if( isset($module) && $module->is_in_menu==0) selected @endif>No</option>
+                                                <option value="1" @if( isset($module) && $module->is_in_menu==true) selected @endif>Yes</option>
+                                                <option value="0" @if( isset($module) && $module->is_in_menu==false) selected @endif>No</option>
                                             </select>
                                         </div>
                                     </div>

@@ -21,7 +21,7 @@
                           <tr>
                             <th scope="row">Status</th>
                             <td>
-                                @if($Module->is_active==1)
+                                @if($Module->is_active==true)
                                     Active
                                 @else
                                     Inactive
@@ -31,7 +31,7 @@
                           <tr>
                             <th scope="row">is_in_menu</th>
                             <td>
-                                @if($Module->is_in_menu==1)
+                                @if($Module->is_in_menu==true)
                                     Yes
                                 @else
                                     No

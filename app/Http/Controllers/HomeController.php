@@ -22,4 +22,11 @@ class HomeController extends Controller
         $parentModules=$this->getParentModule();
         return view('index', compact('count','modules','parentModules'));
     }
+
+    public function comingSoon()
+    {
+        $modules=$this->getChildModule();
+        $parentModules=$this->getParentModule();
+        return view('comingSoon', compact('modules','parentModules'));
+    }
 }

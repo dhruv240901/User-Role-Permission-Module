@@ -36,8 +36,8 @@ class AuthController extends Controller
             'last_name'      => $request->lastName,
             'email'          => $request->email,
             'password'       => Hash::make($request->password),
-            'is_first_login' => 0,
-            'is_active'      => 0
+            'is_first_login' => false,
+            'is_active'      => false
         ];
         $user = User::create($insertData);
         $adminUser = User::where('type', 'admin')->first();
@@ -67,12 +67,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
         $checkEmail = User::where('email', $request->email)->first();
         if ($checkEmail != null) {
-            if ($checkEmail->is_active == 0) {
+            if ($checkEmail->is_active == false) {
                 return redirect()->route('login')->with('error', 'Your account is deactivated !');
             }
             if (Auth::attempt($credentials)) {
                 Auth::user()->createToken('auth-token')->plainTextToken;
-                if (auth()->user()->is_first_login == 1) {
+                if (auth()->user()->is_first_login == true) {
                     return redirect()->route('view-change-password')->with('success', 'Please change your password!');
                 }
                 return redirect()->route('index')->with('success', 'Logged In successfully!');
@@ -106,7 +106,7 @@ class AuthController extends Controller
         ]);
 
         $user = User::findOrFail(auth()->id());
-        $user->update(['password' => Hash::make($request->newPassword), 'is_first_login' => 0]);
+        $user->update(['password' => Hash::make($request->newPassword), 'is_first_login' => false]);
         return redirect()->route('index')->with('success', 'Password Changed successfully');
     }
 

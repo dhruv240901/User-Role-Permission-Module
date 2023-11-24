@@ -57,16 +57,16 @@ class PermissionController extends Controller
                 ];
                 foreach ($request[$value->name] as $key => $value) {
                     if ($value == 'add') {
-                        $insertModuleData['add_access'] = 1;
+                        $insertModuleData['add_access'] = true;
                     }
                     if ($value == 'view') {
-                        $insertModuleData['view_access'] = 1;
+                        $insertModuleData['view_access'] = true;
                     }
                     if ($value == 'modify') {
-                        $insertModuleData['edit_access'] = 1;
+                        $insertModuleData['edit_access'] = true;
                     }
                     if ($value == 'delete') {
-                        $insertModuleData['delete_access'] = 1;
+                        $insertModuleData['delete_access'] = true;
                     }
                 }
                 PermissionModule::create($insertModuleData);
@@ -128,16 +128,16 @@ class PermissionController extends Controller
                 ];
                 foreach ($request[$value->name] as $key => $value) {
                     if ($value == 'add') {
-                        $insertModuleData['add_access'] = 1;
+                        $insertModuleData['add_access'] = true;
                     }
                     if ($value == 'view') {
-                        $insertModuleData['view_access'] = 1;
+                        $insertModuleData['view_access'] = true;
                     }
                     if ($value == 'modify') {
-                        $insertModuleData['edit_access'] = 1;
+                        $insertModuleData['edit_access'] = true;
                     }
                     if ($value == 'delete') {
-                        $insertModuleData['delete_access'] = 1;
+                        $insertModuleData['delete_access'] = true;
                     }
 
                     PermissionModule::create($insertModuleData);
@@ -175,13 +175,17 @@ class PermissionController extends Controller
     /* function to update permission status */
     public function updateStatus(Request $request)
     {
+        $request->validate([
+            $request->checked => 'required'
+        ]);
+
         $permission = Permission::findOrFail($request->id);
         if ($request->checked == "false") {
-            $permission->update(['is_active' => 0]);
+            $permission->update(['is_active' => false]);
             $message = "Permission Inactivated Successfully";
         }
         if ($request->checked == "true") {
-            $permission->update(['is_active' => 1]);
+            $permission->update(['is_active' => true]);
             $message = "Permission Activated Successfully";
         }
         $response=$this->success(200,$message);

@@ -27,9 +27,9 @@
                     <a class="" href="{{ route('index') }}" aria-expanded="false"><span class="hide-menu">Dashboard</span></a>
                 </li>
                 @foreach ($parentModules as $parentModule)
-                    {{-- @if(auth()->user()->type=='admin' || in_array($parentModule->id,$modules->pluck('parent_id')->toArray())) --}}
+                    @if(auth()->user()->type=='admin' || in_array($parentModule->id,$modules->pluck('parent_id')->toArray()))
                     <li class="nav-small-cap" style="background-color: blueviolet;">{{strtoupper($parentModule->name) }}</li>
-                    {{-- @endif --}}
+                    @endif
                     @foreach ($modules as $module)
                         @if ($module->parent->id == $parentModule->id)
                             @if(auth()->user()->type=='admin' || auth()->user()->hasModule($module->module_code))
@@ -39,7 +39,7 @@
                                                   @elseif ($module->module_code=='PER') {{ route('permission-list') }}
                                                   @elseif ($module->module_code=='Mo') {{ route('module-list') }}
                                                   @elseif ($module->module_code=='FL') {{ route('file-list') }}
-                                                  @else {{ route('index') }}
+                                                  @else {{ route('coming-soon') }}
                                                   @endif"
                                 aria-expanded="false"><span class="hide-menu">{{ $module->name }}</span></a>
                             </li>

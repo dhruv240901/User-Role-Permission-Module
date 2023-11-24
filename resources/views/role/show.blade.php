@@ -21,7 +21,7 @@
                           <tr>
                             <th scope="row">Status</th>
                             <td>
-                                @if($role->is_active==1)
+                                @if($role->is_active==true)
                                     Active
                                 @else
                                     Inactive

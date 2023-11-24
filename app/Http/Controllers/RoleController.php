@@ -23,7 +23,7 @@ class RoleController extends Controller
     /* function to render add role form */
     public function create()
     {
-        $permissions = Permission::where('is_active', 1)->get();
+        $permissions = Permission::where('is_active', true)->get();
         $role = null;
         $modules=$this->getChildModule();
         $parentModules=$this->getParentModule();
@@ -66,7 +66,7 @@ class RoleController extends Controller
     /* function to render edit role form */
     public function edit(string $id)
     {
-        $permissions = Permission::where('is_active', 1)->get();
+        $permissions = Permission::where('is_active', true)->get();
         $role = Role::findOrFail($id);
         $modules=$this->getChildModule();
         $parentModules=$this->getParentModule();
@@ -132,11 +132,11 @@ class RoleController extends Controller
     {
         $role = Role::findOrFail($request->id);
         if ($request->checked == "false") {
-            $role->update(['is_active' => 0]);
+            $role->update(['is_active' => false]);
             $message = "Role Inactivated Successfully";
         }
         if ($request->checked == "true") {
-            $role->update(['is_active' => 1]);
+            $role->update(['is_active' => true]);
             $message = "Role Activated Successfully";
         }
         $response=$this->success(200,$message);

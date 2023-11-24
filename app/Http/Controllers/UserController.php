@@ -28,7 +28,7 @@ class UserController extends Controller
     /* function to render add user form */
     public function create()
     {
-        $roles = Role::where('is_active', 1)->get();
+        $roles = Role::where('is_active', true)->get();
         $user = null;
         $modules=$this->getChildModule();
         $parentModules=$this->getParentModule();
@@ -60,8 +60,8 @@ class UserController extends Controller
             'last_name'      => $request->lastName,
             'email'          => $request->email,
             'password'       => Hash::make($randomPassword),
-            'is_active'      => 1,
-            'is_first_login' => 1,
+            'is_active'      => true,
+            'is_first_login' => true,
         ];
 
         $user = User::create($insertData);
@@ -84,7 +84,7 @@ class UserController extends Controller
     /* function to render edit user form */
     public function edit(string $id)
     {
-        $roles = Role::where('is_active', 1)->get();
+        $roles = Role::where('is_active', true)->get();
         $user = User::findOrFail($id);
         $modules=$this->getChildModule();
         $parentModules=$this->getParentModule();
@@ -150,11 +150,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->id);
         if ($request->checked == "false") {
-            $user->update(['is_active' => 0]);
+            $user->update(['is_active' => false]);
             $message = "User Inactivated Successfully";
         }
         if ($request->checked == "true") {
-            $user->update(['is_active' => 1]);
+            $user->update(['is_active' => true]);
             $message = "User Activated Successfully";
         }
         $response=$this->success(200,$message);
