@@ -27,7 +27,7 @@
                                         <td>{{ $module->name }}</td>
                                         <td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input module-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active==true) checked @endif>
+                                                <input class="form-check-input module-status" type="checkbox" role="switch" id="flexSwitchCheckChecked" data-id="{{ $module->id }}" @if($module->is_active==true) checked @endif @if(!auth()->user()->UserAccess('Mo','edit')) disabled @endif>
                                             </div>
                                         </td>
                                         <td>

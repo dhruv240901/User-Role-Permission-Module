@@ -137,7 +137,7 @@ $("#changepasswordform").validate({
             required: true,
             email:true
         },
-        roles:{
+        "roles[]":{
             required:true
         }
     },
@@ -149,7 +149,7 @@ $("#changepasswordform").validate({
             required:"Please enter email",
             email:"Please enter valid email"
         },
-        roles: {
+        "roles[]": {
             required: "Please select at least one role",
         },
     },
@@ -166,7 +166,7 @@ $("#roleform").validate({
         description:{
             required: true,
         },
-        permissions:{
+        "permissions[]":{
             required:true
         }
     },
@@ -177,8 +177,8 @@ $("#roleform").validate({
         description:{
             required:"Please enter description",
         },
-        permissions: {
-            required: "Please select at least one role",
+        "permissions[]": {
+            required: "Please select at least one permission",
         },
     },
     submitHandler: function (form) {

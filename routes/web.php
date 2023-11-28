@@ -51,7 +51,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-user')->middleware('user_access:US,delete');
         Route::post('restore/{id}', 'restore')->name('restore-user')->middleware('user_access:US,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user')->middleware('user_access:US,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-user-status')->middleware('user_access:US,status');
+        Route::post('updateStatus', 'updateStatus')->name('update-user-status')->middleware('user_access:US,edit');
         Route::get('changePassword', 'viewChangePassword')->name('user-view-change-password');
         Route::post('changePassword', 'changePassword')->name('user-change-password');
         Route::post('forceLogout/{id}', 'forceLogout')->name('force-logout');
@@ -68,7 +68,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-role')->middleware('user_access:RO,delete');
         Route::post('restore/{id}', 'restore')->name('restore-role')->middleware('user_access:RO,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-role')->middleware('user_access:RO,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-role-status')->middleware('user_access:RO,status');
+        Route::post('updateStatus', 'updateStatus')->name('update-role-status')->middleware('user_access:RO,edit');
     });
 
     Route::controller(PermissionController::class)->prefix('permission')->group(function () {
@@ -81,7 +81,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-permission')->middleware('user_access:PER,delete');
         Route::post('restore/{id}', 'restore')->name('restore-permission')->middleware('user_access:PER,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-permission')->middleware('user_access:PER,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-permission-status')->middleware('user_access:PER,status');
+        Route::post('updateStatus', 'updateStatus')->name('update-permission-status')->middleware('user_access:PER,edit');
     });
 
     Route::controller(ModuleController::class)->prefix('module')->group(function () {
@@ -94,7 +94,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-module')->middleware('user_access:Mo,delete');
         Route::post('restore/{id}', 'restore')->name('restore-module')->middleware('user_access:Mo,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-module')->middleware('user_access:Mo,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-module-status')->middleware('user_access:Mo,status');
+        Route::post('updateStatus', 'updateStatus')->name('update-module-status')->middleware('user_access:Mo,edit');
     });
 
     Route::controller(FileController::class)->prefix('file')->group(function () {
@@ -107,6 +107,5 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-file')->middleware('user_access:FL,delete');
         Route::post('restore/{id}', 'restore')->name('restore-file')->middleware('user_access:FL,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-file')->middleware('user_access:FL,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-file-status')->middleware('user_access:FL,status');
     });
 });

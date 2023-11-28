@@ -28,7 +28,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label">Permission Name <sup class="required_field">*</sup></label>
+                                        <label class="control-label">Permission Name <sup
+                                                class="required_field">*</sup></label>
                                         <input type="text" id="rolename" class="form-control"
                                             placeholder="Enter permission name" name="permissionName"
                                             value="{{ $permission->name ?? old('permissionName') }}">
@@ -66,88 +67,89 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($parentModules as $parentModule)
-                                                    @if(count($parentModule->children)>0)
-                                                    <tr>
-                                                        <th scope="row" colspan="6" style="background-color: gray;">
-                                                            {{ $parentModule->name }}</th>
-                                                    </tr>
+                                                    @if (count($parentModule->children) > 0)
+                                                        <tr class="table-secondary">
+                                                            <th scope="row" colspan="6">
+                                                                {{ $parentModule->name }}</th>
+                                                        </tr>
                                                     @else
-                                                    <tr>
-                                                        <tr>
+                                                        <tr class="table-secondary">
                                                             <th scope="row">{{ $parentModule->name }}</th>
                                                             <td>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input selectall selectall{{$parentModule->id}}" type="checkbox" data-id="{{$parentModule->id}}"
-                                                                    @if(isset($permission) && $permission!=null)
-                                                                    {{ $permission->modules->contains(function ($value) use ($parentModule) {
-                                                                        return $value->id === $parentModule->id && $value->pivot->add_access === 1 && $value->pivot->edit_access === 1 && $value->pivot->delete_access === 1 && $value->pivot->view_access === 1;
-                                                                    })
-                                                                        ? "checked"
-                                                                        : "" }}
-                                                                    @endif
+                                                                    <input
+                                                                        class="form-check-input selectall selectall{{ $parentModule->id }}"
+                                                                        type="checkbox" data-id="{{ $parentModule->id }}"
+                                                                        @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id &&
+                                                                                $value->pivot->add_access === 1 &&
+                                                                                $value->pivot->edit_access === 1 &&
+                                                                                $value->pivot->delete_access === 1 &&
+                                                                                $value->pivot->view_access === 1;
+                                                                        })
+                                                                            ? 'checked'
+                                                                            : '' }} @endif
                                                                         value="" id="flexCheckIndeterminate">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input add_access{{$parentModule->id}}" type="checkbox"
-                                                                        value="add" id="flexCheckIndeterminate"
-                                                                        @if(isset($permission) && $permission!=null)
-                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
-                                                                            return $value->id === $parentModule->id && $value->pivot->add_access === 1;
+                                                                    <input
+                                                                        class="form-check-input add_access{{ $parentModule->id }}"
+                                                                        type="checkbox" value="add"
+                                                                        id="flexCheckIndeterminate"
+                                                                        @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->add_access == true;
                                                                         })
-                                                                            ? "checked"
-                                                                            : "" }}
-                                                                        @endif
-                                                                        name="{{ $parentModule->name }}[]"
-                                                                        >
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input view_access{{$parentModule->id}}" type="checkbox"
-                                                                        value="view" id="flexCheckIndeterminate"
-                                                                        @if(isset($permission) && $permission!=null)
-                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
-                                                                            return $value->id === $parentModule->id && $value->pivot->view_access === 1;
-                                                                        })
-                                                                            ? "checked"
-                                                                            : "" }}
-                                                                        @endif
+                                                                            ? 'checked'
+                                                                            : '' }} @endif
                                                                         name="{{ $parentModule->name }}[]">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input edit_access{{$parentModule->id}}" type="checkbox"
-                                                                        value="modify" id="flexCheckIndeterminate"
-                                                                        @if(isset($permission) && $permission!=null)
-                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
-                                                                            return $value->id === $parentModule->id && $value->pivot->edit_access === 1;
+                                                                    <input
+                                                                        class="form-check-input view_access{{ $parentModule->id }}"
+                                                                        type="checkbox" value="view"
+                                                                        id="flexCheckIndeterminate"
+                                                                        @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->view_access == true;
                                                                         })
-                                                                            ? "checked"
-                                                                            : "" }}
-                                                                        @endif
+                                                                            ? 'checked'
+                                                                            : '' }} @endif
                                                                         name="{{ $parentModule->name }}[]">
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="form-check">
-                                                                    <input class="form-check-input delete_access{{$parentModule->id}}" type="checkbox"
-                                                                        value="delete" id="flexCheckIndeterminate"
-                                                                        @if(isset($permission) && $permission!=null)
-                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
-                                                                            return $value->id === $parentModule->id && $value->pivot->delete_access === 1;
+                                                                    <input
+                                                                        class="form-check-input edit_access{{ $parentModule->id }}"
+                                                                        type="checkbox" value="modify"
+                                                                        id="flexCheckIndeterminate"
+                                                                        @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->edit_access == true;
                                                                         })
-                                                                            ? "checked"
-                                                                            : "" }}
-                                                                        @endif
+                                                                            ? 'checked'
+                                                                            : '' }} @endif
+                                                                        name="{{ $parentModule->name }}[]">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        class="form-check-input delete_access{{ $parentModule->id }}"
+                                                                        type="checkbox" value="delete"
+                                                                        id="flexCheckIndeterminate"
+                                                                        @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->delete_access == true;
+                                                                        })
+                                                                            ? 'checked'
+                                                                            : '' }} @endif
                                                                         name="{{ $parentModule->name }}[]">
                                                                 </div>
                                                             </td>
 
                                                         </tr>
-                                                    </tr>
                                                     @endif
                                                     @foreach ($modules as $module)
                                                         @if ($module->parent->id == $parentModule->id)
@@ -155,71 +157,74 @@
                                                                 <th scope="row">{{ $module->name }}</th>
                                                                 <td>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input selectall selectall{{$module->id}}" type="checkbox" data-id="{{$module->id}}"
-                                                                        @if(isset($permission) && $permission!=null)
-                                                                        {{ $permission->modules->contains(function ($value) use ($module) {
-                                                                            return $value->id === $module->id && $value->pivot->add_access === 1 && $value->pivot->edit_access === 1 && $value->pivot->delete_access === 1 && $value->pivot->view_access === 1;
-                                                                        })
-                                                                            ? "checked"
-                                                                            : "" }}
-                                                                        @endif
+                                                                        <input
+                                                                            class="form-check-input selectall selectall{{ $module->id }}"
+                                                                            type="checkbox" data-id="{{ $module->id }}"
+                                                                            @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($module) {
+                                                                                return $value->id === $module->id &&
+                                                                                    $value->pivot->add_access === 1 &&
+                                                                                    $value->pivot->edit_access === 1 &&
+                                                                                    $value->pivot->delete_access === 1 &&
+                                                                                    $value->pivot->view_access === 1;
+                                                                            })
+                                                                                ? 'checked'
+                                                                                : '' }} @endif
                                                                             value="" id="flexCheckIndeterminate">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input add_access{{$module->id}}" type="checkbox"
-                                                                            value="add" id="flexCheckIndeterminate"
-                                                                            @if(isset($permission) && $permission!=null)
-                                                                            {{ $permission->modules->contains(function ($value) use ($module) {
-                                                                                return $value->id === $module->id && $value->pivot->add_access === 1;
+                                                                        <input
+                                                                            class="form-check-input add_access{{ $module->id }}"
+                                                                            type="checkbox" value="add"
+                                                                            id="flexCheckIndeterminate"
+                                                                            @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($module) {
+                                                                                return $value->id === $module->id && $value->pivot->add_access == true;
                                                                             })
-                                                                                ? "checked"
-                                                                                : "" }}
-                                                                            @endif
-                                                                            name="{{ $module->name }}[]"
-                                                                            >
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="form-check">
-                                                                        <input class="form-check-input view_access{{$module->id}}" type="checkbox"
-                                                                            value="view" id="flexCheckIndeterminate"
-                                                                            @if(isset($permission) && $permission!=null)
-                                                                            {{ $permission->modules->contains(function ($value) use ($module) {
-                                                                                return $value->id === $module->id && $value->pivot->view_access === 1;
-                                                                            })
-                                                                                ? "checked"
-                                                                                : "" }}
-                                                                            @endif
+                                                                                ? 'checked'
+                                                                                : '' }} @endif
                                                                             name="{{ $module->name }}[]">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input edit_access{{$module->id}}" type="checkbox"
-                                                                            value="modify" id="flexCheckIndeterminate"
-                                                                            @if(isset($permission) && $permission!=null)
-                                                                            {{ $permission->modules->contains(function ($value) use ($module) {
-                                                                                return $value->id === $module->id && $value->pivot->edit_access === 1;
+                                                                        <input
+                                                                            class="form-check-input view_access{{ $module->id }}"
+                                                                            type="checkbox" value="view"
+                                                                            id="flexCheckIndeterminate"
+                                                                            @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($module) {
+                                                                                return $value->id === $module->id && $value->pivot->view_access == true;
                                                                             })
-                                                                                ? "checked"
-                                                                                : "" }}
-                                                                            @endif
+                                                                                ? 'checked'
+                                                                                : '' }} @endif
                                                                             name="{{ $module->name }}[]">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check">
-                                                                        <input class="form-check-input delete_access{{$module->id}}" type="checkbox"
-                                                                            value="delete" id="flexCheckIndeterminate"
-                                                                            @if(isset($permission) && $permission!=null)
-                                                                            {{ $permission->modules->contains(function ($value) use ($module) {
-                                                                                return $value->id === $module->id && $value->pivot->delete_access === 1;
+                                                                        <input
+                                                                            class="form-check-input edit_access{{ $module->id }}"
+                                                                            type="checkbox" value="modify"
+                                                                            id="flexCheckIndeterminate"
+                                                                            @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($module) {
+                                                                                return $value->id === $module->id && $value->pivot->edit_access == true;
                                                                             })
-                                                                                ? "checked"
-                                                                                : "" }}
-                                                                            @endif
+                                                                                ? 'checked'
+                                                                                : '' }} @endif
+                                                                            name="{{ $module->name }}[]">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check">
+                                                                        <input
+                                                                            class="form-check-input delete_access{{ $module->id }}"
+                                                                            type="checkbox" value="delete"
+                                                                            id="flexCheckIndeterminate"
+                                                                            @if (isset($permission) && $permission != null) {{ $permission->modules->contains(function ($value) use ($module) {
+                                                                                return $value->id === $module->id && $value->pivot->delete_access == true;
+                                                                            })
+                                                                                ? 'checked'
+                                                                                : '' }} @endif
                                                                             name="{{ $module->name }}[]">
                                                                     </div>
                                                                 </td>
@@ -252,18 +257,18 @@
     </div>
 @endsection
 @section('jscontent')
-$('.selectall').on('change', function() {
+    $('.selectall').on('change', function() {
     var moduleId=$(this).attr('data-id');
     if($('.selectall' + moduleId).is(":checked")){
-        $('.add_access' + moduleId).prop('checked',true)
-        $('.view_access' + moduleId).prop('checked',true)
-        $('.edit_access' + moduleId).prop('checked',true)
-        $('.delete_access' + moduleId).prop('checked',true)
+    $('.add_access' + moduleId).prop('checked',true)
+    $('.view_access' + moduleId).prop('checked',true)
+    $('.edit_access' + moduleId).prop('checked',true)
+    $('.delete_access' + moduleId).prop('checked',true)
     }else{
-        $('.add_access' + moduleId).prop('checked',false)
-        $('.view_access' + moduleId).prop('checked',false)
-        $('.edit_access' + moduleId).prop('checked',false)
-        $('.delete_access' + moduleId).prop('checked',false)
+    $('.add_access' + moduleId).prop('checked',false)
+    $('.view_access' + moduleId).prop('checked',false)
+    $('.edit_access' + moduleId).prop('checked',false)
+    $('.delete_access' + moduleId).prop('checked',false)
     }
-})
+    })
 @endsection

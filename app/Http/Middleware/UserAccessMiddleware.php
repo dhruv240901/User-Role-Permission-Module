@@ -23,10 +23,6 @@ class UserAccessMiddleware
             if ($request->user()->hasAccess($module, $action)) {
                 return $next($request);
             } else {
-                if ($action == 'status') {
-                    $response = $this->error(403, 'You cannot update status');
-                    return $response;
-                }
                 return response()->view('error.Unauthorized');
             }
         }

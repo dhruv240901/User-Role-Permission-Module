@@ -27,19 +27,7 @@ class Permission extends BaseModel
         if ($moduleData) {
             foreach ($this->modules as $value) {
                 if ($action != 'any') {
-                    if ($value->pivot->add_access == true && $value->module_code == $module && $action == 'add') {
-                        return true;
-                    }
-                    if ($value->pivot->edit_access == true && $value->module_code == $module && $action == 'edit') {
-                        return true;
-                    }
-                    if ($value->pivot->edit_access == true && $value->module_code == $module && $action == 'status') {
-                        return true;
-                    }
-                    if ($value->pivot->view_access == true && $value->module_code == $module && $action == 'view') {
-                        return true;
-                    }
-                    if ($value->pivot->delete_access == true && $value->module_code == $module && $action == 'delete') {
+                    if ($value->pivot[$action.'_access'] && $value->module_code == $module) {
                         return true;
                     }
                 } else {
