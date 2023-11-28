@@ -11,6 +11,7 @@ use App\Traits\ModulesDisplay;
 class RoleController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
+    
     /* function to display roles list */
     public function index()
     {

@@ -12,6 +12,7 @@ use App\Traits\ModulesDisplay;
 class PermissionController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
+    
     /* function to display permissions list */
     public function index()
     {

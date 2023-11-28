@@ -51,7 +51,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-user')->middleware('user_access:US,delete');
         Route::post('restore/{id}', 'restore')->name('restore-user')->middleware('user_access:US,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user')->middleware('user_access:US,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-user-status')->middleware('user_access:US,edit');
+        Route::post('updateStatus', 'updateStatus')->name('update-user-status')->middleware('user_access:US,status');
         Route::get('changePassword', 'viewChangePassword')->name('user-view-change-password');
         Route::post('changePassword', 'changePassword')->name('user-change-password');
         Route::post('forceLogout/{id}', 'forceLogout')->name('force-logout');
@@ -98,15 +98,15 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
     });
 
     Route::controller(FileController::class)->prefix('file')->group(function () {
-        Route::get('list', 'index')->name('file-list')->middleware('user_access:Mo,view');
-        Route::get('show/{id}', 'show')->name('show-file')->middleware('user_access:Mo,view');
-        Route::get('create', 'create')->name('add-file')->middleware('user_access:Mo,add');
-        Route::post('store', 'store')->name('store-file')->middleware('user_access:Mo,add');
-        Route::get('edit/{id}', 'edit')->name('edit-file')->middleware('user_access:Mo,edit');
-        Route::put('update/{id}', 'update')->name('update-file')->middleware('user_access:Mo,edit');
-        Route::delete('delete/{id}', 'destroy')->name('delete-file')->middleware('user_access:Mo,delete');
-        Route::post('restore/{id}', 'restore')->name('restore-file')->middleware('user_access:Mo,delete');
-        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-file')->middleware('user_access:Mo,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-file-status')->middleware('user_access:Mo,status');
+        Route::get('list', 'index')->name('file-list')->middleware('user_access:FL,view');
+        Route::get('show/{id}', 'show')->name('show-file')->middleware('user_access:FL,view');
+        Route::get('create', 'create')->name('add-file')->middleware('user_access:FL,add');
+        Route::post('store', 'store')->name('store-file')->middleware('user_access:FL,add');
+        Route::get('edit/{id}', 'edit')->name('edit-file')->middleware('user_access:FL,edit');
+        Route::put('update/{id}', 'update')->name('update-file')->middleware('user_access:FL,edit');
+        Route::delete('delete/{id}', 'destroy')->name('delete-file')->middleware('user_access:FL,delete');
+        Route::post('restore/{id}', 'restore')->name('restore-file')->middleware('user_access:FL,delete');
+        Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-file')->middleware('user_access:FL,delete');
+        Route::post('updateStatus', 'updateStatus')->name('update-file-status')->middleware('user_access:FL,status');
     });
 });

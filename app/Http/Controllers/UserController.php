@@ -16,6 +16,7 @@ use App\Traits\ModulesDisplay;
 class UserController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
+    
     /* function to display users list */
     public function index()
     {

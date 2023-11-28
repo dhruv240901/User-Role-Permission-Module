@@ -10,6 +10,7 @@ use App\Traits\ModulesDisplay;
 class ModuleController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
+    
     /* function to display modules list */
     public function index()
     {

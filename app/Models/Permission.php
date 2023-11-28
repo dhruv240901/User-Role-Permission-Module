@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Permission extends BaseModel
@@ -35,6 +33,9 @@ class Permission extends BaseModel
                     if ($value->pivot->edit_access == true && $value->module_code == $module && $action == 'edit') {
                         return true;
                     }
+                    if ($value->pivot->edit_access == true && $value->module_code == $module && $action == 'status') {
+                        return true;
+                    }
                     if ($value->pivot->view_access == true && $value->module_code == $module && $action == 'view') {
                         return true;
                     }
@@ -48,27 +49,5 @@ class Permission extends BaseModel
         } else {
             return false;
         }
-        // if (in_array($module, $this->modules->pluck('module_code')->toArray())) {
-        //     foreach ($this->modules as $value) {
-        //         if ($action != 'any') {
-        //             if ($value->pivot->add_access == true && $value->module_code == $module && $action == 'add') {
-        //                 return true;
-        //             }
-        //             if ($value->pivot->edit_access == true && $value->module_code == $module && $action == 'edit') {
-        //                 return true;
-        //             }
-        //             if ($value->pivot->view_access == true && $value->module_code == $module && $action == 'view') {
-        //                 return true;
-        //             }
-        //             if ($value->pivot->delete_access == true && $value->module_code == $module && $action == 'delete') {
-        //                 return true;
-        //             }
-        //         } else{
-        //             return true;
-        //         }
-        //     }
-        // } else {
-        //     return false;
-        // }
     }
 }

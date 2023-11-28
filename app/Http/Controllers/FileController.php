@@ -9,9 +9,8 @@ use App\Traits\ModulesDisplay;
 class FileController extends Controller
 {
     use ModulesDisplay;
-    /**
-     * Display a listing of the resource.
-     */
+
+    /* function to display file list */
     public function index()
     {
         $files=File::withTrashed()->get();
@@ -20,9 +19,7 @@ class FileController extends Controller
         return view('file.list',compact('files','modules','parentModules'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    /* function to render add file Form */
     public function create()
     {
         $file=null;
@@ -31,9 +28,7 @@ class FileController extends Controller
         return view('file.addEdit',compact('file','modules','parentModules'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+     /* function to store file in database */
     public function store(Request $request)
     {
         $request->validate([
@@ -45,9 +40,7 @@ class FileController extends Controller
         return redirect()->route('file-list')->with('success','File Created Successfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    /* function to show file details by id */
     public function show($id)
     {
         $file=File::findOrFail($id);
@@ -56,9 +49,7 @@ class FileController extends Controller
         return view('file.show',compact('file','modules','parentModules'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    /* function to render edit file form */
     public function edit(string $id)
     {
         $file=File::findOrFail($id);
@@ -67,9 +58,7 @@ class FileController extends Controller
         return view('file.addEdit',compact('file','modules','parentModules'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /* function to update file */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -82,9 +71,7 @@ class FileController extends Controller
         return redirect()->route('edit-file')->with('succes','File Updated Successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /* function to soft delete file */
     public function destroy(string $id)
     {
         $file = File::findOrFail($id);
@@ -92,7 +79,7 @@ class FileController extends Controller
         return redirect()->route('file-list')->with('success', 'File Soft Deleted Successfully');
     }
 
-    /* function to restore permission */
+    /* function to restore file */
     public function restore($id)
     {
         $file = File::onlyTrashed()->findOrFail($id);
@@ -100,7 +87,7 @@ class FileController extends Controller
         return redirect()->route('file-list')->with('success', 'File Restored Successfully');
     }
 
-    /* function to force delete permission */
+    /* function to force delete file */
     public function forceDelete($id)
     {
         $file = File::onlyTrashed()->findOrFail($id);

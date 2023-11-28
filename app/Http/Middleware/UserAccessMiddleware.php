@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Models\Module;
 use App\Traits\AjaxResponse;
 
 class UserAccessMiddleware
@@ -21,17 +20,15 @@ class UserAccessMiddleware
         if (auth()->user()->type == 'admin') {
             return $next($request);
         } else {
-            if ($request->user()->hasAccess($module,$action)) {
+            if ($request->user()->hasAccess($module, $action)) {
                 return $next($request);
-            }
-            else{
+            } else {
+                if ($action == 'status') {
+                    $response = $this->error(403, 'You cannot update status');
+                    return $response;
+                }
                 return response()->view('error.Unauthorized');
             }
         }
-        // if ($action == 'status') {
-        //     $response=$this->error(403,'You cannot update status');
-        //     return response()->json($response);
-        // }
-
     }
 }

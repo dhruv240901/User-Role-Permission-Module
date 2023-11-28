@@ -11,6 +11,7 @@ use App\Traits\ModulesDisplay;
 class HomeController extends Controller
 {
     use ModulesDisplay;
+    
     /* function to render home page */
     public function index()
     {
@@ -23,6 +24,7 @@ class HomeController extends Controller
         return view('index', compact('count','modules','parentModules'));
     }
 
+    /* function to render coming soon page */
     public function comingSoon()
     {
         $modules=$this->getChildModule();
