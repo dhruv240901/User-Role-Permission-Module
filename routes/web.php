@@ -51,7 +51,7 @@ Route::middleware(['auth', 'firstlogin'])->group(function () {
         Route::delete('delete/{id}', 'destroy')->name('delete-user')->middleware('user_access:US,delete');
         Route::post('restore/{id}', 'restore')->name('restore-user')->middleware('user_access:US,delete');
         Route::post('forceDelete/{id}', 'forceDelete')->name('force-delete-user')->middleware('user_access:US,delete');
-        Route::post('updateStatus', 'updateStatus')->name('update-user-status')->middleware('user_access:US,status');
+        Route::post('updateStatus', 'updateStatus')->name('update-user-status')->middleware('user_access:US,edit');
         Route::get('changePassword', 'viewChangePassword')->name('user-view-change-password');
         Route::post('changePassword', 'changePassword')->name('user-change-password');
         Route::post('forceLogout/{id}', 'forceLogout')->name('force-logout');

@@ -33,9 +33,9 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'moduleCode'    => 'required|string',
+            'moduleCode'    => 'required|string|unique:modules,module_code',
             'moduleName'    => 'required|string',
-            'is_in_menu'    => 'required|boolean|unique:modules',
+            'is_in_menu'    => 'required|boolean',
             'display_order' => 'required'
         ]);
 
@@ -79,7 +79,7 @@ class ModuleController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'moduleCode'    => 'required|string',
+            'moduleCode'    => 'required|string|unique:modules,module_code',
             'moduleName'    => 'required|string',
             'display_order' => 'required',
         ]);

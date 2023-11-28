@@ -24,26 +24,40 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li>
-                    <a class="" href="{{ route('index') }}" aria-expanded="false"><span class="hide-menu">Dashboard</span></a>
+                    <a class="" href="{{ route('index') }}" aria-expanded="false"><span
+                            class="hide-menu">Dashboard</span></a>
                 </li>
                 @foreach ($parentModules as $parentModule)
-                    @if(auth()->user()->type=='admin' || in_array($parentModule->id,$modules->pluck('parent_id')->toArray()))
-                    <li class="nav-small-cap" style="background-color: blueviolet;">{{strtoupper($parentModule->name) }}</li>
+                    @if (count($parentModule->children) > 0)
+                    @foreach ($parentModule->children as $child)
+                        @if(auth()->user()->type == 'admin' || auth()->user()->hasAccess($child->module_code,'any'))
+                        <li class="nav-small-cap" style="background-color: blueviolet;">
+                            {{ strtoupper($parentModule->name) }}</li>
+                        @break
+                        @endif
+                    @endforeach
+                    @else
+                        @if(auth()->user()->type == 'admin' || auth()->user()->hasAccess($parentModule->module_code,'any'))
+                        <li>
+                            <a class="" href="{{ route('coming-soon') }}" aria-expanded="false"><span
+                                    class="hide-menu">{{ $parentModule->name }}</span></a>
+                        </li>
+                        @endif
                     @endif
                     @foreach ($modules as $module)
                         @if ($module->parent->id == $parentModule->id)
-                            @if(auth()->user()->type=='admin' || auth()->user()->hasModule($module->module_code))
-                            <li>
-                                <a class="" href="@if($module->module_code=='US') {{ route('user-list') }}
-                                                  @elseif ($module->module_code=='RO') {{ route('role-list') }}
-                                                  @elseif ($module->module_code=='PER') {{ route('permission-list') }}
-                                                  @elseif ($module->module_code=='Mo') {{ route('module-list') }}
-                                                  @elseif ($module->module_code=='FL') {{ route('file-list') }}
-                                                  @else {{ route('coming-soon') }}
-                                                  @endif"
-                                aria-expanded="false"><span class="hide-menu">{{ $module->name }}</span></a>
-                            </li>
-                        @endif
+                            @if (auth()->user()->type == 'admin' || auth()->user()->hasAccess($module->module_code, 'any'))
+                                <li>
+                                    <a class=""
+                                        href="@if ($module->module_code == 'US') {{ route('user-list') }}
+                                                  @elseif ($module->module_code == 'RO') {{ route('role-list') }}
+                                                  @elseif ($module->module_code == 'PER') {{ route('permission-list') }}
+                                                  @elseif ($module->module_code == 'Mo') {{ route('module-list') }}
+                                                  @elseif ($module->module_code == 'FL') {{ route('file-list') }}
+                                                  @else {{ route('coming-soon') }} @endif"
+                                        aria-expanded="false"><span class="hide-menu">{{ $module->name }}</span></a>
+                                </li>
+                            @endif
                         @endif
                     @endforeach
                 @endforeach

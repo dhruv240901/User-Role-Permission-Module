@@ -66,10 +66,89 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($parentModules as $parentModule)
+                                                    @if(count($parentModule->children)>0)
                                                     <tr>
                                                         <th scope="row" colspan="6" style="background-color: gray;">
                                                             {{ $parentModule->name }}</th>
                                                     </tr>
+                                                    @else
+                                                    <tr>
+                                                        <tr>
+                                                            <th scope="row">{{ $parentModule->name }}</th>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input selectall selectall{{$parentModule->id}}" type="checkbox" data-id="{{$parentModule->id}}"
+                                                                    @if(isset($permission) && $permission!=null)
+                                                                    {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                        return $value->id === $parentModule->id && $value->pivot->add_access === 1 && $value->pivot->edit_access === 1 && $value->pivot->delete_access === 1 && $value->pivot->view_access === 1;
+                                                                    })
+                                                                        ? "checked"
+                                                                        : "" }}
+                                                                    @endif
+                                                                        value="" id="flexCheckIndeterminate">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input add_access{{$parentModule->id}}" type="checkbox"
+                                                                        value="add" id="flexCheckIndeterminate"
+                                                                        @if(isset($permission) && $permission!=null)
+                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->add_access === 1;
+                                                                        })
+                                                                            ? "checked"
+                                                                            : "" }}
+                                                                        @endif
+                                                                        name="{{ $parentModule->name }}[]"
+                                                                        >
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input view_access{{$parentModule->id}}" type="checkbox"
+                                                                        value="view" id="flexCheckIndeterminate"
+                                                                        @if(isset($permission) && $permission!=null)
+                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->view_access === 1;
+                                                                        })
+                                                                            ? "checked"
+                                                                            : "" }}
+                                                                        @endif
+                                                                        name="{{ $parentModule->name }}[]">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input edit_access{{$parentModule->id}}" type="checkbox"
+                                                                        value="modify" id="flexCheckIndeterminate"
+                                                                        @if(isset($permission) && $permission!=null)
+                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->edit_access === 1;
+                                                                        })
+                                                                            ? "checked"
+                                                                            : "" }}
+                                                                        @endif
+                                                                        name="{{ $parentModule->name }}[]">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input delete_access{{$parentModule->id}}" type="checkbox"
+                                                                        value="delete" id="flexCheckIndeterminate"
+                                                                        @if(isset($permission) && $permission!=null)
+                                                                        {{ $permission->modules->contains(function ($value) use ($parentModule) {
+                                                                            return $value->id === $parentModule->id && $value->pivot->delete_access === 1;
+                                                                        })
+                                                                            ? "checked"
+                                                                            : "" }}
+                                                                        @endif
+                                                                        name="{{ $parentModule->name }}[]">
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tr>
+                                                    @endif
                                                     @foreach ($modules as $module)
                                                         @if ($module->parent->id == $parentModule->id)
                                                             <tr>

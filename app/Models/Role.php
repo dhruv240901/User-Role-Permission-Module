@@ -22,4 +22,14 @@ class Role extends BaseModel
     {
         return $this->belongsToMany(Permission::class, 'permission_role');
     }
+
+    public function hasRole($module, $action)
+    {
+        foreach ($this->permissions as $permission) {
+           if($permission->hasPermission($module, $action)){
+                return true;
+           }
+        }
+        return false;
+    }
 }

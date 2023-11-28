@@ -139,9 +139,8 @@ class PermissionController extends Controller
                     if ($value == 'delete') {
                         $insertModuleData['delete_access'] = true;
                     }
-
-                    PermissionModule::create($insertModuleData);
                 }
+                PermissionModule::create($insertModuleData);
             }
         }
 

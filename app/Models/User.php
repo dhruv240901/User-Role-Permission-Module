@@ -68,11 +68,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
-    public function hasModule($module)
+    public function hasAccess($module,$action)
     {
-        return $this->roles->pluck('permissions')->flatten()->pluck('modules')->flatten()->pluck('module_code')->contains($module);
+        foreach($this->roles as $role)
+        {
+            if ($role->hasRole($module, $action)) {
+                return true;
+            }
+        }
+        return false;
     }
-            // return $this->roles->flatMap->permissions->flatMap->modules->pluck('module_code')->contains($module);
     /**
      * The attributes that should be hidden for serialization.
      *

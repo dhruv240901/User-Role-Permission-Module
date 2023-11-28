@@ -11,28 +11,8 @@ trait UserAccess
         if (auth()->user()->type == 'admin') {
             return true;
         } else {
-            if (auth()->user()->hasModule($module)) {
-                $moduleData = Module::where('module_code', $module)->first();
-                $pivotData = auth()->user()->roles->flatMap->permissions->flatMap->modules->pluck('pivot')->toArray();
-                foreach ($pivotData as $item) {
-                    if ($item["module_id"] === $moduleData->id) {
-                        if ($item['add_access'] == 1 && $action == 'add') {
-                            return true;
-                        }
-                        if ($item['view_access'] == 1 && $action == 'view') {
-                            return true;
-                        }
-                        if ($item['edit_access'] == 1 && $action == 'edit') {
-                            return true;
-                        }
-                        if ($item['delete_access'] == 1 && $action == 'delete') {
-                            return true;
-                        }
-                        if ($item['edit_access'] == 1 && $action == 'status') {
-                            return true;
-                        }
-                    }
-                }
+            if (auth()->user()->hasAccess($module,$action)) {
+                return true;
             } else {
                 return false;
             }
