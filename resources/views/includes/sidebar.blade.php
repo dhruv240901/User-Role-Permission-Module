@@ -38,8 +38,13 @@
                     @endforeach
                     @else
                         @if(auth()->user()->type == 'admin' || auth()->user()->hasAccess($parentModule->module_code,'any'))
-                        <li>
-                            <a class="" href="{{ route('coming-soon') }}" aria-expanded="false"><span
+                        <li style="background-color: blueviolet;">
+                            <a class="" href="@if ($parentModule->module_code == 'US') {{ route('user-list') }}
+                                @elseif ($parentModule->module_code == 'RO') {{ route('role-list') }}
+                                @elseif ($parentModule->module_code == 'PER') {{ route('permission-list') }}
+                                @elseif ($parentModule->module_code == 'Mo') {{ route('module-list') }}
+                                @elseif ($parentModule->module_code == 'FL') {{ route('file-list') }}
+                                @else {{ route('coming-soon') }} @endif" aria-expanded="false"><span
                                     class="hide-menu">{{ $parentModule->name }}</span></a>
                         </li>
                         @endif

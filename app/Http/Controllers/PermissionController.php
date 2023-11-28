@@ -12,7 +12,7 @@ use App\Traits\ModulesDisplay;
 class PermissionController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
-    
+
     /* function to display permissions list */
     public function index()
     {
@@ -176,7 +176,7 @@ class PermissionController extends Controller
     public function updateStatus(Request $request)
     {
         $request->validate([
-            $request->checked => 'required'
+            'checked' => 'required'
         ]);
 
         $permission = Permission::findOrFail($request->id);
