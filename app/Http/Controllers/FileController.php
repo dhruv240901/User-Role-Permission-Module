@@ -68,7 +68,7 @@ class FileController extends Controller
 
         $file=File::findOrFail($id);
         $file->update($request->only('name','description'));
-        return redirect()->route('edit-file')->with('succes','File Updated Successfully');
+        return redirect()->route('edit-file',$id)->with('succes','File Updated Successfully');
     }
 
     /* function to soft delete file */
