@@ -12,6 +12,7 @@ class HomeController extends Controller
     /* function to render home page */
     public function index()
     {
+        $result=StatusFunction('success');
         $count['users']       = User::count();
         $count['roles']       = Role::count();
         $count['permissions'] = Permission::count();
