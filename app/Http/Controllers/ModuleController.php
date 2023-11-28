@@ -10,7 +10,7 @@ use App\Traits\ModulesDisplay;
 class ModuleController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
-    
+
     /* function to display modules list */
     public function index()
     {
@@ -80,15 +80,15 @@ class ModuleController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'moduleCode'    => 'required|string|unique:modules,module_code',
             'moduleName'    => 'required|string',
             'display_order' => 'required',
+            'is_in_menu'    => 'required|boolean',
         ]);
 
         $updateData = [
-            'module_code'   => $request->moduleCode,
             'name'          => $request->moduleName,
             'display_order' => $request->display_order,
+            'is_in_menu'    => $request->is_in_menu,
         ];
 
         $module = Module::findOrFail($id);
