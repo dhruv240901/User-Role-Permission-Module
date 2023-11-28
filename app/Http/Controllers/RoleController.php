@@ -11,7 +11,7 @@ use App\Traits\ModulesDisplay;
 class RoleController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
-    
+
     /* function to display roles list */
     public function index()
     {
@@ -131,6 +131,9 @@ class RoleController extends Controller
     /* function to update role status */
     public function updateStatus(Request $request)
     {
+        $request->validate([
+            'checked' => 'required'
+        ]);
         $role = Role::findOrFail($request->id);
         if ($request->checked == "false") {
             $role->update(['is_active' => false]);

@@ -16,7 +16,7 @@ use App\Traits\ModulesDisplay;
 class UserController extends Controller
 {
     use AjaxResponse,ModulesDisplay;
-    
+
     /* function to display users list */
     public function index()
     {
@@ -149,6 +149,9 @@ class UserController extends Controller
     /* function to update user status */
     public function updateStatus(Request $request)
     {
+        $request->validate([
+            'checked' => 'required'
+        ]);
         $user = User::findOrFail($request->id);
         if ($request->checked == "false") {
             $user->update(['is_active' => false]);

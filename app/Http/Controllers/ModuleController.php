@@ -130,6 +130,9 @@ class ModuleController extends Controller
     /* function to update module status */
     public function updateStatus(Request $request)
     {
+        $request->validate([
+            'checked' => 'required'
+        ]);
         $module = Module::findOrFail($request->id);
         if ($request->checked == "false") {
             $module->update(['is_active' => false]);
