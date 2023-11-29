@@ -48,6 +48,7 @@ class UserController extends Controller
     /* function to store user in database */
     public function store(Request $request)
     {
+        // Validate Add User Form Request
         $request->validate([
             'firstName' => 'required|string',
             'lastName'  => 'required|string',
@@ -55,6 +56,7 @@ class UserController extends Controller
             'roles'     => 'required|exists:roles,id'
         ]);
 
+        // Store Add User Form Details in the database
         $randomPassword = rand(100000, 999999);
         $insertData = [
             'first_name'     => $request->firstName,
@@ -66,6 +68,8 @@ class UserController extends Controller
         ];
 
         $user = User::create($insertData);
+
+        // Store Requested roles into the database
         if ($request->roles) {
             foreach ($request->roles as $key => $roleId) {
                 $user->roles()->attach($request->roles[$key]);
@@ -73,6 +77,7 @@ class UserController extends Controller
         }
         $authUser = Auth::user();
 
+        // Send Mail to added user mail id on successfull User Stored with user current password
         if ($user) {
             dispatch(function () use ($user, $randomPassword, $authUser) {
                 Mail::to($user['email'])->send(new AddUserMail($user, $randomPassword, $authUser));
@@ -96,12 +101,15 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::findOrFail($id);
+
+        // Validate Edit User Form Request
         $request->validate([
             'firstName' => 'required|string',
             'lastName'  => 'required|string',
             'roles'     => 'required|exists:roles,id'
         ]);
 
+        // Update Edit User Form Request into the database
         $updateData = [
             'first_name' => $request->firstName,
             'last_name'  => $request->lastName,
@@ -110,11 +118,13 @@ class UserController extends Controller
         $userUpdate = $user->update($updateData);
 
         if ($request->roles) {
-            // $user->roles()->detach();
+
+            // Delete Old Roles of requested user from the database
             foreach ($user->roles as $key => $roleId) {
                 $user->roles()->detach($user->roles[$key]);
             }
 
+            // Add New Roles of requested user in the database
             foreach ($request->roles as $key => $roleId) {
                 $user->roles()->attach($request->roles[$key]);
             }
@@ -149,14 +159,19 @@ class UserController extends Controller
     /* function to update user status */
     public function updateStatus(Request $request)
     {
+        // Validate Update User Status Request
         $request->validate([
             'checked' => 'required'
         ]);
         $user = User::findOrFail($request->id);
+
+        // Inactivate user if user is Activated
         if ($request->checked == "false") {
             $user->update(['is_active' => false]);
             $message = "User Inactivated Successfully";
         }
+
+        // Activate user if user is Inactivated
         if ($request->checked == "true") {
             $user->update(['is_active' => true]);
             $message = "User Activated Successfully";
@@ -177,12 +192,14 @@ class UserController extends Controller
     /* function to render update password */
     public function changePassword(Request $request)
     {
+        // Validate Change Password form request
         $request->validate([
             'oldPassword'     => 'required|min:6',
             'newPassword'     => 'required|min:6',
             'confirmPassword' => 'required|min:6|same:newPassword'
         ]);
 
+        // Update new password in the database 
         $currentUser = auth()->user();
         if (Hash::check($request->oldPassword, $currentUser->password)) {
             $currentUser->update(['password' => Hash::make($request->newPassword)]);

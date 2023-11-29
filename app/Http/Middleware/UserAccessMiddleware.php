@@ -20,6 +20,8 @@ class UserAccessMiddleware
         if (auth()->user()->type == 'admin') {
             return $next($request);
         } else {
+            
+            // Check if user has access to module and its action
             if ($request->user()->hasAccess($module, $action)) {
                 return $next($request);
             } else {

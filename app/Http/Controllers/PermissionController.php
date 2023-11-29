@@ -35,11 +35,13 @@ class PermissionController extends Controller
     /* function to store permission in database */
     public function store(Request $request)
     {
+        // Validate Add Permission Form Request
         $request->validate([
             'permissionName' => 'required|string',
             'description'    => 'required|string',
         ]);
 
+        // Store Add Permission Form Details into the database
         $insertData = [
             'name'        => $request->permissionName,
             'description' => $request->description,
@@ -47,8 +49,8 @@ class PermissionController extends Controller
 
         $permission = Permission::create($insertData);
 
+        // Store Add Permission Form Modules and there access into the database
         $modules = Module::all();
-
         $insertModuleData = array();
         foreach ($modules as $k => $value) {
             if ($request[$value->name]) {
@@ -100,11 +102,13 @@ class PermissionController extends Controller
     /* function to update permission */
     public function update(Request $request, string $id)
     {
+        // Validate Update Permission Form
         $request->validate([
             'permissionName' => 'required|string',
             'description'    => 'required|string',
         ]);
 
+        // Update Permission in the database
         $updateData = [
             'name'        => $request->permissionName,
             'description' => $request->description,
@@ -113,13 +117,14 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
         $permission->update($updateData);
 
+        // Delete old modules of the permission from the database
         $permissionModules = PermissionModule::where('permission_id', $id)->get();
         foreach ($permissionModules as $k => $permissionModule) {
             $permissionModule->delete();
         }
 
+        // Store Edit Permission Form Modules and there access into the database
         $modules = Module::all();
-
         $insertModuleData = array();
         foreach ($modules as $k => $value) {
             if ($request[$value->name]) {
@@ -175,15 +180,20 @@ class PermissionController extends Controller
     /* function to update permission status */
     public function updateStatus(Request $request)
     {
+        // Validate update permission status request
         $request->validate([
             'checked' => 'required'
         ]);
 
         $permission = Permission::findOrFail($request->id);
+
+        // Inactivate Permission if Permission is Activated
         if ($request->checked == "false") {
             $permission->update(['is_active' => false]);
             $message = "Permission Inactivated Successfully";
         }
+
+        // Activate Permission if Permission is Inactivated
         if ($request->checked == "true") {
             $permission->update(['is_active' => true]);
             $message = "Permission Activated Successfully";

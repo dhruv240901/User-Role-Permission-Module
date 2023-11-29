@@ -33,6 +33,7 @@ class ModuleController extends Controller
     /* function to store module in database */
     public function store(Request $request)
     {
+        // Validate Add Module form request
         $request->validate([
             'moduleCode'    => 'required|string|unique:modules,module_code',
             'moduleName'    => 'required|string',
@@ -40,6 +41,7 @@ class ModuleController extends Controller
             'display_order' => 'required'
         ]);
 
+        // Store Add File Form Details into the database
         $insertData = [
             'module_code'   => $request->moduleCode,
             'name'          => $request->moduleName,
@@ -79,12 +81,14 @@ class ModuleController extends Controller
     /* function to update module */
     public function update(Request $request, string $id)
     {
+        // Validate edit module form request
         $request->validate([
             'moduleName'    => 'required|string',
             'display_order' => 'required',
             'is_in_menu'    => 'required|boolean',
         ]);
 
+        // Update module details in the database
         $updateData = [
             'name'          => $request->moduleName,
             'display_order' => $request->display_order,
@@ -130,14 +134,19 @@ class ModuleController extends Controller
     /* function to update module status */
     public function updateStatus(Request $request)
     {
+        // Validate update module status request
         $request->validate([
             'checked' => 'required'
         ]);
         $module = Module::findOrFail($request->id);
+
+        // Inactivate Module if Module is Activated
         if ($request->checked == "false") {
             $module->update(['is_active' => false]);
             $message = "Module Inactivated Successfully";
         }
+
+        // Active Module if Module is Inactivated
         if ($request->checked == "true") {
             $module->update(['is_active' => true]);
             $message = "Module Activated Successfully";

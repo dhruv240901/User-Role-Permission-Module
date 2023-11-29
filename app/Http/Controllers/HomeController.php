@@ -11,7 +11,7 @@ use App\Traits\ModulesDisplay;
 class HomeController extends Controller
 {
     use ModulesDisplay;
-    
+
     /* function to render home page */
     public function index()
     {

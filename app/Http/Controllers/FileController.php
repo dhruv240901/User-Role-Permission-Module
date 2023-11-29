@@ -31,11 +31,13 @@ class FileController extends Controller
      /* function to store file in database */
     public function store(Request $request)
     {
+        // Validate Add File Form Request
         $request->validate([
             'name'        => 'required',
             'description' => 'required'
         ]);
 
+        // Store Add File Form Details into the database
         File::create($request->only('name','description'));
         return redirect()->route('file-list')->with('success','File Created Successfully');
     }
@@ -61,11 +63,13 @@ class FileController extends Controller
     /* function to update file */
     public function update(Request $request, string $id)
     {
+         // Validate Edit File Form Request
         $request->validate([
             'name'        => 'required',
             'description' => 'required'
         ]);
 
+        // Update File Details in the Database 
         $file=File::findOrFail($id);
         $file->update($request->only('name','description'));
         return redirect()->route('edit-file',$id)->with('succes','File Updated Successfully');

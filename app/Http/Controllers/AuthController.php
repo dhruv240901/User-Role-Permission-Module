@@ -24,6 +24,7 @@ class AuthController extends Controller
     /* function to store user in database */
     public function customSignup(Request $request)
     {
+        // Validate Signup Form Request
         $request->validate([
             'firstName'       => 'required|string',
             'email'           => 'unique:users|required|email',
@@ -31,6 +32,7 @@ class AuthController extends Controller
             'confirmPassword' => 'required|min:6|same:password|string'
         ]);
 
+        // Store Signup Form Details into the database
         $insertData = [
             'first_name'     => $request->firstName,
             'last_name'      => $request->lastName,
@@ -42,6 +44,7 @@ class AuthController extends Controller
         $user = User::create($insertData);
         $adminUser = User::where('type', 'admin')->first();
 
+        // Send Mail on successfull signup to admin to approve user account
         if ($user) {
             dispatch(function () use ($adminUser, $user) {
                 Mail::to($adminUser['email'])->send(new SignUpMail($adminUser, $user));
@@ -59,17 +62,24 @@ class AuthController extends Controller
     /* function to log user in */
     public function customLogin(Request $request)
     {
+        // Validate Login Form Request
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required|min:6|string'
         ]);
 
         $credentials = $request->only('email', 'password');
+
+        // Check if user with requested mail id exist or not
         $checkEmail = User::where('email', $request->email)->first();
         if ($checkEmail != null) {
+
+            // Check if user account is active or not
             if ($checkEmail->is_active == false) {
                 return redirect()->route('login')->with('error', 'Your account is deactivated !');
             }
+
+            // Check if user credentials are valid or not and if valid then authenticate user
             if (Auth::attempt($credentials)) {
                 Auth::user()->createToken('auth-token')->plainTextToken;
                 if (auth()->user()->is_first_login == true) {
@@ -86,7 +96,9 @@ class AuthController extends Controller
     /* function to logout user */
     public function logout()
     {
+        // Delete auth user tokens from personal access tokens table
         Auth::user()->tokens()->delete();
+
         auth()->logout();
         return redirect()->route('index')->with('success', 'Logout Successfully');
     }
@@ -100,11 +112,13 @@ class AuthController extends Controller
     /* function to change user password */
     public function changePassword(Request $request)
     {
+        // Validate ChangePassword Form Request
         $request->validate([
             'newPassword'     => 'required|min:6|string',
             'confirmPassword' => 'required|min:6|same:newPassword|string'
         ]);
 
+        // Update new password in the database
         $user = User::findOrFail(auth()->id());
         $user->update(['password' => Hash::make($request->newPassword), 'is_first_login' => false]);
         return redirect()->route('index')->with('success', 'Password Changed successfully');
@@ -119,14 +133,18 @@ class AuthController extends Controller
     /* function to submit forget password form */
     public function forgetPassword(Request $request)
     {
+         // Validate ForgetPassword Form Request
         $request->validate([
             'email' => 'required|email',
         ]);
 
+        // Check if user with requested mail id exist or not
         $user = User::where('email', $request->email)->first();
         if (!$user) {
             return redirect()->route('view-forget-password')->with('error', 'User not found');
         } else {
+
+            // Store Password Reset Tokens in Database
             $token = Str::random(100);
             DB::table('password_reset_tokens')->insert([
                 'email'      => $user->email,
@@ -134,6 +152,7 @@ class AuthController extends Controller
                 'created_at' => Carbon::now(),
             ]);
 
+            // Send Password Reset Link via email to requested mail id
             dispatch(function () use ($user, $token) {
                 Mail::to($user->email)->send(new ForgetPasswordMail($user->first_name, $user->last_name, $token));
             })->delay(now()->addSeconds(5));
@@ -147,6 +166,7 @@ class AuthController extends Controller
     {
         $password_reset_data = DB::table('password_reset_tokens')->where('token', $token)->first();
 
+        // Check if requested token exist in the database and if the requested token is expired or not
         if (!$password_reset_data || Carbon::now()->subminutes(10) > $password_reset_data->created_at) {
             return redirect("/")->with('error', 'Invalid password reset link or link expired.');
         } else {
@@ -160,14 +180,19 @@ class AuthController extends Controller
         $password_reset_data = DB::table('password_reset_tokens')->where('token', $token)->first();
         $email = $password_reset_data->email;
         $user = User::where('email', $email)->first();
+
+        // Check if requested token exist in the database and if the requested token is expired or not
         if (!$password_reset_data || Carbon::now()->subminutes(10) > $password_reset_data->created_at) {
             return redirect()->route('view-forget-password')->with('error', 'Invalid password reset link or link expired.');
         } else {
+
+            // Validate reset Password Form Request
             $request->validate([
                 'newPassword'     => 'required|min:6|string',
                 'confirmPassword' => 'required|same:newPassword|string'
             ]);
 
+            // Update new password in the database 
             $user->update([
                 'password' => Hash::make($request->newPassword)
             ]);

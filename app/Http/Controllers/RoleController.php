@@ -34,18 +34,22 @@ class RoleController extends Controller
     /* function to store role in database */
     public function store(Request $request)
     {
+        // Validate Add Role Form Request
         $request->validate([
             'roleName'    => 'required|string',
             'description' => 'required|string',
             'permissions' => 'required|exists:permissions,id'
         ]);
 
+        // Store Add Role Form Details in the database
         $insertData = [
             'name'        => $request->roleName,
             'description' => $request->description,
         ];
 
         $role = Role::create($insertData);
+
+        // Store Requested permissions into the database
         if ($request->permissions) {
             foreach ($request->permissions as $key => $permissionId) {
                 $role->permissions()->attach($request->permissions[$key]);
@@ -78,12 +82,15 @@ class RoleController extends Controller
     public function update(Request $request, string $id)
     {
         $role = Role::findOrFail($id);
+
+        // Validate Edit Role Form Request
         $request->validate([
             'roleName'    => 'required|string',
             'description' => 'required|string',
             'permissions' => 'required|exists:permissions,id'
         ]);
 
+        // Update Edit Role Form Request into the database
         $updateData = [
             'name'        => $request->roleName,
             'description' => $request->description,
@@ -93,10 +100,12 @@ class RoleController extends Controller
 
         if ($request->permissions) {
 
+            // Delete Old Permissions from the database
             foreach ($role->permissions as $key => $permissionId) {
                 $role->permissions()->detach($role->permissions[$key]);
             }
 
+            // Add New Permissions into the database
             foreach ($request->permissions as $key => $permissionId) {
                 $role->permissions()->attach($request->permissions[$key]);
             }
@@ -131,14 +140,19 @@ class RoleController extends Controller
     /* function to update role status */
     public function updateStatus(Request $request)
     {
+        // Validate update role status request
         $request->validate([
             'checked' => 'required'
         ]);
         $role = Role::findOrFail($request->id);
+
+        // Inactivate Role if Role is Activated
         if ($request->checked == "false") {
             $role->update(['is_active' => false]);
             $message = "Role Inactivated Successfully";
         }
+
+        // Activate Role if Role is Inactivated
         if ($request->checked == "true") {
             $role->update(['is_active' => true]);
             $message = "Role Activated Successfully";
